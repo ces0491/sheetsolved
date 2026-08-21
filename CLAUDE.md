@@ -21,8 +21,13 @@ npm run lint     # eslint, must be zero warnings as well as zero errors
 npm run build    # type check runs inside this
 ```
 
-There is no test suite and **no CI workflow yet**. Adding one is outstanding
-work — the repo currently has gates nothing runs.
+`.github/workflows/ci.yml` runs both on every push and pull request to `main`,
+on Node 24 to match the Vercel runtime. The zero-warning threshold is in the
+`lint` script itself rather than in the workflow, so running it locally
+enforces exactly what CI enforces — a workflow that passed `--max-warnings 0`
+of its own would fail pushes that `npm run lint` had just called clean.
+
+There is still **no test suite**.
 
 ## Why this exists rather than a page on the old site
 
