@@ -218,8 +218,11 @@ export const PROJECTS: Project[] = [
       "signals, and combines them into a viability score so the question can " +
       "be answered before the dependency is taken on rather than after.",
     stack: ["R", "Shiny", "bslib", "plotly", "httr2"],
-    links: { source: "https://github.com/ces0491/cranExploreR" },
-    status: "ongoing",
+    links: {
+      live: "https://019d3e9e-b1a7-77dc-9266-40ce0b717eb3.share.connect.posit.cloud/",
+      source: "https://github.com/ces0491/cranExploreR",
+    },
+    status: "live",
     featured: false,
   },
 ];
