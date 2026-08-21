@@ -1,0 +1,26 @@
+{
+  "name": "Sheet Solved",
+  "strapline": "Simplified, scalable solutions",
+
+  "palette": {
+    "navy": "#2a3673",
+    "navyLight": "#8fa0e8",
+    "paper": "#fbfbfd",
+    "ink": "#171b2c"
+  },
+
+  "mark": {
+    "viewBox": "0 0 32 32",
+    "strokeWidth": 2.7,
+    "strokeLinejoin": "round",
+    "strokeLinecap": "square",
+
+    "paths": [
+      "M13 4H28V19",
+      "M19 28H4V13",
+      "M20 10.5H10.5V21.5H16",
+      "M16.5 16H24.5",
+      "M21 16V24.5"
+    ]
+  }
+}

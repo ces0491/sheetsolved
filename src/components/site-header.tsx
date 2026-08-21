@@ -1,6 +1,6 @@
 import Link from "next/link";
 
-import { SITE } from "@/lib/site";
+import { Logo } from "@/components/logo";
 
 const NAV = [
   { href: "/#services", label: "Services" },
@@ -12,8 +12,8 @@ export function SiteHeader() {
   return (
     <header className="border-b border-border">
       <div className="mx-auto flex max-w-5xl items-center justify-between gap-6 px-6 py-5">
-        <Link href="/" className="font-semibold tracking-tight hover:text-accent">
-          {SITE.name}
+        <Link href="/" aria-label="Sheet Solved, home" className="hover:text-accent">
+          <Logo />
         </Link>
         <nav aria-label="Main">
           <ul className="flex items-center gap-6 text-sm">

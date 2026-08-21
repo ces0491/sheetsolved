@@ -4,6 +4,7 @@ import Link from "next/link";
 
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
+import { PALETTE } from "@/lib/brand";
 import { organisationJsonLd, personJsonLd } from "@/lib/structured-data";
 import { SITE, SITE_URL } from "@/lib/site";
 
@@ -40,6 +41,12 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
     <html lang="en">
+      {/*
+        The brand colours reach CSS from brand.json rather than being restated
+        in the stylesheet, so the accent and the mark cannot disagree. Set on
+        <html> so the tokens exist before first paint.
+      */}
+      <style>{`:root{--brand-navy:${PALETTE.navy};--brand-navy-light:${PALETTE.navyLight}}`}</style>
       <body className={`${geistSans.variable} ${geistMono.variable} min-h-screen flex flex-col`}>
         {/* Identity a search engine and an answer engine can both read. */}
         <script

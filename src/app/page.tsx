@@ -9,7 +9,7 @@ export default function Home() {
 
   return (
     <div className="mx-auto max-w-5xl px-6">
-      <section className="border-b border-border py-20 sm:py-28">
+      <section className="border-b border-border pt-16 pb-20 sm:pt-20 sm:pb-24">
         <h1 className="text-4xl font-semibold tracking-tight sm:text-5xl">{SITE.tagline}</h1>
         <p className="mt-4 text-xl text-muted">{SITE.strapline}</p>
         <div className="mt-8 flex flex-wrap gap-4 text-sm">
