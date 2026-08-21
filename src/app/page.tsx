@@ -32,12 +32,12 @@ export default function Home() {
         <h2 className="text-sm font-semibold uppercase tracking-widest text-muted">Approach</h2>
         <div className="mt-6 max-w-3xl space-y-4 text-lg leading-relaxed">
           <p>
-            At Sheet Solved we believe in keeping things simple. Your business comes with many
-            complexities, and modelling those complexities matters. But complex functionality
-            should not be complex to use, to update, or to understand.
+            I believe in keeping things simple. Your business comes with many complexities, and
+            modelling those complexities matters. But complex functionality should not be complex
+            to use, to update, or to understand.
           </p>
           <p>
-            Let us unlock the true power of your spreadsheets by using programming principles to
+            Let me unlock the true power of your spreadsheets by using programming principles to
             make your business logic robust, scalable and easy to use.
           </p>
         </div>
