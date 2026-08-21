@@ -188,37 +188,37 @@ export const PROJECTS: Project[] = [
     featured: false,
   },
   {
-    slug: "stockscreenr",
-    name: "stockScreenR",
-    tagline: "A dashboard for screening stocks.",
+    slug: "wood-wiz",
+    name: "Wood Wiz",
+    tagline: "Cape Town firewood, ranked by rand per kilogram.",
     summary:
-      "An R dashboard for filtering and comparing listed equities against " +
-      "screening criteria.",
-    stack: ["R", "Shiny"],
-    links: { source: "https://github.com/ces0491/stockScreenR" },
-    status: "ongoing",
+      "Firewood is advertised by the bag, the crate and the load, which makes " +
+      "eight vendors' prices impossible to compare at a glance. Wood Wiz " +
+      "normalises all of them to rand per kilogram and puts delivery cost and " +
+      "stock status beside the number. Eight Cape Town storefronts across " +
+      "Shopify, WooCommerce and Wix are scraped daily into a JSON file the " +
+      "site reads directly, so there is no database to run.",
+    stack: ["Next.js", "TypeScript", "Cheerio", "Zod", "Vercel"],
+    links: {
+      live: "https://wood-wiz.vercel.app",
+      source: "https://github.com/ces0491/wood-wiz",
+    },
+    status: "live",
     featured: false,
   },
   {
-    slug: "webscraper",
-    name: "webScrapeR",
-    tagline: "Utility functions for scraping data from the web.",
+    slug: "cranexplorer",
+    name: "cranExploreR",
+    tagline: "Whether a CRAN package is safe to depend on.",
     summary:
-      "An R package of helpers for retrieving and reshaping data from web sources.",
-    stack: ["R"],
-    links: { source: "https://github.com/ces0491/webScrapeR" },
-    status: "ongoing",
-    featured: false,
-  },
-  {
-    slug: "fx-tracker",
-    name: "FX Tracker",
-    tagline: "Tracking and forecasting foreign exchange rates.",
-    summary:
-      "An application that tracks foreign exchange rates and forecasts them " +
-      "across a set of machine learning algorithms.",
-    stack: ["Python", "Machine learning"],
-    links: { source: "https://github.com/ces0491/fx-tracker" },
+      "Choosing a dependency is a decision that is cheap to make and expensive " +
+      "to undo: a package that loses its maintainer becomes a liability years " +
+      "after it was added. cranExploreR reads CRAN's own APIs for download " +
+      "history, release timeline, reverse dependencies and maintenance " +
+      "signals, and combines them into a viability score so the question can " +
+      "be answered before the dependency is taken on rather than after.",
+    stack: ["R", "Shiny", "bslib", "plotly", "httr2"],
+    links: { source: "https://github.com/ces0491/cranExploreR" },
     status: "ongoing",
     featured: false,
   },
