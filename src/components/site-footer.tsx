@@ -56,11 +56,6 @@ export function SiteFooter() {
               </a>
             </li>
             <li>
-              <a href={SITE.whatsappHref} className="text-muted hover:text-foreground">
-                WhatsApp {SITE.whatsapp}
-              </a>
-            </li>
-            <li>
               <Link href="/built" className="text-muted hover:text-foreground">
                 What I have built
               </Link>

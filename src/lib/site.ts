@@ -26,8 +26,6 @@ export const SITE = {
     "listed companies down to micro enterprises.",
   owner: "Cesaire Tobias",
   email: "cesaire@sheetsolved.com",
-  whatsapp: "+27 61 510 4728",
-  whatsappHref: "https://wa.me/27615104728",
   location: "Pinelands, Cape Town, South Africa",
   github: "https://github.com/ces0491",
   linkedin: "https://www.linkedin.com/company/83055921/",

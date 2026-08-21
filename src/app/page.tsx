@@ -84,20 +84,12 @@ export default function Home() {
 
       <section id="contact" className="scroll-mt-20 py-16">
         <h2 className="text-sm font-semibold uppercase tracking-widest text-muted">Contact</h2>
-        <dl className="mt-6 grid gap-6 sm:grid-cols-3">
+        <dl className="mt-6 grid gap-6 sm:grid-cols-2">
           <div>
             <dt className="text-sm text-muted">Email</dt>
             <dd className="mt-1">
               <a href={`mailto:${SITE.email}`} className="hover:text-accent">
                 {SITE.email}
-              </a>
-            </dd>
-          </div>
-          <div>
-            <dt className="text-sm text-muted">WhatsApp</dt>
-            <dd className="mt-1">
-              <a href={SITE.whatsappHref} className="hover:text-accent">
-                {SITE.whatsapp}
               </a>
             </dd>
           </div>
