@@ -16,14 +16,33 @@ export const SITE_URL =
 /** Whether this deployment is the public production one. */
 export const IS_PRODUCTION = process.env.VERCEL_ENV === "production";
 
+/**
+ * The name is where the practice started, not the size of it.
+ *
+ * `tagline` continues the name's own construction rather than restating it, so
+ * "Sheet Solved" reads as the first of a pattern instead of the boundary of
+ * one. It is the page's `<h1>` and the Open Graph card's headline, so the two
+ * cannot say different things about what this is.
+ */
 export const SITE = {
   name: "Sheet Solved",
-  tagline: "Spreadsheets, Solved!",
+  tagline: "Complexity, Solved.",
   strapline: "Simplified, scalable solutions",
+  /*
+   * Short enough to hold one line at 390px. The location is carried by the
+   * description, the contact block, the footer and the JSON-LD address, and
+   * appending it here only bought a wrapped orphan above the fold.
+   */
+  eyebrow: "Data and software consultancy",
+  intro:
+    "I build the data and software systems a business actually runs on — the " +
+    "pipeline that feeds it, the model behind the decision, and the application " +
+    "that puts both in front of someone. Often that starts with a spreadsheet. " +
+    "It rarely ends with one.",
   description:
-    "Sheet Solved builds, refactors and automates spreadsheets, and converts " +
-    "spreadsheet logic into code. Quantitative work for businesses from large " +
-    "listed companies down to micro enterprises.",
+    "Sheet Solved builds the data and software systems businesses run on — " +
+    "pipelines, models, dashboards, and the spreadsheets worth keeping. " +
+    "Quantitative consulting from Cape Town.",
   owner: "Cesaire Tobias",
   email: "cesaire@sheetsolved.com",
   location: "Pinelands, Cape Town, South Africa",
@@ -31,30 +50,36 @@ export const SITE = {
   linkedin: "https://www.linkedin.com/company/83055921/",
 } as const;
 
-/** What the consultancy does, as listed on the home page. */
+/**
+ * What the consultancy does.
+ *
+ * Spreadsheet work is one entry rather than the frame around the other five,
+ * and it is written as a judgement about when a spreadsheet is the right
+ * answer rather than as a promise to build one either way.
+ */
 export const SERVICES = [
   {
-    title: "Build and refactor",
-    body: "New models built to hold up, and existing ones taken apart and put back together so they can be trusted.",
+    title: "Data pipelines",
+    body: "Data pulled out of the systems it lives in and landed somewhere you can query it, on a schedule, without anyone watching.",
   },
   {
-    title: "Automate",
-    body: "The repetitive parts of a spreadsheet process removed, so the monthly cycle stops costing a week.",
+    title: "Models and forecasting",
+    body: "Quantitative models whose accuracy is measured and published rather than asserted, so you know what to trust them for.",
   },
   {
-    title: "Design workflows",
-    body: "The path a number takes from source to report, made explicit and made shorter.",
+    title: "Applications and dashboards",
+    body: "Software and reporting that produce the answer, instead of an afternoon spent assembling one.",
   },
   {
-    title: "Convert logic to code",
-    body: "Business logic lifted out of a workbook and into something testable, versioned and scalable.",
+    title: "Automation",
+    body: "The repetitive half of a monthly process removed, so the cycle stops costing a week of somebody's attention.",
   },
   {
-    title: "Hybrid solutions",
-    body: "Spreadsheets where a spreadsheet is right, code where it is not, and a clean seam between them.",
+    title: "Spreadsheets, done properly",
+    body: "Built to hold up where a spreadsheet is the right answer, and lifted into code where it has stopped being one.",
   },
   {
-    title: "Dashboards",
-    body: "Reporting that generates insight rather than consuming an afternoon assembling it.",
+    title: "Technical leadership",
+    body: "Standing in as the technical lead a small team does not have: architecture, review, and the pipeline that enforces both.",
   },
 ] as const;

@@ -50,91 +50,135 @@ export default async function CaseStudyPage({
   const { links } = project;
 
   return (
-    <article className="mx-auto max-w-3xl px-6 py-16">
+    <article>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(projectJsonLd(project)) }}
       />
 
-      <Link href="/built" className="text-sm text-muted hover:text-foreground">
-        &larr; All projects
-      </Link>
+      <header className="field overflow-hidden border-b border-border">
+        <div className="mx-auto max-w-3xl px-6 py-16 sm:px-8 sm:py-24">
+          <div className="enter">
+            {/*
+              The status sits on the top rule rather than beside the title: a
+              name long enough to wrap pushes an inline badge onto a line of
+              its own, where it reads as orphaned rather than as metadata.
+            */}
+            <div className="flex items-center justify-between gap-4">
+              <Link
+                href="/built"
+                className="underline-grow font-mono text-xs uppercase tracking-[0.18em] text-muted hover:text-foreground"
+              >
+                ← All projects
+              </Link>
+              <span className="shrink-0 rounded-full border border-border bg-surface-raised px-2.5 py-0.5 text-xs text-muted">
+                {STATUS_LABEL[project.status]}
+              </span>
+            </div>
 
-      <header className="mt-6 border-b border-border pb-8">
-        <div className="flex flex-wrap items-center gap-3">
-          <h1 className="text-4xl font-semibold tracking-tight">{project.name}</h1>
-          <span className="rounded-full border border-border px-2 py-0.5 text-xs text-muted">
-            {STATUS_LABEL[project.status]}
-          </span>
-        </div>
-        <p className="mt-4 text-lg leading-relaxed text-muted">{project.summary}</p>
+            <h1 className="mt-8 text-pretty text-4xl font-semibold tracking-tight sm:text-5xl">
+              {project.name}
+            </h1>
 
-        <ul className="mt-6 flex flex-wrap gap-1.5" aria-label="Built with">
-          {project.stack.map((tech) => (
-            <li key={tech} className="rounded border border-border px-2 py-0.5 text-xs text-muted">
-              {tech}
-            </li>
-          ))}
-        </ul>
+            <p className="mt-6 text-pretty text-lg leading-relaxed text-muted">
+              {project.summary}
+            </p>
 
-        <div className="mt-6 flex flex-wrap gap-x-5 gap-y-2 text-sm">
-          {links.live ? (
-            <a href={links.live} className="font-medium text-accent hover:underline">
-              Visit {project.name.split(" ")[0]}
-            </a>
-          ) : null}
-          {links.docs ? (
-            <a href={links.docs} className="text-muted hover:text-foreground">
-              Documentation
-            </a>
-          ) : null}
-          {links.cran ? (
-            <a href={links.cran} className="text-muted hover:text-foreground">
-              CRAN
-            </a>
-          ) : null}
-          {links.source ? (
-            <a href={links.source} className="text-muted hover:text-foreground">
-              Source
-            </a>
-          ) : null}
+            <ul className="mt-8 flex flex-wrap gap-1.5" aria-label="Built with">
+              {project.stack.map((tech) => (
+                <li
+                  key={tech}
+                  className="rounded-md border border-border bg-surface-raised px-2 py-0.5 font-mono text-[0.6875rem] text-muted"
+                >
+                  {tech}
+                </li>
+              ))}
+            </ul>
+
+            <div className="mt-8 flex flex-wrap items-center gap-x-5 gap-y-3 text-sm">
+              {links.live ? (
+                <a
+                  href={links.live}
+                  className="rounded-full bg-accent px-5 py-2.5 font-medium text-accent-contrast shadow-card transition-all hover:-translate-y-px hover:shadow-lift"
+                >
+                  Visit {project.name.split(" ")[0]}
+                </a>
+              ) : null}
+              {links.cran ? (
+                <a href={links.cran} className="underline-grow text-muted hover:text-foreground">
+                  CRAN
+                </a>
+              ) : null}
+              {links.docs ? (
+                <a href={links.docs} className="underline-grow text-muted hover:text-foreground">
+                  Documentation
+                </a>
+              ) : null}
+              {links.source ? (
+                <a href={links.source} className="underline-grow text-muted hover:text-foreground">
+                  Source
+                </a>
+              ) : null}
+            </div>
+          </div>
         </div>
       </header>
 
-      {project.caseStudy.map((section) => (
-        <section key={section.heading} className="mt-12">
-          <h2 className="text-2xl font-semibold tracking-tight">{section.heading}</h2>
-          <div className="mt-4 space-y-4 leading-relaxed">
-            {section.body.map((paragraph) => (
-              <p key={paragraph.slice(0, 40)}>{paragraph}</p>
-            ))}
-          </div>
-
-          {section.figures ? (
-            <dl className="mt-8 grid gap-6 sm:grid-cols-2">
-              {section.figures.map((figure) => (
-                <div key={figure.label} className="rounded-lg border border-border bg-surface p-5">
-                  <dt className="text-sm text-muted">{figure.label}</dt>
-                  <dd className="mt-1 text-2xl font-semibold tracking-tight">{figure.value}</dd>
-                  {/* A figure without its scope misleads, so the note is not optional in practice. */}
-                  {figure.note ? (
-                    <p className="mt-2 text-xs leading-relaxed text-muted">{figure.note}</p>
-                  ) : null}
-                </div>
+      <div className="mx-auto max-w-3xl px-6 py-16 sm:px-8 sm:py-20">
+        {project.caseStudy.map((section, index) => (
+          <section key={section.heading} className="reveal mt-16 first:mt-0">
+            <p className="font-mono text-xs uppercase tracking-[0.18em] text-accent">
+              {String(index + 1).padStart(2, "0")}
+            </p>
+            <h2 className="mt-3 text-pretty text-2xl font-semibold tracking-tight sm:text-3xl">
+              {section.heading}
+            </h2>
+            <div className="mt-5 space-y-5 text-pretty leading-relaxed">
+              {section.body.map((paragraph) => (
+                <p key={paragraph.slice(0, 40)}>{paragraph}</p>
               ))}
-            </dl>
-          ) : null}
-        </section>
-      ))}
+            </div>
 
-      <footer className="mt-16 border-t border-border pt-8">
-        <p className="text-muted">
-          Interested in work like this?{" "}
-          <a href={`mailto:${SITE.email}`} className="text-accent hover:underline">
-            {SITE.email}
-          </a>
-        </p>
-      </footer>
+            {section.figures ? (
+              <dl className="mt-10 grid gap-px overflow-hidden rounded-2xl border border-border bg-border sm:grid-cols-2">
+                {section.figures.map((figure) => (
+                  <div key={figure.label} className="bg-surface-raised px-6 py-7">
+                    <dt className="text-sm text-muted">{figure.label}</dt>
+                    <dd className="mt-2 font-mono text-3xl font-semibold tracking-tight text-accent">
+                      {figure.value}
+                    </dd>
+                    {/* A figure without its scope misleads, so the note is not optional in practice. */}
+                    {figure.note ? (
+                      <p className="mt-3 text-xs leading-relaxed text-muted">{figure.note}</p>
+                    ) : null}
+                  </div>
+                ))}
+              </dl>
+            ) : null}
+          </section>
+        ))}
+
+        <footer className="reveal mt-20 rounded-3xl border border-border bg-surface px-8 py-12 sm:px-12">
+          <h2 className="text-pretty text-2xl font-semibold tracking-tight">
+            Interested in work like this?
+          </h2>
+          <p className="mt-4 text-pretty leading-relaxed text-muted">
+            The method is the same whatever the subject is — measure it, publish what you measured
+            it over, and make the logic explicit enough to change safely.
+          </p>
+          <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3 text-sm">
+            <a
+              href={`mailto:${SITE.email}`}
+              className="rounded-full bg-accent px-5 py-2.5 font-medium text-accent-contrast shadow-card transition-all hover:-translate-y-px hover:shadow-lift"
+            >
+              {SITE.email}
+            </a>
+            <Link href="/built" className="underline-grow text-muted hover:text-foreground">
+              All projects
+            </Link>
+          </div>
+        </footer>
+      </div>
     </article>
   );
 }

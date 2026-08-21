@@ -43,6 +43,57 @@ accent tokens read.
 stale one would build, deploy and serve without complaint. Generating it at
 build means there is no second copy of the geometry to go stale.
 
+## What the site says it does
+
+The name is where the practice started, not the size of it. The copy is written
+so a reader leaves knowing this builds data and software systems — pipelines,
+models, applications, dashboards — with spreadsheet work as one service among
+six rather than the frame around the others.
+
+Two things carry that and are easy to undo by accident:
+
+- **`SITE.description` in `src/lib/site.ts` is the machine-readable version of
+  it.** It is the meta description, the Open Graph description and the
+  `ProfessionalService` description in the JSON-LD. Narrowing it back to
+  spreadsheets narrows all three at once.
+- **The origin is explained once, in the Practice section, and nowhere else.**
+  Repeating it in the hero, the services and the experience copy is what made
+  the previous version read as a spreadsheet consultancy that also did other
+  things.
+
+`SITE.tagline` continues the name's own construction — "Sheet Solved",
+"Complexity, Solved." — so the name reads as the first of a pattern rather than
+the boundary of one. It is also the Open Graph card's headline, which is why it
+is one string rather than two: the home page splits it at its own comma to
+colour the second half, and the card cannot end up saying something different.
+
+## The look is CSS, not components
+
+There is no UI library and no client JavaScript, so the visual system lives in
+`src/app/globals.css` as tokens and four small conventions.
+
+- **Tints, rings and shadows are mixed from the accent** with `color-mix`,
+  rather than being greys or blacks. A black shadow under a navy-tinted card is
+  the single most common thing that makes an otherwise careful page look flat.
+  A palette change in `brand.json` carries through all of them.
+- **`.field` is the ruled backdrop.** The mark is a cell with two open corners;
+  the backdrop is the rest of that sheet, dissolved by a mask before it reaches
+  the edge so it reads as substrate rather than subject. It is one class, no
+  markup and no image, and it is the visual half of the positioning argument.
+- **Grids that share their rules use `gap-px` over a border-coloured
+  background**, with each cell painted `surface-raised`. The services block and
+  every figure grid are built this way: clean shared edges at every breakpoint,
+  no stray outer rule to correct for, and a deliberate echo of a sheet.
+- **The scroll-driven reveal moves but never fades.** Writing it the usual way,
+  from `opacity: 0`, leaves a scroll timeline sitting at 0% for everything
+  below the fold — so a print render, a crawler taking a screenshot, or a
+  reader landing on an anchor gets a page of blank bands. On a site whose whole
+  point is being found, that is not a trade worth making for a fade. This was
+  caught by screenshotting the built page, not by reading the CSS.
+
+**Screenshot before adopting a visual change**, in both colour schemes. The
+repo already learned this from the mark; it applies to the page too.
+
 ## Running it
 
 ```bash

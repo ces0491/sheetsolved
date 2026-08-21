@@ -165,8 +165,56 @@ This has already gone wrong once: a commit landed on tidylearn's
 ## Copy
 
 - **First person singular throughout.** A consultancy of one whose contact
-  section names one person is more credible in the singular, and the ported
-  copy's "we" beside the new pages' "I" read as two authors.
-- The hero, approach, services and experience copy is **ported from the live
-  GoDaddy site**, lightly edited. It is not new writing, and rewriting it is a
-  separate decision.
+  section names one person is more credible in the singular.
+- The copy is **no longer the ported GoDaddy text.** It was rewritten to widen
+  what the site claims to do — see below. The old hero, approach, services and
+  experience blocks are gone.
+- **No numbers used as credentials, and no metrics band.** This is a
+  consultancy site, not a CV. A hero band of years worked, rows processed and
+  forecast accuracy was built and then removed for that reason. Figures belong
+  in a case study, where `CaseStudyFigure.note` forces each one to carry its
+  scope and the reader has the context to judge it.
+
+## The site is not a spreadsheet consultancy
+
+The portfolio was already a forecasting engine, a CRAN package, a book and a
+scraper while the copy still said spreadsheets. The evidence and the claim now
+agree.
+
+- **Spreadsheet work is one of six services, at position five.** It is written
+  as a judgement about when a spreadsheet is the right answer, not a promise to
+  build one either way.
+- **The origin is explained once, in the Practice section.** Repeating it in
+  the hero, the services and the experience copy is exactly what anchored the
+  previous version. Do not reintroduce it elsewhere.
+- **`SITE.description` is the machine-readable version of the claim** — meta
+  description, Open Graph description, and the JSON-LD `ProfessionalService`
+  description all read it. Narrowing it narrows all three.
+- **`SITE.tagline` continues the name's construction** rather than restating
+  it: "Sheet Solved", "Complexity, Solved." The name reads as the first of a
+  pattern instead of the boundary of one. It is one string because the Open
+  Graph card renders the same value; the home page splits it at its own comma
+  to colour the second half.
+- The Practice section names **"a music distribution company" without naming
+  the client**, deliberately. Naming it is the client's call, not the site's.
+
+## The look is CSS, not components
+
+No UI library, no client JavaScript. The visual system is tokens and four
+conventions in `src/app/globals.css`.
+
+- **Tints, rings and shadows are mixed from the accent** with `color-mix`. A
+  black shadow under a navy-tinted card is the most common single cause of a
+  careful page looking flat. A `brand.json` change carries through all of them.
+- **`.field` is the ruled backdrop** — the rest of the sheet the mark is a cell
+  of, dissolved by a mask before the edge. One class, no markup, no image.
+- **Grids that share rules use `gap-px` over a border-coloured background**,
+  cells painted `surface-raised`. Clean shared edges at every breakpoint with
+  no stray outer rule.
+- **The scroll-driven reveal moves but never fades.** Written the usual way,
+  from `opacity: 0`, a scroll timeline sits at 0% for everything below the
+  fold, so a print render or a crawler screenshot gets blank bands. This was
+  caught by screenshotting the built page — it looked correct in the CSS.
+
+**Screenshot the page in both schemes before adopting a visual change**, the
+same rule the mark already has.

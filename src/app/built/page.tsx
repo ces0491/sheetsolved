@@ -22,24 +22,40 @@ export const metadata: Metadata = {
 
 export default function BuiltPage() {
   return (
-    <div className="mx-auto max-w-5xl px-6 py-16">
+    <>
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(portfolioJsonLd()) }}
       />
 
-      <h1 className="text-4xl font-semibold tracking-tight">Built</h1>
-      <p className="mt-4 max-w-3xl text-lg leading-relaxed text-muted">
-        Consulting work belongs to the client, so this is the part I can show: tools, packages
-        and writing built to the same standard. Where a project measures itself, the numbers are
-        published beside it rather than summarised.
-      </p>
+      <section className="field overflow-hidden border-b border-border">
+        <div className="mx-auto max-w-6xl px-6 py-20 sm:px-8 sm:py-28">
+          <div className="enter max-w-3xl">
+            <p className="font-mono text-xs uppercase tracking-[0.18em] text-accent">
+              {ORDERED_PROJECTS.length} projects
+            </p>
+            <h1 className="mt-6 text-5xl font-semibold tracking-tight sm:text-6xl">Built</h1>
+            <p className="mt-7 text-pretty text-lg leading-relaxed text-muted sm:text-xl">
+              Consulting work belongs to the client, so this is the part I can show: tools,
+              packages and writing built to the same standard. Where a project measures itself,
+              the numbers are published beside it rather than summarised.
+            </p>
+          </div>
+        </div>
+      </section>
 
-      <div className="mt-12 grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-        {ORDERED_PROJECTS.map((project) => (
-          <ProjectCard key={project.slug} project={project} />
-        ))}
+      <div className="mx-auto max-w-6xl px-6 py-16 sm:px-8 sm:py-20">
+        {/*
+          Named for a screen reader only. Every card heading is an `h3`, and
+          without this the page steps straight from `h1` to `h3`.
+        */}
+        <h2 className="sr-only">All projects</h2>
+        <div className="reveal grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
+          {ORDERED_PROJECTS.map((project) => (
+            <ProjectCard key={project.slug} project={project} />
+          ))}
+        </div>
       </div>
-    </div>
+    </>
   );
 }

@@ -1,5 +1,6 @@
 import Link from "next/link";
 
+import { Mark } from "@/components/logo";
 import { ORDERED_PROJECTS } from "@/content/projects";
 import { SITE } from "@/lib/site";
 
@@ -14,53 +15,79 @@ export function SiteFooter() {
   const destinations = ORDERED_PROJECTS.filter((p) => p.links.live ?? p.links.docs);
 
   return (
-    <footer className="mt-24 border-t border-border">
-      <div className="mx-auto grid max-w-5xl gap-10 px-6 py-12 sm:grid-cols-3">
-        <div>
-          <p className="font-semibold">{SITE.name}</p>
-          <p className="mt-2 text-sm text-muted">{SITE.location}</p>
-        </div>
+    <footer className="mt-auto border-t border-border bg-surface">
+      <div className="mx-auto max-w-6xl px-6 py-16 sm:px-8">
+        <div className="grid gap-12 sm:grid-cols-2 lg:grid-cols-4">
+          <div className="lg:col-span-2">
+            <span className="flex items-center gap-2.5">
+              <Mark size={26} className="text-accent" />
+              <span className="font-semibold tracking-tight">{SITE.name}</span>
+            </span>
+            <p className="mt-4 max-w-xs text-pretty text-sm leading-relaxed text-muted">
+              {SITE.strapline}. Data and software consulting from {SITE.location}.
+            </p>
+          </div>
 
-        <div>
-          <h2 className="text-sm font-semibold">Elsewhere</h2>
-          <ul className="mt-3 space-y-2 text-sm">
-            {destinations.map((p) => (
-              <li key={p.slug}>
-                <a
-                  href={(p.links.live ?? p.links.docs)!}
-                  className="text-muted hover:text-foreground"
-                >
-                  {p.name}
+          <div>
+            <h2 className="font-mono text-xs uppercase tracking-[0.18em] text-muted">Elsewhere</h2>
+            <ul className="mt-4 space-y-2.5 text-sm">
+              {destinations.map((p) => (
+                <li key={p.slug}>
+                  <a
+                    href={(p.links.live ?? p.links.docs)!}
+                    className="underline-grow text-muted hover:text-foreground"
+                  >
+                    {p.name}
+                  </a>
+                </li>
+              ))}
+              <li>
+                <a href={SITE.github} className="underline-grow text-muted hover:text-foreground">
+                  GitHub
                 </a>
               </li>
-            ))}
-            <li>
-              <a href={SITE.github} className="text-muted hover:text-foreground">
-                GitHub
-              </a>
-            </li>
-            <li>
-              <a href={SITE.linkedin} className="text-muted hover:text-foreground">
-                LinkedIn
-              </a>
-            </li>
-          </ul>
+              <li>
+                <a href={SITE.linkedin} className="underline-grow text-muted hover:text-foreground">
+                  LinkedIn
+                </a>
+              </li>
+            </ul>
+          </div>
+
+          <div>
+            <h2 className="font-mono text-xs uppercase tracking-[0.18em] text-muted">
+              Get in touch
+            </h2>
+            <ul className="mt-4 space-y-2.5 text-sm">
+              <li>
+                <a
+                  href={`mailto:${SITE.email}`}
+                  className="underline-grow text-muted hover:text-foreground"
+                >
+                  {SITE.email}
+                </a>
+              </li>
+              <li>
+                <Link href="/built" className="underline-grow text-muted hover:text-foreground">
+                  What I have built
+                </Link>
+              </li>
+              <li>
+                <Link
+                  href="/#services"
+                  className="underline-grow text-muted hover:text-foreground"
+                >
+                  Services
+                </Link>
+              </li>
+            </ul>
+          </div>
         </div>
 
-        <div>
-          <h2 className="text-sm font-semibold">Get in touch</h2>
-          <ul className="mt-3 space-y-2 text-sm">
-            <li>
-              <a href={`mailto:${SITE.email}`} className="text-muted hover:text-foreground">
-                {SITE.email}
-              </a>
-            </li>
-            <li>
-              <Link href="/built" className="text-muted hover:text-foreground">
-                What I have built
-              </Link>
-            </li>
-          </ul>
+        <div className="mt-14 border-t border-border pt-8">
+          <p className="font-mono text-xs text-muted">
+            © {SITE.name}. {SITE.owner}.
+          </p>
         </div>
       </div>
     </footer>

@@ -9,38 +9,90 @@
  * the two from becoming separate designs.
  *
  * The neutrals are biased toward the navy rather than being pure greys — a
- * pure mid-grey beside a navy accent reads as unconsidered.
+ * pure mid-grey beside a navy accent reads as unconsidered. The tints, rings
+ * and shadows are mixed from the brand colour for the same reason: a black
+ * shadow under a navy-tinted card is the single most common thing that makes
+ * an otherwise careful page look flat.
  */
 :root {
   --background: #fbfbfd;
   --surface: #f1f2f7;
+  --surface-raised: #ffffff;
   --border: #dcdfea;
+  --border-strong: #c3c9dd;
   --foreground: #171b2c;
   --muted: #5f6479;
   --accent: var(--brand-navy);
   --accent-contrast: #ffffff;
+
+  /* Derived from the accent so a palette change carries through. */
+  --grid-line: color-mix(in oklab, var(--accent) 11%, transparent);
+  --tint: color-mix(in oklab, var(--accent) 6%, transparent);
+  --tint-strong: color-mix(in oklab, var(--accent) 12%, transparent);
+  --hairline: color-mix(in oklab, var(--accent) 22%, transparent);
+
+  --shadow-card: 0 1px 2px color-mix(in oklab, var(--accent) 7%, transparent),
+    0 12px 28px -16px color-mix(in oklab, var(--accent) 34%, transparent);
+  --shadow-lift: 0 2px 5px color-mix(in oklab, var(--accent) 10%, transparent),
+    0 24px 48px -22px color-mix(in oklab, var(--accent) 48%, transparent);
+
+  /*
+   * Status is the one thing on the site that is not a brand colour, and it
+   * should not be: "running right now" and "shipped and standing still" are a
+   * distinction a reader makes at a glance or not at all.
+   */
+  --status-live: #1f9d63;
+  --status-released: var(--accent);
+  --status-ongoing: #b8791b;
 }
 
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0e1017;
     --surface: #171a23;
+    --surface-raised: #1b1f2b;
     --border: #262a38;
+    --border-strong: #363c4e;
     --foreground: #e6e8f2;
     --muted: #949ab0;
     --accent: var(--brand-navy-light);
     --accent-contrast: #0e1017;
+
+    --grid-line: color-mix(in oklab, var(--accent) 9%, transparent);
+    --tint: color-mix(in oklab, var(--accent) 5%, transparent);
+    --tint-strong: color-mix(in oklab, var(--accent) 10%, transparent);
+    --hairline: color-mix(in oklab, var(--accent) 26%, transparent);
+
+    /* Dark grounds take light from above rather than shadow from below. */
+    --shadow-card: 0 1px 2px rgb(0 0 0 / 0.4), 0 14px 32px -18px rgb(0 0 0 / 0.7);
+    --shadow-lift: 0 2px 6px rgb(0 0 0 / 0.5), 0 26px 52px -24px rgb(0 0 0 / 0.85);
+
+    --status-live: #4ecb90;
+    --status-released: var(--accent);
+    --status-ongoing: #e0a54a;
   }
 }
 
 @theme inline {
   --color-background: var(--background);
   --color-surface: var(--surface);
+  --color-surface-raised: var(--surface-raised);
   --color-border: var(--border);
+  --color-border-strong: var(--border-strong);
   --color-foreground: var(--foreground);
   --color-muted: var(--muted);
   --color-accent: var(--accent);
   --color-accent-contrast: var(--accent-contrast);
+  --color-tint: var(--tint);
+  --color-tint-strong: var(--tint-strong);
+  --color-hairline: var(--hairline);
+  --color-status-live: var(--status-live);
+  --color-status-released: var(--status-released);
+  --color-status-ongoing: var(--status-ongoing);
+
+  --shadow-card: var(--shadow-card);
+  --shadow-lift: var(--shadow-lift);
+
   --font-sans: var(--font-geist-sans);
   --font-mono: var(--font-geist-mono);
 }
@@ -50,10 +102,121 @@ body {
   color: var(--foreground);
   font-family: var(--font-sans), system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
 }
 
 /* Anything reachable by keyboard has to show where the reader is. */
 :focus-visible {
   outline: 2px solid var(--accent);
   outline-offset: 2px;
+  border-radius: 2px;
+}
+
+/*
+ * The grid field.
+ *
+ * The mark is a cell with two open corners — a route out of the sheet. The
+ * backdrop is the rest of that sheet: a ruled field that a mask dissolves
+ * before it reaches the edge, so it reads as substrate rather than subject.
+ * It is the whole visual argument of the repositioning in one background,
+ * and it costs no markup, no image and no JavaScript.
+ */
+.field {
+  position: relative;
+}
+
+.field > * {
+  position: relative;
+  z-index: 1;
+}
+
+.field::before,
+.field::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+}
+
+.field::before {
+  background-image:
+    linear-gradient(to right, var(--grid-line) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--grid-line) 1px, transparent 1px);
+  background-size: 3.5rem 3.5rem;
+  background-position: center -1px;
+  mask-image: radial-gradient(115% 85% at 50% 0%, #000 15%, transparent 72%);
+}
+
+.field::after {
+  background:
+    radial-gradient(60% 55% at 12% -5%, var(--tint-strong), transparent 68%),
+    radial-gradient(52% 50% at 92% 8%, var(--tint), transparent 66%);
+}
+
+/* A single ruled line, used to close a banded section without a hard border. */
+.rule {
+  height: 1px;
+  background: linear-gradient(to right, transparent, var(--border-strong) 22%, var(--border-strong) 78%, transparent);
+}
+
+/*
+ * Motion.
+ *
+ * Scroll-driven animation with no client JavaScript. Browsers without
+ * `animation-timeline` simply render the finished state, which is why the
+ * rule is nested inside `@supports` rather than paired with a fallback.
+ *
+ * The scroll-driven keyframe moves but never fades. An `opacity: 0` start is
+ * the usual way to write this and it is wrong here: a scroll timeline sits at
+ * 0% for everything below the fold, so anything that never scrolls — a print
+ * render, a crawler taking a screenshot, a reader who lands on an anchor —
+ * gets a page of blank bands. On a site built to be found, that is not a
+ * trade worth making for a fade.
+ */
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(1.25rem);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes settle {
+  from {
+    transform: translateY(1.25rem);
+  }
+  to {
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .enter {
+    animation: rise 0.7s cubic-bezier(0.16, 1, 0.3, 1) both;
+  }
+
+  @supports (animation-timeline: view()) {
+    .reveal {
+      animation: settle linear both;
+      animation-timeline: view();
+      animation-range: entry 0% entry 55%;
+    }
+  }
+}
+
+/* Nav and inline links grow their own underline rather than switching one on. */
+.underline-grow {
+  background-image: linear-gradient(currentColor, currentColor);
+  background-repeat: no-repeat;
+  background-position: 0 100%;
+  background-size: 0% 1px;
+  transition: background-size 0.25s ease, color 0.2s ease;
+}
+
+.underline-grow:hover {
+  background-size: 100% 1px;
 }
