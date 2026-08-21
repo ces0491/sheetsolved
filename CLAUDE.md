@@ -64,7 +64,9 @@ rather than parametric. It is read by:
 
 - `src/components/logo.tsx` — the `Mark` and `Logo` components
 - `src/app/icon.tsx` — the favicon, generated at build rather than stored
-- `src/app/opengraph-image.tsx` — the share card
+- `src/app/opengraph-image.tsx` — the site-wide share card
+- `src/app/built/[slug]/opengraph-image.tsx` — one card per case study, so a
+  project shared into a feed carries its own name rather than the site's
 - `src/app/layout.tsx` — which injects `--brand-navy` / `--brand-navy-light` as
   CSS variables that `globals.css` reads for its accent tokens
 
