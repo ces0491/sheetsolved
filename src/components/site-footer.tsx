@@ -39,6 +39,11 @@ export function SiteFooter() {
                 GitHub
               </a>
             </li>
+            <li>
+              <a href={SITE.linkedin} className="text-muted hover:text-foreground">
+                LinkedIn
+              </a>
+            </li>
           </ul>
         </div>
 

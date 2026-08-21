@@ -39,7 +39,7 @@ export function personJsonLd() {
     email: SITE.email,
     jobTitle: "Data and analytics consultant",
     url: SITE_URL,
-    sameAs: [SITE.github],
+    sameAs: [SITE.github, SITE.linkedin],
     worksFor: { "@id": `${SITE_URL}/#organisation` },
   };
 }

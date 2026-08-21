@@ -30,6 +30,7 @@ export const SITE = {
   whatsappHref: "https://wa.me/27615104728",
   location: "Pinelands, Cape Town, South Africa",
   github: "https://github.com/ces0491",
+  linkedin: "https://www.linkedin.com/company/83055921/",
 } as const;
 
 /** What the consultancy does, as listed on the home page. */
