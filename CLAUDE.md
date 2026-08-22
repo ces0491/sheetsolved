@@ -129,16 +129,26 @@ The domain sends through Microsoft 365 and through Zoho Books. SPF, DKIM and
 DMARC are all published:
 
 - **SPF**: `v=spf1 include:spf.protection.outlook.com include:sender.zohobooks.com -all`
-- **DKIM**: `selector1` and `selector2` CNAME to Microsoft; enabled and valid
-- **DMARC**: `p=none`, with aggregate reports going to `cesaire@sheetsolved.com`
+  — exactly one `v=spf1` record. Two is a permerror that fails *all* mail, and
+  GoDaddy's "Add New Record" appends where you meant to edit.
+- **DKIM, Microsoft**: `selector1` and `selector2` CNAME to
+  `..._domainkey.sheetsolved.q-v1.dkim.mail.microsoft`, enabled in the Defender
+  portal and reporting Valid.
+- **DKIM, Zoho**: selector **`152431228`**, a TXT record holding the key.
+- **DMARC**: `p=none`, aggregate reports to `cesaire@sheetsolved.com`.
 
-**Do not raise the DMARC policy without checking Zoho first.** DMARC needs SPF
-or DKIM to *align*, not merely to pass. Microsoft 365 mail aligns on both.
-Zoho Books is authorised by the SPF include, but there is no Zoho DKIM selector
-on the domain and Zoho sends with its own bounce domain, so its mail may pass
-SPF without aligning and have no aligned DKIM signature to fall back on. Moving
-to `p=quarantine` in that state sends invoices to spam. Read the aggregate
-reports first, and add Zoho's DKIM if they show it failing.
+**Zoho's DKIM selector is numeric and unguessable.** Probing conventional names
+— `zoho`, `zmail`, `zohomail`, `zohobooks` — returns nothing and invites the
+conclusion that Zoho is unsigned. It is not; the selector is in Zoho Books under
+Settings → Email Notifications → Sender Email Preferences → View DKIM. Read the
+record before concluding one is missing.
+
+**Raising the DMARC policy is a reading exercise, not a DNS one.** Both senders
+are signed, so there is no known blocker to `p=quarantine`. What is missing is
+evidence: `rua` points at a mailbox, where aggregate reports arrive as gzipped
+XML nobody opens. Point it at something that renders them, read a couple of
+weeks, confirm only these two senders appear and that both pass with alignment,
+then step `p=none` → `quarantine` → `reject`.
 
 ## Hub and spoke
 
