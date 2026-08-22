@@ -156,7 +156,13 @@ the same:
 - `rugby-tournament-predictor` — commit directly to `main`
 - `tidylearn` — **feature branches and PRs into `main`**; it has a release
   history and is on CRAN
-- `rbr`, `sheetsolved` — direct to `main`
+- `rbr`, `sheetsolved`, `tech-perspectives` — direct to `main`
+
+`tech-perspectives` also has a `pre-commit` hook, enabled via
+`core.hooksPath`, that regenerates `README.md` and `index.md` from `_posts/`
+and stages them whenever a post changes. Both files are generated — edit a
+post, not the indexes — and `node scripts/validate.js` checks front matter
+before you commit.
 
 This has already gone wrong once: a commit landed on tidylearn's
 `feature/cloud-execution` because that was the checked-out branch, and
