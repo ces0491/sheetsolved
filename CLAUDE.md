@@ -5,9 +5,8 @@
 ## What this is
 
 The hub of a four-property discoverability strategy, and the Sheet Solved
-consultancy site. It replaces a GoDaddy Website Builder site that is **still
-live on the apex domain** — see "The apex has not moved" below before touching
-DNS.
+consultancy site. It has replaced the GoDaddy Website Builder site that used to
+serve the apex — see "The apex has moved" below before touching DNS.
 
 - **Stack**: Next.js 16 (App Router), React 19, Tailwind 4, TypeScript, static
 - **Repo**: `github.com/ces0491/sheetsolved` (public)
@@ -106,32 +105,56 @@ Two findings from that process are worth not repeating:
 **Render a mark and look at it before adopting it.** Playwright's browsers are
 cached locally; screenshot at 16, 24, 32 and 64px in both themes.
 
-## The apex has not moved
+## The apex has moved
 
-`sheetsolved.com` still serves the GoDaddy Website Builder site. DNS is managed
-at GoDaddy and holds ~15 records.
+`sheetsolved.com` serves this site from Vercel, and `www` 308s to the apex. The
+GoDaddy Website Builder site is gone. DNS is still managed at GoDaddy.
 
-- **Preview on the Vercel URL first.** The apex `A` record changes last, once
-  the new site has been seen and approved.
-- **Never touch the MX records.** Moving the website does not require it, and
-  that is how somebody breaks their own email.
+- **Never touch the MX records.** They point at
+  `sheetsolved-com.mail.protection.outlook.com`, and moving a website never
+  required changing them. That is how somebody breaks their own email.
 - **`NEXT_PUBLIC_SITE_URL` is the only knob.** `src/lib/site.ts` reads it first;
   the sitemap, robots policy, canonical URLs and structured data all follow. It
   must be set to `https://sheetsolved.com` on Vercel production, or the sitemap
   publishes `localhost`.
+- **Verify DNS from a public resolver, not from this machine.** `nslookup` asks
+  a DNS server and `curl` reads the Windows DNS client cache, so the two can
+  disagree for ten minutes after a change and both be right. Query with
+  `Resolve-DnsName -Server 1.1.1.1`, and check `Get-DnsClientCache` before
+  concluding a change has failed.
+
+### Email authentication
+
+The domain sends through Microsoft 365 and through Zoho Books. SPF, DKIM and
+DMARC are all published:
+
+- **SPF**: `v=spf1 include:spf.protection.outlook.com include:sender.zohobooks.com -all`
+- **DKIM**: `selector1` and `selector2` CNAME to Microsoft; enabled and valid
+- **DMARC**: `p=none`, with aggregate reports going to `cesaire@sheetsolved.com`
+
+**Do not raise the DMARC policy without checking Zoho first.** DMARC needs SPF
+or DKIM to *align*, not merely to pass. Microsoft 365 mail aligns on both.
+Zoho Books is authorised by the SPF include, but there is no Zoho DKIM selector
+on the domain and Zoho sends with its own bounce domain, so its mail may pass
+SPF without aligning and have no aligned DKIM signature to fall back on. Moving
+to `p=quarantine` in that state sends invoices to spam. Read the aggregate
+reports first, and add Zoho's DKIM if they show it failing.
 
 ## Hub and spoke
 
 Four properties, one brand, reciprocal links. The hub is this repo; each spoke
 is its own repo on its own subdomain.
 
-| | subdomain | repo | state |
+All five are live on their own subdomain, over HTTPS, each serving a sitemap
+naming its own host.
+
+| | subdomain | repo | serves |
 | --- | --- | --- | --- |
-| Hub | `sheetsolved.com` | `sheetsolved` | built, apex not moved |
-| RTP | `rtp.` | `rugby-tournament-predictor` | live on a `vercel.app` URL; needs SSR + metadata work |
-| tidylearn | `tidylearn.` | `tidylearn` | pkgdown site built, in PR |
-| Ready Before Run | `rbr.` | `rbr` | metadata landed, publishing |
-| Blog | `blog.` | `tech-perspectives` | untouched |
+| Hub | `sheetsolved.com` | `sheetsolved` | Vercel |
+| RTP | `rtp.` | `rugby-tournament-predictor` | Vercel |
+| tidylearn | `tidylearn.` | `tidylearn` | GitHub Pages |
+| Ready Before Run | `rbr.` | `rbr` | GitHub Pages |
+| Blog | `blog.` | `tech-perspectives` | GitHub Pages |
 
 All spokes CNAME to `ces0491.github.io` except RTP, which points at Vercel.
 
@@ -140,13 +163,17 @@ Two things about the arrangement:
 - **RTP is split by audience, not by topic.** `sheetsolved.com/built/rtp` is the
   case study, written for clients; `rtp.sheetsolved.com` is the app, for the
   rugby audience arriving from search. It is the strongest portfolio piece —
-  a running production system rather than a package or a book — and the pages
-  carrying that argument (`/how-it-works`, `/model`, `/about`) are already
-  server-rendered and indexable. The forecast pages are not, and that is the
-  outstanding work there.
+  a running production system rather than a package or a book — and the SSR
+  work is done: 201 URLs in its sitemap, and the forecast pages that used to
+  render "Loading" now serve their content and their own titles in the
+  document.
 - **tidylearn's CRAN listing is the most valuable single asset.**
-  `cran.r-project.org` is mirrored worldwide, and `URL:` in its `DESCRIPTION`
-  now names the docs site. That link lands on the next release.
+  `cran.r-project.org` is mirrored worldwide. `URL:` in `DESCRIPTION` on `main`
+  names the docs site, but the published listing is still 0.4.0 from
+  2026-08-03, whose `URL:` names only the GitHub repo. CRAN accepts roughly one
+  submission per one to two months, so the docs link lands with whatever ships
+  next rather than on any schedule worth planning around. Check the live
+  listing before describing that link as done.
 
 ## Conventions that differ between these repos
 
