@@ -20,6 +20,7 @@ export function organisationJsonLd() {
     url: SITE_URL,
     email: SITE.email,
     areaServed: "Worldwide",
+    sameAs: [SITE.linkedin],
     address: {
       "@type": "PostalAddress",
       addressLocality: "Pinelands",
@@ -39,7 +40,7 @@ export function personJsonLd() {
     email: SITE.email,
     jobTitle: "Data and analytics consultant",
     url: SITE_URL,
-    sameAs: [SITE.github, SITE.linkedin],
+    sameAs: [SITE.github, SITE.linkedinPersonal],
     worksFor: { "@id": `${SITE_URL}/#organisation` },
   };
 }

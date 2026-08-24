@@ -47,7 +47,15 @@ export const SITE = {
   email: "cesaire@sheetsolved.com",
   location: "Pinelands, Cape Town, South Africa",
   github: "https://github.com/ces0491",
-  linkedin: "https://www.linkedin.com/company/83055921/",
+  /*
+   * Two LinkedIn URLs, because the structured data describes two entities.
+   * `linkedin` is the company page and belongs to the Organisation;
+   * `linkedinPersonal` is the profile and belongs to the Person. One constant
+   * serving both had the Person declaring a company page as itself, which is
+   * the kind of claim that gets an entity graph ignored rather than believed.
+   */
+  linkedin: "https://www.linkedin.com/company/sheet-solved/",
+  linkedinPersonal: "https://www.linkedin.com/in/cesaire-tobias/",
 } as const;
 
 /**
