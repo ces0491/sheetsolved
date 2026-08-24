@@ -1,8 +1,9 @@
 # Sheet Solved
 
 The consultancy site for [Sheet Solved](https://sheetsolved.com), and the hub of
-a four-property discoverability effort. Static Next.js, no client JavaScript on
-any route.
+a four-property discoverability effort. Static Next.js, and no client
+JavaScript beyond Vercel Web Analytics — which is served from this origin, so
+the page still requests nothing from a third-party host.
 
 ## Why a repo rather than a page
 
@@ -69,8 +70,8 @@ colour the second half, and the card cannot end up saying something different.
 
 ## The look is CSS, not components
 
-There is no UI library and no client JavaScript, so the visual system lives in
-`src/app/globals.css` as tokens and four small conventions.
+There is no UI library, and nothing in the visual system runs on the client,
+so it lives in `src/app/globals.css` as tokens and four small conventions.
 
 - **Tints, rings and shadows are mixed from the accent** with `color-mix`,
   rather than being greys or blacks. A black shadow under a navy-tinted card is

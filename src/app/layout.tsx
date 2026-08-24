@@ -1,3 +1,4 @@
+import { Analytics } from "@vercel/analytics/next";
 import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import Link from "next/link";
@@ -66,6 +67,15 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           {children}
         </main>
         <SiteFooter />
+        {/*
+          The one piece of client JavaScript on the site, and the reason the
+          "no client JS" rule is now stated with an exception rather than
+          absolutely. It is served from this origin as `/_vercel/insights`
+          rather than from a Vercel hostname, so it adds no third-party origin
+          — which is the property actually worth protecting, and the one the
+          LinkedIn badge would have broken.
+        */}
+        <Analytics />
       </body>
     </html>
   );

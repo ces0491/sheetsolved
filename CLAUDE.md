@@ -11,9 +11,13 @@ serve the apex — see "The apex has moved" below before touching DNS.
 - **Stack**: Next.js 16 (App Router), React 19, Tailwind 4, TypeScript, static
 - **Repo**: `github.com/ces0491/sheetsolved` (public)
 - **Vercel**: `vercel.com/cesaires-projects/sheetsolved`
-- **No client JS on any route.** Every page is static or SSG. The home page
-  carries a one-hour `revalidate` because it reads the blog's feed; Next still
-  reports it as Static, and it is still prerendered and served from cache
+- **No client JS beyond Vercel Web Analytics.** Every page is static or SSG.
+  The home page carries a one-hour `revalidate` because it reads the blog's
+  feed; Next still reports it as Static, prerendered and served from cache
+- **No third-party origin.** This is the rule that actually constrains what
+  goes on a page, and it is why the LinkedIn badge was declined. Analytics
+  does not break it: the script is served from this origin as
+  `/_vercel/insights/script.js`, not from a Vercel hostname
 
 ## The hub reads the blog rather than being told about it
 
@@ -269,8 +273,8 @@ agree.
 
 ## The look is CSS, not components
 
-No UI library, no client JavaScript. The visual system is tokens and four
-conventions in `src/app/globals.css`.
+No UI library, and no client JavaScript in the visual system itself. It is
+tokens and four conventions in `src/app/globals.css`.
 
 - **Tints, rings and shadows are mixed from the accent** with `color-mix`. A
   black shadow under a navy-tinted card is the most common single cause of a
