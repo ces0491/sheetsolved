@@ -13,8 +13,6 @@ import brand from "./brand.json";
  * the initials, and a route through the sheet. Five strokes, with channels
  * roughly twice the stroke width so it still resolves at 16px.
  */
-export const BRAND = brand;
-
 export const PALETTE = brand.palette;
 
 /** Everything an <svg> needs except its size and its colour. */

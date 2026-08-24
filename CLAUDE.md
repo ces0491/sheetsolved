@@ -265,8 +265,12 @@ agree.
   pattern. It is one string because the Open
   Graph card renders the same value; the home page splits it at its own comma
   to colour the second half.
-- The Practice section names **"a music distribution company" without naming
-  the client**, deliberately. Naming it is the client's call, not the site's.
+- **The Practice section describes the kind of engagement, never a current
+  one.** It used to name the client's sector and describe their stack, which
+  made it the one paragraph on the site able to go stale silently while
+  everything else that dates is derived from data. It also sat badly beside the
+  line, used on the home page and on `/built`, that consulting work belongs to
+  the client. Do not reintroduce a named engagement here.
 
 ## The look is CSS, not components
 

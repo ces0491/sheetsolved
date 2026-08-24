@@ -150,15 +150,26 @@ export default async function Home() {
             <div>
               <SectionLabel>Practice</SectionLabel>
               <h2 className="mt-4 text-pretty text-3xl font-semibold tracking-tight sm:text-4xl">
-                Where the work is now.
+                Embedded technical leadership.
               </h2>
             </div>
             <div className="max-w-2xl space-y-6 text-pretty leading-relaxed">
+              {/*
+                Written about the kind of engagement, never a current one. This
+                named the client's sector and described their stack, which made
+                it the one paragraph on the site that could go stale silently —
+                everything else that dates is derived from data. It also sat
+                badly beside the line, used twice, that consulting work belongs
+                to the client.
+              */}
               <p className="text-lg sm:text-xl">
-                I am the contracted technical lead for a music distribution company, responsible
-                for the whole stack: an ETL pipeline ingesting streaming data from more than ten
-                platforms into a time-series database, a client-facing dashboard, an internal
-                admin system, and the CI that keeps all three honest.
+                I work as the technical lead for companies that need one without hiring one:
+                advising the executive on the build-versus-buy call, owning the architecture, and
+                drafting the scope then delivering against it.
+              </p>
+              <p className="text-lg sm:text-xl">
+                In practice that has meant ETL pipelines feeding time-series stores, dashboards,
+                internal admin systems, and the CI that keeps them honest.
               </p>
               <p className="text-muted">
                 Before consulting, quantitative roles across asset management, management
