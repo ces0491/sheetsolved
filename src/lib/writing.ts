@@ -92,19 +92,30 @@ function parseAtom(xml: string): Post[] {
 }
 
 /**
- * `force-cache` is load-bearing.
+ * The revalidate window is what keeps the hub and the blog from drifting.
+ *
+ * Two things it is doing at once:
  *
  * `fetch` is uncached by default in this version of Next, and an uncached
- * fetch in a page opts that route out of static rendering. Without this the
- * home page would quietly become dynamic, which is the one thing this site
- * says it never is.
+ * fetch in a page opts that route out of static rendering. `next.revalidate`
+ * opts back in — the build still reports `/` as Static, now with a one-hour
+ * revalidate — so the home page does not quietly become dynamic, which is the
+ * one thing this site says it never is.
+ *
+ * And it bounds staleness without coupling the two repositories. The obvious
+ * alternative is a Vercel deploy hook called from the blog's workflow, which
+ * is faster but depends on a secret staying valid and on that workflow
+ * continuing to call it. When either quietly stops being true the hub goes
+ * stale and nothing says so — which is the failure the coupling was meant to
+ * prevent. A revalidate window cannot fail that way: it needs nothing from the
+ * other repo, and it recovers on its own however a post came to be published.
  */
 export async function recentPosts(limit = LIMIT): Promise<Post[]> {
   if (!BLOG) return [];
 
   try {
     const response = await fetch(`${BLOG}/feed.xml`, {
-      cache: "force-cache",
+      next: { revalidate: 3600 },
       headers: { accept: "application/atom+xml, application/xml;q=0.9" },
     });
 
