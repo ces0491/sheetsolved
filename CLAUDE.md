@@ -58,7 +58,7 @@ of its own would fail pushes that `npm run lint` had just called clean.
 
 There is still **no test suite**.
 
-## Why this exists rather than a page on the old site
+## Why a repo rather than a page
 
 The hub is infrastructure, not a brochure. Every project added from here on
 needs an entry, and that list only grows. Website Builder makes each of those a
@@ -239,9 +239,6 @@ This has already gone wrong once: a commit landed on tidylearn's
 
 - **First person singular throughout.** A consultancy of one whose contact
   section names one person is more credible in the singular.
-- The copy is **no longer the ported GoDaddy text.** It was rewritten to widen
-  what the site claims to do — see below. The old hero, approach, services and
-  experience blocks are gone.
 - **No numbers used as credentials, and no metrics band.** This is a
   consultancy site, not a CV. A hero band of years worked, rows processed and
   forecast accuracy was built and then removed for that reason. Figures belong
@@ -265,7 +262,7 @@ agree.
   description all read it. Narrowing it narrows all three.
 - **`SITE.tagline` continues the name's construction** rather than restating
   it: "Sheet Solved", "Complexity, Solved." The name reads as the first of a
-  pattern instead of the boundary of one. It is one string because the Open
+  pattern. It is one string because the Open
   Graph card renders the same value; the home page splits it at its own comma
   to colour the second half.
 - The Practice section names **"a music distribution company" without naming

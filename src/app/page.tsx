@@ -100,15 +100,14 @@ export default async function Home() {
           </div>
           <div className="max-w-2xl space-y-6 text-pretty text-lg leading-relaxed sm:text-xl">
             <p>
-              I keep things simple. Your business carries real complexity, and modelling that
-              complexity properly matters — but complex functionality should not be complex to
-              use, to update, or to understand.
+              Your business carries real complexity, and modelling it properly matters. The thing
+              you use every day should still be simple to run and safe to change.
             </p>
             <p className="text-muted">
-              Most of what I am asked to fix was not built badly. It was built once, quickly, for
-              a situation that has since changed, and then relied on for years afterwards. The
-              work is rarely about clever technique. It is about making the logic explicit enough
-              that somebody other than its author can change it without breaking it.
+              Most of what I am asked to fix was built once, quickly, for a situation that has
+              since changed, and then relied on for years afterwards. The work is usually about
+              making the logic explicit enough that somebody other than its author can change it
+              without breaking it.
             </p>
           </div>
         </div>
@@ -192,7 +191,7 @@ export default async function Home() {
 
           <p className="reveal mt-6 max-w-2xl text-pretty leading-relaxed text-muted">
             Consulting work belongs to the client, so these are what I can show. Each one is
-            running, published, or both — and each shows the method rather than only the result.
+            running, published, or both, and each shows the method as well as the result.
           </p>
 
           <div className="reveal mt-12 grid gap-6 md:grid-cols-3">

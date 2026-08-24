@@ -34,11 +34,16 @@ export const SITE = {
    * appending it here only bought a wrapped orphan above the fold.
    */
   eyebrow: "Data and software consultancy",
+  /*
+   * The spreadsheet origin is explained once, in the Practice section. This
+   * used to end on "often that starts with a spreadsheet, it rarely ends with
+   * one", which is the same antithesis the Practice pull-quote makes with more
+   * room to make it.
+   */
   intro:
     "I build the data and software systems a business actually runs on — the " +
     "pipeline that feeds it, the model behind the decision, and the application " +
-    "that puts both in front of someone. Often that starts with a spreadsheet. " +
-    "It rarely ends with one.",
+    "that puts both in front of someone.",
   description:
     "Sheet Solved builds the data and software systems businesses run on — " +
     "pipelines, models, dashboards, and the spreadsheets worth keeping. " +
@@ -72,11 +77,11 @@ export const SERVICES = [
   },
   {
     title: "Models and forecasting",
-    body: "Quantitative models whose accuracy is measured and published rather than asserted, so you know what to trust them for.",
+    body: "Quantitative models that publish their own accuracy, so you know what to trust them for.",
   },
   {
     title: "Applications and dashboards",
-    body: "Software and reporting that produce the answer, instead of an afternoon spent assembling one.",
+    body: "Software and reporting that produce the answer, so nobody spends an afternoon assembling it.",
   },
   {
     title: "Automation",

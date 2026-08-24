@@ -63,9 +63,8 @@ Two things carry that and are easy to undo by accident:
   things.
 
 `SITE.tagline` continues the name's own construction — "Sheet Solved",
-"Complexity, Solved." — so the name reads as the first of a pattern rather than
-the boundary of one. It is also the Open Graph card's headline, which is why it
-is one string rather than two: the home page splits it at its own comma to
+"Complexity, Solved." — so the name reads as the first of a pattern. It is also
+the Open Graph card's headline, which is why it is one string rather than two: the home page splits it at its own comma to
 colour the second half, and the card cannot end up saying something different.
 
 ## The look is CSS, not components
