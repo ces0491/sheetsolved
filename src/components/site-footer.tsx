@@ -46,9 +46,22 @@ export function SiteFooter() {
                   GitHub
                 </a>
               </li>
+              {/*
+                Both LinkedIn URLs, labelled. The site is written in the first
+                person singular, so linking only a company page sends a reader
+                looking for the person to the wrong one of the two.
+              */}
               <li>
                 <a href={SITE.linkedin} className="underline-grow text-muted hover:text-foreground">
-                  LinkedIn
+                  LinkedIn — Sheet Solved
+                </a>
+              </li>
+              <li>
+                <a
+                  href={SITE.linkedinPersonal}
+                  className="underline-grow text-muted hover:text-foreground"
+                >
+                  LinkedIn — {SITE.owner}
                 </a>
               </li>
             </ul>
