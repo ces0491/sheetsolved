@@ -3,6 +3,7 @@ import Link from "next/link";
 import { ProjectCard } from "@/components/project-card";
 import { PROJECTS } from "@/content/projects";
 import { SERVICES, SITE } from "@/lib/site";
+import { BLOG_URL, recentPosts } from "@/lib/writing";
 
 /**
  * The eyebrow above a section heading.
@@ -39,8 +40,26 @@ function Tagline() {
   );
 }
 
-export default function Home() {
+/**
+ * The feed's ISO timestamp, as a date a reader can place.
+ *
+ * Defensive because the string comes off a network response: anything that
+ * does not parse renders as nothing rather than as "Invalid Date".
+ */
+function formatDate(iso: string): string {
+  const date = new Date(iso);
+  if (!iso || Number.isNaN(date.getTime())) return "";
+  return new Intl.DateTimeFormat("en-GB", {
+    day: "numeric",
+    month: "short",
+    year: "numeric",
+    timeZone: "UTC",
+  }).format(date);
+}
+
+export default async function Home() {
   const featured = PROJECTS.filter((p) => p.featured);
+  const posts = await recentPosts();
 
   return (
     <>
@@ -181,6 +200,59 @@ export default function Home() {
               <ProjectCard key={project.slug} project={project} />
             ))}
           </div>
+        </div>
+      </section>
+
+      <section id="writing" className="scroll-mt-24">
+        <div className="mx-auto max-w-6xl px-6 py-24 sm:px-8 sm:py-32">
+          <div className="reveal flex flex-wrap items-end justify-between gap-6">
+            <div>
+              <SectionLabel>Writing</SectionLabel>
+              <h2 className="mt-4 max-w-2xl text-pretty text-3xl font-semibold tracking-tight sm:text-4xl">
+                Notes on how technical work actually gets done.
+              </h2>
+            </div>
+            {BLOG_URL ? (
+              <a href={BLOG_URL} className="underline-grow text-sm font-medium text-accent">
+                All posts →
+              </a>
+            ) : null}
+          </div>
+
+          {/*
+            The list is the feed, read at build. If the fetch failed it is
+            empty and the heading and its link still stand, so the home page
+            never loses the link to the blog over a network hiccup.
+          */}
+          {posts.length ? (
+            <ul className="reveal mt-12 border-t border-border">
+              {posts.map((post) => (
+                <li key={post.url} className="border-b border-border">
+                  <a
+                    href={post.url}
+                    className="group flex flex-col gap-1.5 py-6 sm:flex-row sm:items-baseline sm:gap-8"
+                  >
+                    <time
+                      dateTime={post.published}
+                      className="shrink-0 font-mono text-xs text-muted sm:w-28"
+                    >
+                      {formatDate(post.published)}
+                    </time>
+                    <div className="min-w-0">
+                      <h3 className="text-pretty font-semibold tracking-tight transition-colors group-hover:text-accent">
+                        {post.title}
+                      </h3>
+                      {post.summary ? (
+                        <p className="mt-1.5 max-w-2xl text-pretty text-sm leading-relaxed text-muted">
+                          {post.summary}
+                        </p>
+                      ) : null}
+                    </div>
+                  </a>
+                </li>
+              ))}
+            </ul>
+          ) : null}
         </div>
       </section>
 
