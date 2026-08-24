@@ -20,8 +20,7 @@ export const IS_PRODUCTION = process.env.VERCEL_ENV === "production";
  * The name is where the practice started, not the size of it.
  *
  * `tagline` continues the name's own construction rather than restating it, so
- * "Sheet Solved" reads as the first of a pattern instead of the boundary of
- * one. It is the page's `<h1>` and the Open Graph card's headline, so the two
+ * "Sheet Solved" reads as the first of a pattern. It is the page's `<h1>` and the Open Graph card's headline, so the two
  * cannot say different things about what this is.
  */
 export const SITE = {
@@ -57,7 +56,7 @@ export const SITE = {
    * `linkedin` is the company page and belongs to the Organisation;
    * `linkedinPersonal` is the profile and belongs to the Person. One constant
    * serving both had the Person declaring a company page as itself, which is
-   * the kind of claim that gets an entity graph ignored rather than believed.
+   * the kind of claim that gets a whole entity graph ignored.
    */
   linkedin: "https://www.linkedin.com/company/sheet-solved/",
   linkedinPersonal: "https://www.linkedin.com/in/cesaire-tobias/",
@@ -68,7 +67,7 @@ export const SITE = {
  *
  * Spreadsheet work is one entry rather than the frame around the other five,
  * and it is written as a judgement about when a spreadsheet is the right
- * answer rather than as a promise to build one either way.
+ * answer.
  */
 export const SERVICES = [
   {

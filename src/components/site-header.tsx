@@ -29,8 +29,8 @@ const NAV: { href: string; label: string; external?: boolean; onlyWide?: boolean
 /**
  * The header stays with the reader.
  *
- * Translucent over a blur rather than opaque, so the ruled field behind the
- * hero carries through it instead of being cut off by a solid bar. The
+ * Translucent over a blur, so the ruled field behind the hero carries through
+ * it instead of being cut off by a solid bar. The
  * fallback is a solid background, because a header that is merely transparent
  * where `backdrop-filter` is unsupported puts body copy under its own nav.
  */

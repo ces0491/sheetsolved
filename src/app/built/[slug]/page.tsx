@@ -58,7 +58,7 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
             {/*
               The status sits on the top rule rather than beside the title: a
               name long enough to wrap pushes an inline badge onto a line of
-              its own, where it reads as orphaned rather than as metadata.
+              its own, where it reads as orphaned.
             */}
             <div className="flex items-center justify-between gap-4">
               <Link

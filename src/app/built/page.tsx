@@ -38,7 +38,7 @@ export default function BuiltPage() {
             <p className="mt-7 text-pretty text-lg leading-relaxed text-muted sm:text-xl">
               Consulting work belongs to the client, so this is the part I can show: tools, packages
               and writing built to the same standard. Where a project measures itself, the numbers
-              are published beside it rather than summarised.
+              are published beside it.
             </p>
           </div>
         </div>
