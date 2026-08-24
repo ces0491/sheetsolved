@@ -13,7 +13,11 @@ import { BLOG_URL, recentPosts } from "@/lib/writing";
  * for the things that are labels rather than prose.
  */
 function SectionLabel({ children }: { children: React.ReactNode }) {
-  return <p className="font-mono text-xs uppercase tracking-[0.14em] text-accent sm:tracking-[0.18em]">{children}</p>;
+  return (
+    <p className="font-mono text-xs uppercase tracking-[0.14em] text-accent sm:tracking-[0.18em]">
+      {children}
+    </p>
+  );
 }
 
 /**
@@ -104,10 +108,10 @@ export default async function Home() {
               you use every day should still be simple to run and safe to change.
             </p>
             <p className="text-muted">
-              Most of what I am asked to fix was built once, quickly, for a situation that has
-              since changed, and then relied on for years afterwards. The work is usually about
-              making the logic explicit enough that somebody other than its author can change it
-              without breaking it.
+              Most of what I am asked to fix was built once, quickly, for a situation that has since
+              changed, and then relied on for years afterwards. The work is usually about making the
+              logic explicit enough that somebody other than its author can change it without
+              breaking it.
             </p>
           </div>
         </div>
@@ -177,9 +181,9 @@ export default async function Home() {
                 enterprises.
               </p>
               <p className="rounded-xl border-l-2 border-accent bg-tint px-5 py-4 text-muted">
-                The name is where this started. A spreadsheet is usually the first place a
-                business writes its real logic down, so it is still where a good number of
-                engagements begin. It is no longer where most of them end.
+                The name is where this started. A spreadsheet is usually the first place a business
+                writes its real logic down, so it is still where a good number of engagements begin.
+                It is no longer where most of them end.
               </p>
             </div>
           </div>
@@ -275,9 +279,9 @@ export default async function Home() {
                 Tell me what is not working.
               </h2>
               <p className="mt-5 text-pretty leading-relaxed text-muted">
-                A process that costs too much attention, a number nobody can trace, a model that
-                has outgrown where it lives. I will tell you what I would do about it before you
-                have to commit to anything.
+                A process that costs too much attention, a number nobody can trace, a model that has
+                outgrown where it lives. I will tell you what I would do about it before you have to
+                commit to anything.
               </p>
 
               <div className="mt-9 flex flex-wrap items-center gap-x-8 gap-y-4">

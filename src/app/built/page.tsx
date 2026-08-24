@@ -36,9 +36,9 @@ export default function BuiltPage() {
             </p>
             <h1 className="mt-6 text-5xl font-semibold tracking-tight sm:text-6xl">Built</h1>
             <p className="mt-7 text-pretty text-lg leading-relaxed text-muted sm:text-xl">
-              Consulting work belongs to the client, so this is the part I can show: tools,
-              packages and writing built to the same standard. Where a project measures itself,
-              the numbers are published beside it rather than summarised.
+              Consulting work belongs to the client, so this is the part I can show: tools, packages
+              and writing built to the same standard. Where a project measures itself, the numbers
+              are published beside it rather than summarised.
             </p>
           </div>
         </div>

@@ -38,11 +38,7 @@ export async function generateMetadata({
   };
 }
 
-export default async function CaseStudyPage({
-  params,
-}: {
-  params: Promise<{ slug: string }>;
-}) {
+export default async function CaseStudyPage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const project = projectBySlug(slug);
   if (!project?.caseStudy?.length) notFound();
@@ -80,9 +76,7 @@ export default async function CaseStudyPage({
               {project.name}
             </h1>
 
-            <p className="mt-6 text-pretty text-lg leading-relaxed text-muted">
-              {project.summary}
-            </p>
+            <p className="mt-6 text-pretty text-lg leading-relaxed text-muted">{project.summary}</p>
 
             <ul className="mt-8 flex flex-wrap gap-1.5" aria-label="Built with">
               {project.stack.map((tech) => (

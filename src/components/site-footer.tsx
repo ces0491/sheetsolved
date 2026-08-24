@@ -86,10 +86,7 @@ export function SiteFooter() {
                 </Link>
               </li>
               <li>
-                <Link
-                  href="/#services"
-                  className="underline-grow text-muted hover:text-foreground"
-                >
+                <Link href="/#services" className="underline-grow text-muted hover:text-foreground">
                   Services
                 </Link>
               </li>

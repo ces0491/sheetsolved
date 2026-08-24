@@ -52,10 +52,7 @@ export function SiteHeader() {
               {NAV.map((item) => (
                 <li key={item.href} className={item.onlyWide ? "hidden sm:block" : undefined}>
                   {item.external ? (
-                    <a
-                      href={item.href}
-                      className="underline-grow text-muted hover:text-foreground"
-                    >
+                    <a href={item.href} className="underline-grow text-muted hover:text-foreground">
                       {item.label}
                     </a>
                   ) : (

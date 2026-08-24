@@ -44,107 +44,99 @@ function titleSize(name: string): number {
   return 60;
 }
 
-export default async function CaseStudyImage({
-  params,
-}: {
-  params: Promise<{ slug: string }>;
-}) {
+export default async function CaseStudyImage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const project = projectBySlug(slug);
 
   return new ImageResponse(
-    (
+    <div
+      style={{
+        width: "100%",
+        height: "100%",
+        display: "flex",
+        flexDirection: "column",
+        justifyContent: "space-between",
+        background: PALETTE.paper,
+        padding: "72px 80px",
+        fontFamily: "sans-serif",
+      }}
+    >
       <div
         style={{
-          width: "100%",
-          height: "100%",
           display: "flex",
-          flexDirection: "column",
+          alignItems: "center",
           justifyContent: "space-between",
-          background: PALETTE.paper,
-          padding: "72px 80px",
-          fontFamily: "sans-serif",
         }}
       >
-        <div
-          style={{
-            display: "flex",
-            alignItems: "center",
-            justifyContent: "space-between",
-          }}
+        <svg
+          width={88}
+          height={88}
+          viewBox={MARK.viewBox}
+          fill="none"
+          stroke={PALETTE.navy}
+          strokeWidth={MARK.strokeWidth}
+          strokeLinejoin={MARK.strokeLinejoin}
+          strokeLinecap={MARK.strokeLinecap}
         >
-          <svg
-            width={88}
-            height={88}
-            viewBox={MARK.viewBox}
-            fill="none"
-            stroke={PALETTE.navy}
-            strokeWidth={MARK.strokeWidth}
-            strokeLinejoin={MARK.strokeLinejoin}
-            strokeLinecap={MARK.strokeLinecap}
-          >
-            {MARK.paths.map((d) => (
-              <path key={d} d={d} />
-            ))}
-          </svg>
+          {MARK.paths.map((d) => (
+            <path key={d} d={d} />
+          ))}
+        </svg>
 
-          {project && (
-            <div
-              style={{
-                display: "flex",
-                fontSize: 24,
-                color: PALETTE.navy,
-                border: `2px solid ${PALETTE.navy}`,
-                borderRadius: 999,
-                padding: "8px 22px",
-              }}
-            >
-              {STATUS_LABEL[project.status]}
-            </div>
-          )}
-        </div>
-
-        <div style={{ display: "flex", flexDirection: "column" }}>
+        {project && (
           <div
             style={{
-              fontSize: titleSize(project?.name ?? SITE.name),
-              fontWeight: 700,
-              letterSpacing: "-0.03em",
-              color: PALETTE.ink,
-              lineHeight: 1.05,
-            }}
-          >
-            {project?.name ?? SITE.name}
-          </div>
-          <div
-            style={{
-              fontSize: 32,
+              display: "flex",
+              fontSize: 24,
               color: PALETTE.navy,
-              marginTop: 20,
-              lineHeight: 1.35,
+              border: `2px solid ${PALETTE.navy}`,
+              borderRadius: 999,
+              padding: "8px 22px",
             }}
           >
-            {project?.tagline ?? SITE.strapline}
+            {STATUS_LABEL[project.status]}
           </div>
-        </div>
+        )}
+      </div>
 
+      <div style={{ display: "flex", flexDirection: "column" }}>
         <div
           style={{
-            display: "flex",
-            justifyContent: "space-between",
-            fontSize: 24,
-            color: "#5f6479",
-            borderTop: `3px solid ${PALETTE.navy}`,
-            paddingTop: 22,
+            fontSize: titleSize(project?.name ?? SITE.name),
+            fontWeight: 700,
+            letterSpacing: "-0.03em",
+            color: PALETTE.ink,
+            lineHeight: 1.05,
           }}
         >
-          <div style={{ display: "flex" }}>sheetsolved.com/built/{slug}</div>
-          <div style={{ display: "flex" }}>
-            {project?.stack.slice(0, 3).join("  ·  ")}
-          </div>
+          {project?.name ?? SITE.name}
+        </div>
+        <div
+          style={{
+            fontSize: 32,
+            color: PALETTE.navy,
+            marginTop: 20,
+            lineHeight: 1.35,
+          }}
+        >
+          {project?.tagline ?? SITE.strapline}
         </div>
       </div>
-    ),
+
+      <div
+        style={{
+          display: "flex",
+          justifyContent: "space-between",
+          fontSize: 24,
+          color: "#5f6479",
+          borderTop: `3px solid ${PALETTE.navy}`,
+          paddingTop: 22,
+        }}
+      >
+        <div style={{ display: "flex" }}>sheetsolved.com/built/{slug}</div>
+        <div style={{ display: "flex" }}>{project?.stack.slice(0, 3).join("  ·  ")}</div>
+      </div>
+    </div>,
     size,
   );
 }

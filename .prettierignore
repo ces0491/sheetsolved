@@ -1,0 +1,10 @@
+# Prettier formats the code. The markdown here is hand-wrapped prose and
+# tables, and reflowing it produces a large diff that says nothing.
+*.md
+
+package-lock.json
+
+# Grouped by hand into palette and geometry blocks, which Prettier flattens.
+src/lib/brand.json
+.next/
+out/

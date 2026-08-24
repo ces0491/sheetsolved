@@ -31,9 +31,11 @@
   --tint-strong: color-mix(in oklab, var(--accent) 12%, transparent);
   --hairline: color-mix(in oklab, var(--accent) 22%, transparent);
 
-  --shadow-card: 0 1px 2px color-mix(in oklab, var(--accent) 7%, transparent),
+  --shadow-card:
+    0 1px 2px color-mix(in oklab, var(--accent) 7%, transparent),
     0 12px 28px -16px color-mix(in oklab, var(--accent) 34%, transparent);
-  --shadow-lift: 0 2px 5px color-mix(in oklab, var(--accent) 10%, transparent),
+  --shadow-lift:
+    0 2px 5px color-mix(in oklab, var(--accent) 10%, transparent),
     0 24px 48px -22px color-mix(in oklab, var(--accent) 48%, transparent);
 
   /*
@@ -157,7 +159,13 @@ body {
 /* A single ruled line, used to close a banded section without a hard border. */
 .rule {
   height: 1px;
-  background: linear-gradient(to right, transparent, var(--border-strong) 22%, var(--border-strong) 78%, transparent);
+  background: linear-gradient(
+    to right,
+    transparent,
+    var(--border-strong) 22%,
+    var(--border-strong) 78%,
+    transparent
+  );
 }
 
 /*
@@ -214,7 +222,9 @@ body {
   background-repeat: no-repeat;
   background-position: 0 100%;
   background-size: 0% 1px;
-  transition: background-size 0.25s ease, color 0.2s ease;
+  transition:
+    background-size 0.25s ease,
+    color 0.2s ease;
 }
 
 .underline-grow:hover {

@@ -18,33 +18,31 @@ export const contentType = "image/png";
 
 export default function Icon() {
   return new ImageResponse(
-    (
-      <div
-        style={{
-          width: "100%",
-          height: "100%",
-          display: "flex",
-          alignItems: "center",
-          justifyContent: "center",
-          background: PALETTE.paper,
-        }}
+    <div
+      style={{
+        width: "100%",
+        height: "100%",
+        display: "flex",
+        alignItems: "center",
+        justifyContent: "center",
+        background: PALETTE.paper,
+      }}
+    >
+      <svg
+        width={30}
+        height={30}
+        viewBox={MARK.viewBox}
+        fill="none"
+        stroke={PALETTE.navy}
+        strokeWidth={MARK.strokeWidth}
+        strokeLinejoin={MARK.strokeLinejoin}
+        strokeLinecap={MARK.strokeLinecap}
       >
-        <svg
-          width={30}
-          height={30}
-          viewBox={MARK.viewBox}
-          fill="none"
-          stroke={PALETTE.navy}
-          strokeWidth={MARK.strokeWidth}
-          strokeLinejoin={MARK.strokeLinejoin}
-          strokeLinecap={MARK.strokeLinecap}
-        >
-          {MARK.paths.map((d) => (
-            <path key={d} d={d} />
-          ))}
-        </svg>
-      </div>
-    ),
+        {MARK.paths.map((d) => (
+          <path key={d} d={d} />
+        ))}
+      </svg>
+    </div>,
     size,
   );
 }
