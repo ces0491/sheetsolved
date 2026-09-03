@@ -23,6 +23,13 @@ export const metadata: Metadata = {
   description: SITE.description,
   applicationName: SITE.name,
   authors: [{ name: SITE.owner }],
+  /*
+   * The label under a home screen shortcut, which otherwise falls back to the
+   * document title and gets truncated mid-strapline. `capable` is off on
+   * purpose: it would open the shortcut without Safari's chrome, and a site
+   * with outbound links needs the back button.
+   */
+  appleWebApp: { capable: false, title: SITE.name },
   openGraph: {
     type: "website",
     siteName: SITE.name,

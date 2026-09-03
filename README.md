@@ -36,9 +36,9 @@ consequences worth knowing before you edit it:
 
 `src/lib/brand.json` holds the palette and the geometry, stored resolved rather
 than parametric. It is read by the `Mark` and `Logo` components, the favicon
-route, the site-wide Open Graph card, the per-project cards, and the root
-layout, which injects the brand navy as the CSS variable the stylesheet's
-accent tokens read.
+route, the home screen icon, the site-wide Open Graph card, the per-project
+cards, and the root layout, which injects the brand navy as the CSS variable
+the stylesheet's accent tokens read.
 
 **There is no static icon file, deliberately.** Nothing imports a favicon, so a
 stale one would build, deploy and serve without complaint. Generating it at
