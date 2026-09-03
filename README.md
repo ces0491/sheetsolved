@@ -2,8 +2,8 @@
 
 The consultancy site for [Sheet Solved](https://sheetsolved.com), and the hub of
 a four-property discoverability effort. Static Next.js, and no client
-JavaScript beyond Vercel Web Analytics — which is served from this origin, so
-the page still requests nothing from a third-party host.
+JavaScript beyond Vercel Web Analytics and Speed Insights — both served from
+this origin, so the page still requests nothing from a third-party host.
 
 ## Why a repo rather than a page
 

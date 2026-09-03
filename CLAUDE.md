@@ -11,13 +11,15 @@ serve the apex — see "The apex has moved" below before touching DNS.
 - **Stack**: Next.js 16 (App Router), React 19, Tailwind 4, TypeScript, static
 - **Repo**: `github.com/ces0491/sheetsolved` (public)
 - **Vercel**: `vercel.com/cesaires-projects/sheetsolved`
-- **No client JS beyond Vercel Web Analytics.** Every page is static or SSG.
-  The home page carries a one-hour `revalidate` because it reads the blog's
-  feed; Next still reports it as Static, prerendered and served from cache
+- **No client JS beyond Vercel Web Analytics and Speed Insights.** Every page
+  is static or SSG. The home page carries a one-hour `revalidate` because it
+  reads the blog's feed; Next still reports it as Static, prerendered and
+  served from cache
 - **No third-party origin.** This is the rule that actually constrains what
-  goes on a page, and it is why the LinkedIn badge was declined. Analytics
-  does not break it: the script is served from this origin as
-  `/_vercel/insights/script.js`, not from a Vercel hostname
+  goes on a page, and it is why the LinkedIn badge was declined. Neither Vercel
+  script breaks it: both are served from this origin, as
+  `/_vercel/insights/script.js` and `/_vercel/speed-insights/script.js`, not
+  from a Vercel hostname
 
 ## The hub reads the blog rather than being told about it
 
