@@ -81,6 +81,11 @@ export function SiteFooter() {
                 </a>
               </li>
               <li>
+                <Link href="/card" className="underline-grow text-muted hover:text-foreground">
+                  Contact card
+                </Link>
+              </li>
+              <li>
                 <Link href="/built" className="underline-grow text-muted hover:text-foreground">
                   What I have built
                 </Link>

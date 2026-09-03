@@ -138,6 +138,30 @@ Two findings from that process are worth not repeating:
 **Render a mark and look at it before adopting it.** Playwright's browsers are
 cached locally; screenshot at 16, 24, 32 and 64px in both themes.
 
+## The contact card is derived too
+
+`/contact.vcf` is a vCard assembled in `src/lib/vcard.ts` from `SITE`, and
+`/card` shows a QR code pointing at it. It exists because the alternatives cost
+something: a third-party card app puts the card on somebody else's domain, and
+NameDrop shares a name and one phone number or email rather than a website.
+
+- **`OWNER_NAME` and `ADDRESS` in `src/lib/site.ts` are stored in parts.** The
+  footer wants a sentence, the JSON-LD wants `PostalAddress` fields and a vCard
+  wants semicolon-separated components; all three assemble from one definition.
+  `SITE.owner` and `SITE.location` are built from them rather than written
+  again, so do not reintroduce a literal for either.
+- **vCard 3.0, CRLF line endings, folded at 75 characters.** All three are what
+  the spec asks for, and the escaping in `escape()` has to run the backslash
+  rule first or it escapes its own escapes.
+- **The disposition is `inline`, not `attachment`.** iOS Safari previews an
+  inline `text/vcard` and offers "Add to Contacts"; as an attachment it lands
+  in Files instead.
+- **The QR points at the vCard URL rather than carrying the vCard.** Embedding
+  the card would make the code far denser for no gain, and a URL means the
+  details can change without reprinting anything.
+- **`/card` carries `robots: { index: false }` and is absent from the sitemap.**
+  Both deliberate.
+
 ## The apex has moved
 
 `sheetsolved.com` serves this site from Vercel, and `www` 308s to the apex. The

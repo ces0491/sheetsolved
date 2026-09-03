@@ -17,6 +17,31 @@ export const SITE_URL =
 export const IS_PRODUCTION = process.env.VERCEL_ENV === "production";
 
 /**
+ * The owner's name in parts.
+ *
+ * A vCard's `N` field takes a name this way, and recovering the parts by
+ * splitting a display name on its last space is a guess that holds for some
+ * names and not others. `SITE.owner` is assembled from these.
+ */
+export const OWNER_NAME = { given: "Cesaire", family: "Tobias" } as const;
+
+/**
+ * The address in parts, for the same reason.
+ *
+ * Three things want different shapes of it: the footer wants a sentence, the
+ * JSON-LD wants `PostalAddress` fields and a vCard wants semicolon-separated
+ * components. All three are assembled from this rather than writing the
+ * address out again in each place.
+ */
+export const ADDRESS = {
+  suburb: "Pinelands",
+  city: "Cape Town",
+  region: "Western Cape",
+  country: "South Africa",
+  countryCode: "ZA",
+} as const;
+
+/**
  * The name is where the practice started, not the size of it.
  *
  * `tagline` continues the name's own construction rather than restating it, so
@@ -47,9 +72,11 @@ export const SITE = {
     "Sheet Solved builds the data and software systems businesses run on — " +
     "pipelines, models, dashboards, and the spreadsheets worth keeping. " +
     "Quantitative consulting from Cape Town.",
-  owner: "Cesaire Tobias",
+  owner: `${OWNER_NAME.given} ${OWNER_NAME.family}`,
+  /** What the contact card and the structured data both call the job. */
+  role: "Data and analytics consultant",
   email: "cesaire@sheetsolved.com",
-  location: "Pinelands, Cape Town, South Africa",
+  location: `${ADDRESS.suburb}, ${ADDRESS.city}, ${ADDRESS.country}`,
   github: "https://github.com/ces0491",
   /*
    * Two LinkedIn URLs, because the structured data describes two entities.

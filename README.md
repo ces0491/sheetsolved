@@ -44,6 +44,24 @@ the stylesheet's accent tokens read.
 stale one would build, deploy and serve without complaint. Generating it at
 build means there is no second copy of the geometry to go stale.
 
+## The contact card is derived too
+
+`/contact.vcf` is a vCard built in `src/lib/vcard.ts` from the same constants
+the pages and the structured data read, and `/card` is a page showing a QR code
+that points at it — the thing to hold up when someone asks for your details.
+
+- **The QR is generated at build**, by `qr`, from `SITE_URL`. Nothing is stored
+  as an image that could go on pointing at an old address, the same reason the
+  favicon is a route rather than a file.
+- **Its modules are the brand navy on a tile that stays light in dark mode.**
+  An inverted QR is read by some scanners and not others.
+- **`/card` is not indexed and not in the sitemap.** It is a tool rather than a
+  page, and its content is contact detail the home page already carries.
+- **The name and the address live in `SITE` in parts**, because the footer
+  wants a sentence, the JSON-LD wants `PostalAddress` fields and a vCard wants
+  semicolon-separated components. Assembling three shapes from one definition
+  beats writing the address down three times.
+
 ## What the site says it does
 
 The name is where the practice started, not the size of it. The copy is written

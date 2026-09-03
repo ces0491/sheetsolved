@@ -1,5 +1,5 @@
 import { PROJECTS, type Project } from "@/content/projects";
-import { SITE, SITE_URL } from "@/lib/site";
+import { ADDRESS, SITE, SITE_URL } from "@/lib/site";
 
 /**
  * Machine-readable identity.
@@ -23,9 +23,9 @@ export function organisationJsonLd() {
     sameAs: [SITE.linkedin],
     address: {
       "@type": "PostalAddress",
-      addressLocality: "Pinelands",
-      addressRegion: "Western Cape",
-      addressCountry: "ZA",
+      addressLocality: ADDRESS.suburb,
+      addressRegion: ADDRESS.region,
+      addressCountry: ADDRESS.countryCode,
     },
     founder: { "@id": `${SITE_URL}/#person` },
   };
@@ -38,7 +38,7 @@ export function personJsonLd() {
     "@id": `${SITE_URL}/#person`,
     name: SITE.owner,
     email: SITE.email,
-    jobTitle: "Data and analytics consultant",
+    jobTitle: SITE.role,
     url: SITE_URL,
     sameAs: [SITE.github, SITE.linkedinPersonal],
     worksFor: { "@id": `${SITE_URL}/#organisation` },
