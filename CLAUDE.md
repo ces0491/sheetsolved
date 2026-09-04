@@ -4,7 +4,7 @@
 
 ## What this is
 
-The hub of a four-property discoverability strategy, and the Sheet Solved
+The hub of a six-property discoverability strategy, and the Sheet Solved
 consultancy site. It has replaced the GoDaddy Website Builder site that used to
 serve the apex — see "The apex has moved" below before touching DNS.
 
@@ -81,8 +81,8 @@ a project is written down twice. Three consequences:
   reads `CASE_STUDIES`. A generated page per project would give most of them a
   heading and a paragraph already shown on the index — a thin page competing
   with a better one for the same query.
-- **Every figure in a case study carries its scope.** RTP's `70.9%` is published
-  with "3,673 matches, 1871 to 2026" because that is not the accuracy to expect
+- **Every figure in a case study carries its scope.** RTP's `71.6%` is published
+  with "3,676 matches, 1871 to 2026" because that is not the accuracy to expect
   on a modern fixture. `CaseStudyFigure.note` exists for this; a figure without
   it misleads.
 - **The footer lists only projects with somewhere to send a reader**, derived
@@ -211,21 +211,30 @@ then step `p=none` → `quarantine` → `reject`.
 
 ## Hub and spoke
 
-Four properties, one brand, reciprocal links. The hub is this repo; each spoke
+Six properties, one brand, reciprocal links. The hub is this repo; each spoke
 is its own repo on its own subdomain.
 
-All five are live on their own subdomain, over HTTPS, each serving a sitemap
+All six are live on their own subdomain, over HTTPS, each serving a sitemap
 naming its own host.
 
 | | subdomain | repo | serves |
 | --- | --- | --- | --- |
 | Hub | `sheetsolved.com` | `sheetsolved` | Vercel |
 | RTP | `rtp.` | `rugby-tournament-predictor` | Vercel |
+| Wood Wiz | `woodwiz.` | `wood-wiz` | Vercel |
 | tidylearn | `tidylearn.` | `tidylearn` | GitHub Pages |
 | Ready Before Run | `rbr.` | `rbr` | GitHub Pages |
 | Blog | `blog.` | `tech-perspectives` | GitHub Pages |
 
-All spokes CNAME to `ces0491.github.io` except RTP, which points at Vercel.
+Spokes CNAME to `ces0491.github.io` except RTP and Wood Wiz, which point at
+Vercel.
+
+**`wood-wiz.vercel.app` 308s to the subdomain** as of 2026-09-04. Vercel goes on
+answering on a project's generated alias after a custom domain is attached, and
+that alias was serving the whole site — two hostnames, one set of pages. A
+host-matched redirect in that repo's `next.config.ts` settles it, and `/` and
+`/faq` gained the canonical tags only the `[region]` routes had. Link the
+subdomain; it is what the sitemap names.
 
 Two things about the arrangement:
 
@@ -233,16 +242,15 @@ Two things about the arrangement:
   case study, written for clients; `rtp.sheetsolved.com` is the app, for the
   rugby audience arriving from search. It is the strongest portfolio piece —
   a running production system rather than a package or a book — and the SSR
-  work is done: 201 URLs in its sitemap, and the forecast pages that used to
+  work is done: 5,910 URLs in its sitemap, and the forecast pages that used to
   render "Loading" now serve their content and their own titles in the
   document.
 - **tidylearn's CRAN listing is the most valuable single asset.**
-  `cran.r-project.org` is mirrored worldwide. `URL:` in `DESCRIPTION` on `main`
-  names the docs site, but the published listing is still 0.4.0 from
-  2026-08-03, whose `URL:` names only the GitHub repo. CRAN accepts roughly one
-  submission per one to two months, so the docs link lands with whatever ships
-  next rather than on any schedule worth planning around. Check the live
-  listing before describing that link as done.
+  `cran.r-project.org` is mirrored worldwide. The published listing is 0.5.0
+  from 2026-09-02, and its `URL:` now names `tidylearn.sheetsolved.com`
+  alongside the GitHub repo, so the mirrored inbound link is live. A `URL:`
+  change only reaches the listing with a release, so check the live listing
+  rather than `DESCRIPTION` on `main` before describing one as done.
 
 ## Conventions that differ between these repos
 

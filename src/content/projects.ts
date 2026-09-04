@@ -82,6 +82,11 @@ export const PROJECTS: Project[] = [
             "every senior men's international on record, back to 1871. Glicko-2 " +
             "ratings are computed from that history point-in-time, so a rating " +
             "never sees a result that had not yet happened.",
+          "Club rugby is rated the same way from its own record — the United " +
+            "Rugby Championship, the Premiership, the Top 14 and the two " +
+            "European cups, back to 2015. The two scales have no bridge between " +
+            "them, because the populations have never played each other, and a " +
+            "club rating is meaningless held against an international one.",
           "A tournament is then simulated five thousand times. Fixtures already " +
             "played are locked at their real scores in every run, so a forecast " +
             "made mid-tournament is conditional on what has actually happened. " +
@@ -101,8 +106,8 @@ export const PROJECTS: Project[] = [
         figures: [
           {
             label: "Winner called correctly",
-            value: "70.9%",
-            note: "3,673 matches, 1871 to 2026 — the full record",
+            value: "71.6%",
+            note: "3,676 matches, 1871 to 2026 — the full international record",
           },
           {
             label: "Margin error",
@@ -111,7 +116,7 @@ export const PROJECTS: Project[] = [
           },
           {
             label: "Recent form",
-            value: "78.3%",
+            value: "72.0%",
             note: "90-day half-life, an effective sample of 59 matches",
           },
           {
@@ -190,17 +195,19 @@ export const PROJECTS: Project[] = [
   {
     slug: "wood-wiz",
     name: "Wood Wiz",
-    tagline: "Cape Town firewood, ranked by rand per kilogram.",
+    tagline: "South African firewood, ranked by rand per kilogram.",
     summary:
       "Firewood is advertised by the bag, the crate and the load, which makes " +
-      "eight vendors' prices impossible to compare at a glance. Wood Wiz " +
+      "ten vendors' prices impossible to compare at a glance. Wood Wiz " +
       "normalises all of them to rand per kilogram and puts delivery cost and " +
-      "stock status beside the number. Eight Cape Town storefronts across " +
+      "stock status beside the number. Ranking happens inside a city: Cape " +
+      "Town's bulk price is lower mostly for being nearer the source, which is " +
+      "no use to somebody buying in Johannesburg. Ten storefronts across " +
       "Shopify, WooCommerce and Wix are scraped daily into a JSON file the " +
       "site reads directly, so there is no database to run.",
     stack: ["Next.js", "TypeScript", "Cheerio", "Zod", "Vercel"],
     links: {
-      live: "https://wood-wiz.vercel.app",
+      live: "https://woodwiz.sheetsolved.com",
       source: "https://github.com/ces0491/wood-wiz",
     },
     status: "live",

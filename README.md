@@ -1,7 +1,7 @@
 # Sheet Solved
 
 The consultancy site for [Sheet Solved](https://sheetsolved.com), and the hub of
-a four-property discoverability effort. Static Next.js, and no client
+a six-property discoverability effort. Static Next.js, and no client
 JavaScript beyond Vercel Web Analytics and Speed Insights — both served from
 this origin, so the page still requests nothing from a third-party host.
 
@@ -25,8 +25,8 @@ consequences worth knowing before you edit it:
   `generateStaticParams` reads `CASE_STUDIES`. A generated page per project
   would give most of them a heading and a paragraph already shown on the index
   — a thin page competing with a better one for the same query.
-- **Every figure in a case study carries its scope.** RTP's `70.9%` is
-  published with "3,673 matches, 1871 to 2026", because that is not the
+- **Every figure in a case study carries its scope.** RTP's `71.6%` is
+  published with "3,676 matches, 1871 to 2026", because that is not the
   accuracy to expect on a modern fixture. `CaseStudyFigure.note` exists for
   this, and a figure without one misleads.
 - **The footer lists only projects with somewhere to send a reader**, derived
@@ -139,13 +139,14 @@ queries.
 
 ## Hub and spoke
 
-Four properties, one brand, reciprocal links. Each spoke is its own repo on its
+Six properties, one brand, reciprocal links. Each spoke is its own repo on its
 own subdomain.
 
 | | subdomain | repo |
 | --- | --- | --- |
 | Hub | `sheetsolved.com` | [sheetsolved](https://github.com/ces0491/sheetsolved) |
 | RTP | `rtp.` | [rugby-tournament-predictor](https://github.com/ces0491/rugby-tournament-predictor) |
+| Wood Wiz | `woodwiz.` | [wood-wiz](https://github.com/ces0491/wood-wiz) |
 | tidylearn | `tidylearn.` | [tidylearn](https://github.com/ces0491/tidylearn) |
 | Ready Before Run | `rbr.` | [rbr](https://github.com/ces0491/rbr) |
 | Blog | `blog.` | [tech-perspectives](https://github.com/ces0491/tech-perspectives) |
