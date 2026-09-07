@@ -32,9 +32,12 @@ export const OWNER_NAME = { given: "Cesaire", family: "Tobias" } as const;
  * JSON-LD wants `PostalAddress` fields and a vCard wants semicolon-separated
  * components. All three are assembled from this rather than writing the
  * address out again in each place.
+ *
+ * The city is as fine-grained as this gets. A suburb is more precision than a
+ * consultancy's address needs, and it was reaching all three surfaces — the
+ * footer sentence, the vCard and the JSON-LD — from this one field.
  */
 export const ADDRESS = {
-  suburb: "Pinelands",
   city: "Cape Town",
   region: "Western Cape",
   country: "South Africa",
@@ -76,7 +79,7 @@ export const SITE = {
   /** What the contact card and the structured data both call the job. */
   role: "Data and analytics consultant",
   email: "cesaire@sheetsolved.com",
-  location: `${ADDRESS.suburb}, ${ADDRESS.city}, ${ADDRESS.country}`,
+  location: `${ADDRESS.city}, ${ADDRESS.country}`,
   github: "https://github.com/ces0491",
   /*
    * Two LinkedIn URLs, because the structured data describes two entities.
@@ -92,9 +95,9 @@ export const SITE = {
 /**
  * What the consultancy does.
  *
- * Spreadsheet work is one entry rather than the frame around the other five,
- * and it is written as a judgement about when a spreadsheet is the right
- * answer.
+ * Spreadsheet work is one entry rather than the frame around the others, and
+ * it is written as a judgement about when a spreadsheet is the right answer.
+ * It sits late in the list deliberately; do not move it up.
  */
 export const SERVICES = [
   {

@@ -23,7 +23,7 @@ export function organisationJsonLd() {
     sameAs: [SITE.linkedin],
     address: {
       "@type": "PostalAddress",
-      addressLocality: ADDRESS.suburb,
+      addressLocality: ADDRESS.city,
       addressRegion: ADDRESS.region,
       addressCountry: ADDRESS.countryCode,
     },

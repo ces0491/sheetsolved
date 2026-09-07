@@ -53,7 +53,7 @@ export function vcard(): string {
     `EMAIL;TYPE=INTERNET,WORK:${escape(SITE.email)}`,
     `URL;TYPE=WORK:${escape(SITE_URL)}`,
     // pobox;extended;street;locality;region;postcode;country
-    `ADR;TYPE=WORK:;;${escape(ADDRESS.suburb)};${escape(ADDRESS.city)};${escape(ADDRESS.region)};;${escape(ADDRESS.country)}`,
+    `ADR;TYPE=WORK:;;;${escape(ADDRESS.city)};${escape(ADDRESS.region)};;${escape(ADDRESS.country)}`,
     `NOTE:${escape(SITE.description)}`,
     `item1.URL:${escape(SITE.linkedinPersonal)}`,
     "item1.X-ABLabel:LinkedIn",
