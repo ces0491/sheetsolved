@@ -67,7 +67,7 @@ that points at it — the thing to hold up when someone asks for your details.
 The name is where the practice started, not the size of it. The copy is written
 so a reader leaves knowing this builds data and software systems — pipelines,
 models, applications, dashboards — with spreadsheet work as one service among
-six rather than the frame around the others.
+several rather than the frame around the others.
 
 Two things carry that and are easy to undo by accident:
 

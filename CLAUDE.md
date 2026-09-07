@@ -288,9 +288,9 @@ The portfolio was already a forecasting engine, a CRAN package, a book and a
 scraper while the copy still said spreadsheets. The evidence and the claim now
 agree.
 
-- **Spreadsheet work is one of six services, at position five.** It is written
-  as a judgement about when a spreadsheet is the right answer, not a promise to
-  build one either way.
+- **Spreadsheet work sits late in the services list, deliberately.** It is
+  written as a judgement about when a spreadsheet is the right answer, not a
+  promise to build one either way. Do not move it up.
 - **The origin is explained once, in the Practice section.** Repeating it in
   the hero, the services and the experience copy is exactly what anchored the
   previous version. Do not reintroduce it elsewhere.

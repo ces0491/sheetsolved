@@ -122,7 +122,7 @@ export default async function Home() {
           <div className="reveal">
             <SectionLabel>Services</SectionLabel>
             <h2 className="mt-4 max-w-2xl text-pretty text-3xl font-semibold tracking-tight sm:text-4xl">
-              Six things I am usually brought in to do.
+              What I am usually brought in to do.
             </h2>
           </div>
 
