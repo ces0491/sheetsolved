@@ -1,4 +1,5 @@
 import { projectBySlug } from "@/content/projects";
+import { SITE } from "@/lib/site";
 
 /**
  * The three most recent posts from the blog, read at build time.
@@ -20,6 +21,23 @@ export interface Post {
   /** ISO 8601, straight from the feed. */
   published: string;
 }
+
+export interface Writing {
+  /** The blog's own one-line description of itself, from the feed's subtitle. */
+  description: string;
+  posts: Post[];
+}
+
+/**
+ * What the Writing section says when the feed cannot be read.
+ *
+ * The blog's current subtitle, so a failed fetch degrades to a stale sentence
+ * rather than to a missing heading. Anything written here is a claim about a
+ * repo this one does not own, so it goes out of date the moment that repo's
+ * `description` changes — which is why the feed's value wins whenever there
+ * is one.
+ */
+const FALLBACK_DESCRIPTION = "Essays on AI, software and the shape of technical work.";
 
 const BLOG = projectBySlug("tech-perspectives")?.links.live;
 
@@ -55,6 +73,26 @@ function plain(value: string): string {
 
 function firstMatch(source: string, pattern: RegExp): string | undefined {
   return pattern.exec(source)?.[1];
+}
+
+/**
+ * The blog's `<subtitle>`, as a heading for this site.
+ *
+ * jekyll-feed writes `site.description`, which signs off with the author
+ * because it introduces the blog on the blog. On a first-person site whose
+ * footer already names the same person, that suffix is noise, so it comes off
+ * — matched against `SITE.owner` rather than a literal name.
+ */
+function parseDescription(xml: string): string | undefined {
+  const subtitle = firstMatch(xml, /<subtitle[^>]*>([\s\S]*?)<\/subtitle>/);
+  if (!subtitle) return undefined;
+
+  const text = plain(subtitle)
+    .replace(new RegExp(`,?\\s*by\\s+${SITE.owner}\\s*\\.?\\s*$`, "i"), "")
+    .trim();
+
+  if (!text) return undefined;
+  return /[.!?]$/.test(text) ? text : `${text}.`;
 }
 
 /**
@@ -110,8 +148,9 @@ function parseAtom(xml: string): Post[] {
  * prevent. A revalidate window cannot fail that way: it needs nothing from the
  * other repo, and it recovers on its own however a post came to be published.
  */
-export async function recentPosts(limit = LIMIT): Promise<Post[]> {
-  if (!BLOG) return [];
+export async function readWriting(limit = LIMIT): Promise<Writing> {
+  const fallback: Writing = { description: FALLBACK_DESCRIPTION, posts: [] };
+  if (!BLOG) return fallback;
 
   try {
     const response = await fetch(`${BLOG}/feed.xml`, {
@@ -123,13 +162,17 @@ export async function recentPosts(limit = LIMIT): Promise<Post[]> {
       throw new Error(`feed responded ${response.status}`);
     }
 
-    return parseAtom(await response.text()).slice(0, limit);
+    const xml = await response.text();
+    return {
+      description: parseDescription(xml) ?? FALLBACK_DESCRIPTION,
+      posts: parseAtom(xml).slice(0, limit),
+    };
   } catch (error) {
     // A build that quietly drops the section and a blog with nothing new look
     // identical in the output, and only one of them is fine. Say so in the
     // build log rather than failing the build over a feed.
     console.warn(`[writing] could not read ${BLOG}/feed.xml —`, error);
-    return [];
+    return fallback;
   }
 }
 

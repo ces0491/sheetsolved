@@ -3,7 +3,7 @@ import Link from "next/link";
 import { ProjectCard } from "@/components/project-card";
 import { PROJECTS } from "@/content/projects";
 import { SERVICES, SITE } from "@/lib/site";
-import { BLOG_URL, recentPosts } from "@/lib/writing";
+import { BLOG_URL, readWriting } from "@/lib/writing";
 
 /**
  * The eyebrow above a section heading.
@@ -63,7 +63,7 @@ function formatDate(iso: string): string {
 
 export default async function Home() {
   const featured = PROJECTS.filter((p) => p.featured);
-  const posts = await recentPosts();
+  const writing = await readWriting();
 
   return (
     <>
@@ -223,7 +223,7 @@ export default async function Home() {
             <div>
               <SectionLabel>Writing</SectionLabel>
               <h2 className="mt-4 max-w-2xl text-pretty text-3xl font-semibold tracking-tight sm:text-4xl">
-                Notes on how technical work actually gets done.
+                {writing.description}
               </h2>
             </div>
             {BLOG_URL ? (
@@ -238,9 +238,9 @@ export default async function Home() {
             empty and the heading and its link still stand, so the home page
             never loses the link to the blog over a network hiccup.
           */}
-          {posts.length ? (
+          {writing.posts.length ? (
             <ul className="reveal mt-12 border-t border-border">
-              {posts.map((post) => (
+              {writing.posts.map((post) => (
                 <li key={post.url} className="border-b border-border">
                   <a
                     href={post.url}
