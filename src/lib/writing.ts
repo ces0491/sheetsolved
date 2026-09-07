@@ -37,7 +37,7 @@ export interface Writing {
  * `description` changes — which is why the feed's value wins whenever there
  * is one.
  */
-const FALLBACK_DESCRIPTION = "Essays on AI, software and the shape of technical work.";
+const FALLBACK_DESCRIPTION = "Writing on tech and stats.";
 
 const BLOG = projectBySlug("tech-perspectives")?.links.live;
 
@@ -78,10 +78,11 @@ function firstMatch(source: string, pattern: RegExp): string | undefined {
 /**
  * The blog's `<subtitle>`, as a heading for this site.
  *
- * jekyll-feed writes `site.description`, which signs off with the author
- * because it introduces the blog on the blog. On a first-person site whose
- * footer already names the same person, that suffix is noise, so it comes off
- * — matched against `SITE.owner` rather than a literal name.
+ * jekyll-feed writes `site.description` verbatim. That line has signed off
+ * with the author before now, which reads oddly on a first-person site whose
+ * footer already names the same person, so the suffix is taken off when it is
+ * there — matched against `SITE.owner` rather than a literal name. It is
+ * absent as of 2026-09-07, and this keeps the heading right either way.
  */
 function parseDescription(xml: string): string | undefined {
   const subtitle = firstMatch(xml, /<subtitle[^>]*>([\s\S]*?)<\/subtitle>/);

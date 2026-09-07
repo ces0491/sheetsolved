@@ -31,9 +31,18 @@ is the blog's own `description`. It used to be a sentence written here —
 "Notes on how technical work actually gets done" — which described a blog about
 process while the actual posts were about AI, languages, cloud architecture and
 R packages. A heading is a claim about the blog, so it is read like the posts
-are, and `FALLBACK_DESCRIPTION` covers only a failed fetch. jekyll-feed signs
-the subtitle off with the author; that suffix is stripped by matching
-`SITE.owner`, because this site is already first person.
+are, and `FALLBACK_DESCRIPTION` covers only a failed fetch.
+
+That the value is read rather than written here has already paid twice. The
+blog took on a short-form shelf, and its description changed from "Essays on
+AI, software and the shape of technical work" to "Writing on tech and stats."
+— which named a form the short pieces break and a subject the blog had
+deliberately not narrowed to. The hub followed within the revalidate window
+with nothing edited here. **Where this site says something about a spoke,
+prefer reading it from the spoke.**
+
+The subtitle has carried a ", by Cesaire Tobias" sign-off before now, which
+reads oddly here, so it is stripped when present by matching `SITE.owner`.
 
 **The one-hour revalidate is deliberate, and it is not a caching detail.** The
 obvious way to keep the hub current is a Vercel deploy hook called from

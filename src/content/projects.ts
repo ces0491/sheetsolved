@@ -179,12 +179,13 @@ export const PROJECTS: Project[] = [
   {
     slug: "tech-perspectives",
     name: "Tech Perspectives",
-    tagline: "Essays on AI, software and the shape of technical work.",
+    tagline: "Writing on tech and stats.",
     summary:
-      "Essays on the practice of building things: what AI assistance changes " +
-      "and what it doesn't, how computing keeps swinging between central and " +
-      "local, and the R package work those arguments get tested on — " +
-      "dependency risk, reporting, and a scoring band that did not hold.",
+      "Long pieces on what AI assistance changes and what it doesn't, how " +
+      "computing keeps swinging between central and local, and the R package " +
+      "work those arguments get tested on — dependency risk, reporting, and a " +
+      "scoring band that did not hold. Shorter pieces sit alongside them, on " +
+      "whatever turned up and was worth checking.",
     stack: ["Jekyll", "Markdown"],
     links: {
       live: "https://blog.sheetsolved.com",
