@@ -93,7 +93,7 @@ each case study, the footer's outbound links, the sitemap and the JSON-LD are
 all derived from it.
 
 **Adding a project is adding an entry, never authoring a page.** Nothing about
-a project is written down twice. Three consequences:
+a project is written down twice. What follows from that:
 
 - **Only a project with a `caseStudy` gets its own page.** `generateStaticParams`
   reads `CASE_STUDIES`. A generated page per project would give most of them a
@@ -103,8 +103,38 @@ a project is written down twice. Three consequences:
   with "3,676 matches, 1871 to 2026" because that is not the accuracy to expect
   on a modern fixture. `CaseStudyFigure.note` exists for this; a figure without
   it misleads.
+- **A project that measures itself has its figures read, not copied.** The
+  section sets `figuresFrom: "rtp-model"` and `src/lib/rtp.ts` reads
+  `rtp.sheetsolved.com/api/model` on the same one-hour window the blog feed
+  uses. Hand-copied, they had already gone stale — the page said 70.9% over
+  3,673 matches against a live 71.6% over 3,676. The prose beside each figure
+  stays in the lib, because "modern fixtures score better" is a judgement about
+  the numbers rather than one of them, and a partial payload falls back to the
+  last known set rather than rendering `NaN%`.
 - **The footer lists only projects with somewhere to send a reader**, derived
   rather than hand-listed, so a new entry appears without anyone remembering.
+
+## Metadata is per page, and Open Graph merges shallowly
+
+Two traps, both of which had already bitten:
+
+- **Every page names its own canonical.** A canonical in the root layout is
+  inherited by any page that does not override it, so `/card` declared itself
+  to be the home page. A missing canonical only fails to consolidate; a wrong
+  one points a crawler at another URL. `/`, `/built`, `/built/[slug]` and
+  `/card` each set their own.
+- **Setting `openGraph` on a page replaces the layout's object outright.**
+  Next merges metadata shallowly, so `/built` lost its `og:image`,
+  `og:site_name`, `og:type` and `og:locale` and shared into a feed with no card
+  at all. Spread `OPEN_GRAPH_BASE` from `src/lib/site.ts` and override only
+  what differs. A page that sets `openGraph` also loses the file-convention
+  image, which is why `/built` names `images: ["/opengraph-image"]` and
+  `/built/[slug]` does not — it has its own colocated route.
+
+**`sheetsolved.vercel.app` 308s to the apex**, host-matched in `next.config.ts`.
+Vercel keeps answering on a project's generated alias after a custom domain is
+attached; the alias was serving the whole site. RTP and Wood Wiz carry the same
+redirect for the same reason.
 
 ## The mark has one definition
 

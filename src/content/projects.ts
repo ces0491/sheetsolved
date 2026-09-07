@@ -29,6 +29,15 @@ export interface CaseStudySection {
   heading: string;
   body: string[];
   figures?: CaseStudyFigure[];
+  /**
+   * Where the figures come from, when the project publishes them itself.
+   *
+   * A project that measures itself is the one place a hand-copied number goes
+   * stale without anyone noticing, so the section names a source and the page
+   * reads it. The figures and their fallback live with the reader in
+   * `src/lib/rtp.ts`; nothing about them is written down here.
+   */
+  figuresFrom?: "rtp-model";
 }
 
 export interface Project {
@@ -103,28 +112,7 @@ export const PROJECTS: Project[] = [
             "what was known before it was played. That's the figure the site " +
             "publishes, and it's always reported with the period it covers.",
         ],
-        figures: [
-          {
-            label: "Winner called correctly",
-            value: "71.6%",
-            note: "3,676 matches, 1871 to 2026 — the full international record",
-          },
-          {
-            label: "Margin error",
-            value: "16.8 pts RMSE",
-            note: "same period; modern fixtures score better",
-          },
-          {
-            label: "Recent form",
-            value: "72.0%",
-            note: "90-day half-life, an effective sample of 59 matches",
-          },
-          {
-            label: "Features in the blend",
-            value: "28",
-            note: "rating gap, venue, rest, competition, form",
-          },
-        ],
+        figuresFrom: "rtp-model",
       },
       {
         heading: "The engineering that matters",

@@ -93,6 +93,21 @@ export const SITE = {
 } as const;
 
 /**
+ * The Open Graph fields every page shares.
+ *
+ * Next merges metadata **shallowly**, so a page that sets `openGraph` replaces
+ * the layout's object outright rather than adding to it. `/built` did exactly
+ * that and lost its `og:image`, `og:site_name`, `og:type` and `og:locale` — it
+ * shared into a feed with no card at all. Spread this into every page's
+ * `openGraph` and override only what differs.
+ */
+export const OPEN_GRAPH_BASE = {
+  type: "website",
+  siteName: SITE.name,
+  locale: "en_ZA",
+} as const;
+
+/**
  * What the consultancy does.
  *
  * Spreadsheet work is one entry rather than the frame around the others, and

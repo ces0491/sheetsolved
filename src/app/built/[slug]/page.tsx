@@ -3,7 +3,8 @@ import Link from "next/link";
 import { notFound } from "next/navigation";
 
 import { CASE_STUDIES, projectBySlug, STATUS_LABEL } from "@/content/projects";
-import { SITE } from "@/lib/site";
+import { rtpFigures } from "@/lib/rtp";
+import { OPEN_GRAPH_BASE, SITE } from "@/lib/site";
 import { projectJsonLd } from "@/lib/structured-data";
 
 /**
@@ -31,6 +32,7 @@ export async function generateMetadata({
     description: project.tagline,
     alternates: { canonical: `/built/${project.slug}` },
     openGraph: {
+      ...OPEN_GRAPH_BASE,
       title: `${project.name} | ${SITE.name}`,
       description: project.tagline,
       url: `/built/${project.slug}`,
@@ -44,6 +46,18 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
   if (!project?.caseStudy?.length) notFound();
 
   const { links } = project;
+
+  /*
+   * A section that names a source has its figures read at build rather than
+   * carried in the content file. Resolved up front because the render below is
+   * synchronous, and `Promise.all` over one awaited fetch costs nothing.
+   */
+  const sections = await Promise.all(
+    project.caseStudy.map(async (section) => ({
+      ...section,
+      figures: section.figuresFrom === "rtp-model" ? await rtpFigures() : section.figures,
+    })),
+  );
 
   return (
     <article>
@@ -119,7 +133,7 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
       </header>
 
       <div className="mx-auto max-w-3xl px-6 py-16 sm:px-8 sm:py-20">
-        {project.caseStudy.map((section, index) => (
+        {sections.map((section, index) => (
           <section key={section.heading} className="reveal mt-16 first:mt-0">
             <p className="font-mono text-xs uppercase tracking-[0.18em] text-accent">
               {String(index + 1).padStart(2, "0")}

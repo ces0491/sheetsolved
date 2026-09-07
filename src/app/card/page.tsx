@@ -22,6 +22,9 @@ export const metadata: Metadata = {
   title: "Contact card",
   description: `Save ${SITE.owner}'s contact details.`,
   robots: { index: false, follow: true },
+  // Noindex does not excuse a wrong canonical: inheriting the layout's, this
+  // page told crawlers it was the home page.
+  alternates: { canonical: "/card" },
 };
 
 const VCARD_URL = `${SITE_URL}/contact.vcf`;

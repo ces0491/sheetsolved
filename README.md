@@ -18,8 +18,8 @@ content — which is the layer the whole effort operates at.
 index, each case study, the footer's outbound links, the sitemap, the JSON-LD
 and the Open Graph cards are all derived from it.
 
-**Adding a project is adding an entry, never authoring a page.** Three
-consequences worth knowing before you edit it:
+**Adding a project is adding an entry, never authoring a page.** What follows
+from that, before you edit it:
 
 - **Only a project with a `caseStudy` gets a page of its own.**
   `generateStaticParams` reads `CASE_STUDIES`. A generated page per project
@@ -29,8 +29,29 @@ consequences worth knowing before you edit it:
   published with "3,676 matches, 1871 to 2026", because that is not the
   accuracy to expect on a modern fixture. `CaseStudyFigure.note` exists for
   this, and a figure without one misleads.
+- **A project that measures itself has its figures read, not copied.** The
+  section sets `figuresFrom: "rtp-model"` and `src/lib/rtp.ts` reads
+  `rtp.sheetsolved.com/api/model` at build, on the same one-hour window the
+  blog feed uses. Written down here they had already gone stale, by six points
+  on one of them.
 - **The footer lists only projects with somewhere to send a reader**, derived
   rather than hand-listed, so a new entry appears without anyone remembering.
+
+## Metadata is per page
+
+Every page names its own canonical. In the root layout it is inherited by any
+page that does not override it, which had `/card` declaring itself the home
+page — a missing canonical only fails to consolidate, a wrong one points a
+crawler elsewhere.
+
+Next merges metadata shallowly, so a page setting `openGraph` replaces the
+layout's object rather than extending it. `/built` lost its `og:image`,
+`og:site_name`, `og:type` and `og:locale` that way and shared with no card at
+all. Spread `OPEN_GRAPH_BASE` from `src/lib/site.ts` and override what differs.
+
+`sheetsolved.vercel.app` 308s to the apex, host-matched in `next.config.ts`:
+Vercel goes on answering on a project's generated alias after a custom domain
+is attached, and it was serving the whole site.
 
 ## The mark has one definition
 

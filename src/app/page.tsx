@@ -1,9 +1,27 @@
+import type { Metadata } from "next";
 import Link from "next/link";
 
 import { ProjectCard } from "@/components/project-card";
 import { PROJECTS } from "@/content/projects";
 import { SERVICES, SITE } from "@/lib/site";
 import { BLOG_URL, readWriting } from "@/lib/writing";
+
+/**
+ * The home page's own identity.
+ *
+ * The canonical used to sit in the root layout, where every page inherited it
+ * — so `/card`, which sets no canonical of its own, declared itself to be the
+ * home page. A missing canonical only fails to consolidate; a wrong one points
+ * a crawler at the wrong URL, so each page names its own and a new page that
+ * forgets gets none rather than this one's.
+ *
+ * Only `alternates` and the OG url: the title, description and the rest of the
+ * card are the layout's and are inherited, and `openGraph` here would replace
+ * that object rather than extend it.
+ */
+export const metadata: Metadata = {
+  alternates: { canonical: "/" },
+};
 
 /**
  * The eyebrow above a section heading.

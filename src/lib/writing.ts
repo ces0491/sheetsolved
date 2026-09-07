@@ -88,8 +88,11 @@ function parseDescription(xml: string): string | undefined {
   const subtitle = firstMatch(xml, /<subtitle[^>]*>([\s\S]*?)<\/subtitle>/);
   if (!subtitle) return undefined;
 
+  // Escaped because it is interpolated into a pattern: a name carrying a `.`
+  // or a bracket is a name, not a metacharacter.
+  const owner = SITE.owner.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
   const text = plain(subtitle)
-    .replace(new RegExp(`,?\\s*by\\s+${SITE.owner}\\s*\\.?\\s*$`, "i"), "")
+    .replace(new RegExp(`,?\\s*by\\s+${owner}\\s*\\.?\\s*$`, "i"), "")
     .trim();
 
   if (!text) return undefined;

@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 
 import { ProjectCard } from "@/components/project-card";
 import { ORDERED_PROJECTS } from "@/content/projects";
-import { SITE } from "@/lib/site";
+import { OPEN_GRAPH_BASE, SITE } from "@/lib/site";
 import { portfolioJsonLd } from "@/lib/structured-data";
 
 export const metadata: Metadata = {
@@ -12,6 +12,14 @@ export const metadata: Metadata = {
     "engine, an R package on CRAN, a book on data science infrastructure, and more.",
   alternates: { canonical: "/built" },
   openGraph: {
+    ...OPEN_GRAPH_BASE,
+    /*
+     * Named because setting `openGraph` at all drops the site card the root
+     * `opengraph-image` route would otherwise supply — the page shared with no
+     * image until this line. `/built/[slug]` needs no equivalent: it has its
+     * own colocated image route.
+     */
+    images: ["/opengraph-image"],
     title: `Built | ${SITE.name}`,
     description:
       "Software, packages and writing built by Sheet Solved, from a forecasting " +

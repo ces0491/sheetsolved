@@ -8,7 +8,7 @@ import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { PALETTE } from "@/lib/brand";
 import { organisationJsonLd, personJsonLd } from "@/lib/structured-data";
-import { SITE, SITE_URL } from "@/lib/site";
+import { OPEN_GRAPH_BASE, SITE, SITE_URL } from "@/lib/site";
 
 import "./globals.css";
 
@@ -32,19 +32,15 @@ export const metadata: Metadata = {
    */
   appleWebApp: { capable: false, title: SITE.name },
   openGraph: {
-    type: "website",
-    siteName: SITE.name,
+    ...OPEN_GRAPH_BASE,
     title: `${SITE.name} — ${SITE.strapline}`,
     description: SITE.description,
-    url: "/",
-    locale: "en_ZA",
   },
   twitter: {
     card: "summary_large_image",
     title: `${SITE.name} — ${SITE.strapline}`,
     description: SITE.description,
   },
-  alternates: { canonical: "/" },
 };
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
