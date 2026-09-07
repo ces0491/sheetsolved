@@ -87,7 +87,7 @@ export function SiteFooter() {
               </li>
               <li>
                 <Link href="/built" className="underline-grow text-muted hover:text-foreground">
-                  What I have built
+                  What I&apos;ve built
                 </Link>
               </li>
               <li>

@@ -122,6 +122,6 @@ export const SERVICES = [
   },
   {
     title: "Technical leadership",
-    body: "Standing in as the technical lead a small team does not have: architecture, review, and the pipeline that enforces both.",
+    body: "Standing in as the technical lead a small team doesn't have: architecture, review, and the pipeline that enforces both.",
   },
 ] as const;

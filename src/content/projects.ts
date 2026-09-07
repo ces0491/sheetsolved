@@ -68,7 +68,7 @@ export const PROJECTS: Project[] = [
         heading: "The problem with a published forecast",
         body: [
           "Anyone can publish a percentage. Far fewer publish how often their " +
-            "percentages have been right, what the model cannot see, or what " +
+            "percentages have been right, what the model can't see, or what " +
             "changed between yesterday's number and today's.",
           "RTP was built the other way round. Every figure it shows traces back " +
             "to a measurement, and the measurements sit on the site beside the " +
@@ -81,7 +81,7 @@ export const PROJECTS: Project[] = [
           "Match results are ingested from a public feed into a database holding " +
             "every senior men's international on record, back to 1871. Glicko-2 " +
             "ratings are computed from that history point-in-time, so a rating " +
-            "never sees a result that had not yet happened.",
+            "never sees a result that hadn't yet happened.",
           "Club rugby is rated the same way from its own record — the United " +
             "Rugby Championship, the Premiership, the Top 14 and the two " +
             "European cups, back to 2015. The two scales have no bridge between " +
@@ -100,8 +100,8 @@ export const PROJECTS: Project[] = [
         body: [
           "The model is scored by walk-forward backtest: re-rate the whole " +
             "history one match at a time, and predict each fixture using only " +
-            "what was known before it was played. That is the figure the site " +
-            "publishes, and it is always reported with the period it covers.",
+            "what was known before it was played. That's the figure the site " +
+            "publishes, and it's always reported with the period it covers.",
         ],
         figures: [
           {
@@ -182,7 +182,7 @@ export const PROJECTS: Project[] = [
     tagline: "Writing on tooling, AI, and how technical work actually gets done.",
     summary:
       "Essays on the practice of building things — what AI assistance changes " +
-      "and what it does not, how tooling fashions cycle, and where engineering " +
+      "and what it doesn't, how tooling fashions cycle, and where engineering " +
       "judgement still has to come from a person.",
     stack: ["Jekyll", "Markdown"],
     links: {
@@ -204,7 +204,7 @@ export const PROJECTS: Project[] = [
       "Town's bulk price is lower mostly for being nearer the source, which is " +
       "no use to somebody buying in Johannesburg. Ten storefronts across " +
       "Shopify, WooCommerce and Wix are scraped daily into a JSON file the " +
-      "site reads directly, so there is no database to run.",
+      "site reads directly, so there's no database to run.",
     stack: ["Next.js", "TypeScript", "Cheerio", "Zod", "Vercel"],
     links: {
       live: "https://woodwiz.sheetsolved.com",
@@ -218,7 +218,7 @@ export const PROJECTS: Project[] = [
     name: "cranExploreR",
     tagline: "Whether a CRAN package is safe to depend on.",
     summary:
-      "Choosing a dependency is a decision that is cheap to make and expensive " +
+      "Choosing a dependency is a decision that's cheap to make and expensive " +
       "to undo: a package that loses its maintainer becomes a liability years " +
       "after it was added. cranExploreR reads CRAN's own APIs for download " +
       "history, release timeline, reverse dependencies and maintenance " +

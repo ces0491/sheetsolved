@@ -87,7 +87,7 @@ export default async function Home() {
                 href="/built"
                 className="rounded-full border border-border-strong px-6 py-3 font-medium transition-colors hover:border-accent hover:bg-tint hover:text-accent"
               >
-                See what I have built
+                See what I&apos;ve built
               </Link>
             </div>
           </div>
@@ -99,7 +99,7 @@ export default async function Home() {
           <div>
             <SectionLabel>Approach</SectionLabel>
             <h2 className="mt-4 text-pretty text-3xl font-semibold tracking-tight sm:text-4xl">
-              Complex should not mean complicated.
+              Complex shouldn&apos;t mean complicated.
             </h2>
           </div>
           <div className="max-w-2xl space-y-6 text-pretty text-lg leading-relaxed sm:text-xl">
@@ -108,7 +108,7 @@ export default async function Home() {
               you use every day should still be simple to run and safe to change.
             </p>
             <p className="text-muted">
-              Most of what I am asked to fix was built once, quickly, for a situation that has since
+              Most of what I&apos;m asked to fix was built once, quickly, for a situation that has since
               changed, and then relied on for years afterwards. The work is usually about making the
               logic explicit enough that somebody other than its author can change it without
               breaking it.
@@ -122,7 +122,7 @@ export default async function Home() {
           <div className="reveal">
             <SectionLabel>Services</SectionLabel>
             <h2 className="mt-4 max-w-2xl text-pretty text-3xl font-semibold tracking-tight sm:text-4xl">
-              What I am usually brought in to do.
+              What I&apos;m usually brought in to do.
             </h2>
           </div>
 
@@ -182,8 +182,8 @@ export default async function Home() {
               </p>
               <p className="rounded-xl border-l-2 border-accent bg-tint px-5 py-4 text-muted">
                 The name is where this started. A spreadsheet is usually the first place a business
-                writes its real logic down, so it is still where a good number of engagements begin.
-                It is no longer where most of them end.
+                writes its real logic down, so it&apos;s still where a good number of engagements begin.
+                It&apos;s no longer where most of them end.
               </p>
             </div>
           </div>
@@ -276,11 +276,11 @@ export default async function Home() {
             <div className="max-w-2xl">
               <SectionLabel>Contact</SectionLabel>
               <h2 className="mt-4 text-pretty text-3xl font-semibold tracking-tight sm:text-4xl">
-                Tell me what is not working.
+                Tell me what&apos;s not working.
               </h2>
               <p className="mt-5 text-pretty leading-relaxed text-muted">
                 A process that costs too much attention, a number nobody can trace, a model that has
-                outgrown where it lives. I will tell you what I would do about it before you have to
+                outgrown where it lives. I&apos;ll tell you what I&apos;d do about it before you have to
                 commit to anything.
               </p>
 

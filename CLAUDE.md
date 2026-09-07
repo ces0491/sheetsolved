@@ -281,6 +281,15 @@ This has already gone wrong once: a commit landed on tidylearn's
   forecast accuracy was built and then removed for that reason. Figures belong
   in a case study, where `CaseStudyFigure.note` forces each one to carry its
   scope and the reader has the context to judge it.
+- **Contractions.** "Tell me what's not working", not "what is not working" —
+  the uncontracted forms read stiffer than the register the rest of the site
+  holds. Keep the full form only where it carries emphasis.
+- **A contraction in JSX has to be `&apos;`.** `react/no-unescaped-entities`
+  fails `npm run lint` on a bare `'` in markup, and the lint script is the CI
+  gate. React serves it as `&#x27;`, which renders as a normal apostrophe.
+  Strings in `src/content` and `src/lib` are ordinary TypeScript and need no
+  escaping. Do not reach for a curly `’` to dodge the rule — everything else on
+  the site renders a straight apostrophe.
 
 ## The site is not a spreadsheet consultancy
 
