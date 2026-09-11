@@ -165,6 +165,26 @@ export const PROJECTS: Project[] = [
     featured: true,
   },
   {
+    slug: "tokenwise",
+    name: "tokenwise",
+    tagline: "Which Claude Code model and effort level a piece of work needs.",
+    summary:
+      "A Claude Code plugin that recommends a model and effort level for each " +
+      "phase of work: the exact commands to type, what the cheaper choice " +
+      "gives up, and the failure that should send you up a tier. The routing " +
+      "table behind it is checked against a benchmark whose graders and pass " +
+      "marks were fixed before the results were read, and half of its original " +
+      "claims did not survive. It measures its own price as well, so it says " +
+      "how small a task has to be before asking costs more than it saves.",
+    stack: ["Claude Code", "Node.js"],
+    links: {
+      docs: "https://github.com/ces0491/tokenwise/blob/main/docs/guide.md",
+      source: "https://github.com/ces0491/tokenwise",
+    },
+    status: "released",
+    featured: true,
+  },
+  {
     slug: "tech-perspectives",
     name: "Tech Perspectives",
     tagline: "Writing on tech and stats.",
