@@ -227,7 +227,7 @@ export default async function Home() {
             running, published, or both, and each shows the method as well as the result.
           </p>
 
-          <div className="reveal mt-12 grid gap-6 md:grid-cols-3">
+          <div className="reveal mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-4">
             {featured.map((project) => (
               <ProjectCard key={project.slug} project={project} />
             ))}
