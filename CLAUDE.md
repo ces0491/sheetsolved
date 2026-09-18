@@ -41,6 +41,12 @@ deliberately not narrowed to. The hub followed within the revalidate window
 with nothing edited here. **Where this site says something about a spoke,
 prefer reading it from the spoke.**
 
+The shelf has since been retired, and the description is now "Ces's random
+twalks on tech and stats." The heading followed on its own again. The blog's
+`tagline` in `src/content/projects.ts` did not: it's a hand-kept copy of the
+same line, shown on `/built`, and has to be edited when the description
+changes.
+
 The subtitle has carried a ", by Cesaire Tobias" sign-off before now, which
 reads oddly here, so it is stripped when present by matching `SITE.owner`.
 

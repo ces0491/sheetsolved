@@ -187,7 +187,7 @@ export const PROJECTS: Project[] = [
   {
     slug: "tech-perspectives",
     name: "Tech Perspectives",
-    tagline: "Writing on tech and stats.",
+    tagline: "Ces's random twalks on tech and stats.",
     summary:
       "Long pieces on what AI assistance changes and what it doesn't, how " +
       "computing keeps swinging between central and local, and the R package " +

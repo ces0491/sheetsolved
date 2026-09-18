@@ -37,7 +37,7 @@ export interface Writing {
  * `description` changes — which is why the feed's value wins whenever there
  * is one.
  */
-const FALLBACK_DESCRIPTION = "Writing on tech and stats.";
+const FALLBACK_DESCRIPTION = "Ces's random twalks on tech and stats.";
 
 const BLOG = projectBySlug("tech-perspectives")?.links.live;
 
