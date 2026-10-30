@@ -13,7 +13,7 @@ import { ADDRESS, OWNER_NAME, SITE, SITE_URL } from "@/lib/site";
  * The four characters a vCard value cannot carry literally. The backslash is
  * replaced first, or it escapes the escapes added after it.
  */
-function escape(value: string): string {
+export function escape(value: string): string {
   return value
     .replace(/\\/g, "\\\\")
     .replace(/\n/g, "\\n")
@@ -22,17 +22,31 @@ function escape(value: string): string {
 }
 
 /**
- * Fold at 75 characters, per RFC 2426, continuation lines beginning with a
- * space. Long lines survive most parsers, but the description is comfortably
- * over the limit and there is no reason to find out which parser does not.
+ * Fold at 75 octets, per RFC 2426, continuation lines beginning with a space.
+ * Long lines survive most parsers, but the description is comfortably over the
+ * limit and there is no reason to find out which parser does not.
+ *
+ * Octets rather than characters because the description carries an em dash,
+ * which is three of them. Walking by code point means a fold can't land inside
+ * one.
  */
-function fold(line: string): string {
-  if (line.length <= 75) return line;
+export function fold(line: string): string {
+  const folded: string[] = [];
+  let current = "";
+  let octets = 0;
 
-  const folded = [line.slice(0, 75)];
-  for (let rest = line.slice(75); rest.length > 0; rest = rest.slice(74)) {
-    folded.push(` ${rest.slice(0, 74)}`);
+  for (const character of line) {
+    const size = Buffer.byteLength(character);
+    if (octets + size > 75) {
+      folded.push(current);
+      current = " ";
+      octets = 1;
+    }
+    current += character;
+    octets += size;
   }
+
+  folded.push(current);
   return folded.join("\r\n");
 }
 
