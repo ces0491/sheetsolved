@@ -57,7 +57,7 @@ export default function CardPage() {
         </p>
 
         <div
-          className="mx-auto mt-8 w-full max-w-[15rem] rounded-xl bg-white p-4"
+          className="mx-auto mt-8 w-full max-w-60 rounded-xl bg-white p-4"
           role="img"
           aria-label={`QR code linking to the contact card for ${SITE.owner}`}
           dangerouslySetInnerHTML={{ __html: QR_SVG }}
