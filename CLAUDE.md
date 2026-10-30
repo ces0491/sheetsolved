@@ -11,7 +11,8 @@ serve the apex — see "The apex has moved" below before touching DNS.
 - **Stack**: Next.js 16 (App Router), React 19, Tailwind 4, TypeScript, static
 - **Repo**: `github.com/ces0491/sheetsolved` (public)
 - **Vercel**: `vercel.com/cesaires-projects/sheetsolved`
-- **No client JS beyond Vercel Web Analytics and Speed Insights.** Every page
+- **No client components.** Nothing in `src` is `"use client"`, so the browser
+  gets Next's runtime plus Vercel Web Analytics and Speed Insights. Every page
   is static or SSG. The home page carries a one-hour `revalidate` because it
   reads the blog's feed; Next still reports it as Static, prerendered and
   served from cache
@@ -72,17 +73,29 @@ Two other things there are load-bearing:
 ## Quality gates
 
 ```bash
-npm run lint     # eslint, must be zero warnings as well as zero errors
-npm run build    # type check runs inside this
+npm run lint           # eslint, must be zero warnings as well as zero errors
+npm run format:check   # prettier
+npm test               # vitest
+npm run build          # type check runs inside this
 ```
 
-`.github/workflows/ci.yml` runs both on every push and pull request to `main`,
-on Node 24 to match the Vercel runtime. The zero-warning threshold is in the
-`lint` script itself rather than in the workflow, so running it locally
+`.github/workflows/ci.yml` runs all four on every push and pull request to
+`main`, on Node 24 to match the Vercel runtime. The zero-warning threshold is in
+the `lint` script itself rather than in the workflow, so running it locally
 enforces exactly what CI enforces — a workflow that passed `--max-warnings 0`
 of its own would fail pushes that `npm run lint` had just called clean.
 
-There is still **no test suite**.
+**The tests cover the pure functions in `src/lib`**, and the parsers and the
+RTP panel are exported for that reason. They can't tell you a hand-written claim
+about a spoke has gone stale, which is the failure below.
+
+`.prettierrc` sets `endOfLine: auto` because `core.autocrlf` checks files out
+with CRLF here. Without it `format:check` fails on files that are fine.
+
+**Change dependencies from Linux.** `npm i` on this machine prunes the Linux-only
+optional packages CI needs, and the failure doesn't show locally. Docker is
+available: run the install in a `node:24` container against a copy of
+`package.json` and the lockfile, then copy the lockfile back.
 
 ## Why a repo rather than a page
 
@@ -105,18 +118,32 @@ a project is written down twice. What follows from that:
   reads `CASE_STUDIES`. A generated page per project would give most of them a
   heading and a paragraph already shown on the index — a thin page competing
   with a better one for the same query.
-- **Every figure in a case study carries its scope.** RTP's `71.6%` is published
-  with "3,676 matches, 1871 to 2026" because that is not the accuracy to expect
-  on a modern fixture. `CaseStudyFigure.note` exists for this; a figure without
-  it misleads.
+- **Every figure in a case study carries its scope.** A percentage measured over
+  a century and a half of mostly tier-two fixtures isn't the accuracy to expect
+  on a modern Test. `CaseStudyFigure.note` exists for this; a figure without it
+  misleads. Don't quote RTP's figures in this file or the README: they're read
+  because they move.
 - **A project that measures itself has its figures read, not copied.** The
   section sets `figuresFrom: "rtp-model"` and `src/lib/rtp.ts` reads
   `rtp.sheetsolved.com/api/model` on the same one-hour window the blog feed
-  uses. Hand-copied, they had already gone stale — the page said 70.9% over
-  3,673 matches against a live 71.6% over 3,676. The prose beside each figure
-  stays in the lib, because "modern fixtures score better" is a judgement about
-  the numbers rather than one of them, and a partial payload falls back to the
-  last known set rather than rendering `NaN%`.
+  uses. A partial payload logs and falls back to a dated last known set rather
+  than rendering `NaN%`.
+- **RTP scores two things, and the panel keeps them apart.** The backtest scores
+  the rating engine alone over the whole record; the holdout scores the blended
+  forecast RTP publishes. `/api/model` says so in its own `note`.
+- **Prose beside a read figure goes stale like a copied number.** Between
+  2026-09-07 and 2026-10-30 the figures stayed right while the prose around them
+  drifted: the feature note named venue and competition after both had been
+  pruned, "modern fixtures score better" stopped holding for margin error once
+  the record more than doubled, and the fallback still called 3,676 matches the
+  full record. So the feature groups are derived from `model.features`, and a
+  note says what a figure covers rather than what to make of it.
+- **Counts about a spoke stay out of its entry.** Wood Wiz's summary said ten
+  storefronts, and compared Cape Town with Johannesburg, for weeks after it had
+  dropped to eight Cape Town vendors. RTP's listed five club competitions when it
+  rated eight. Describe the project and leave the number to its own site.
+- **`kind` decides the JSON-LD type.** It used to follow `links.live`, which made
+  a book and a blog `SoftwareApplication`s.
 - **The footer lists only projects with somewhere to send a reader**, derived
   rather than hand-listed, so a new entry appears without anyone remembering.
 
@@ -206,7 +233,7 @@ NameDrop shares a name and one phone number or email rather than a website.
   wants semicolon-separated components; all three assemble from one definition.
   `SITE.owner` and `SITE.location` are built from them rather than written
   again, so do not reintroduce a literal for either.
-- **vCard 3.0, CRLF line endings, folded at 75 characters.** All three are what
+- **vCard 3.0, CRLF line endings, folded at 75 octets.** All three are what
   the spec asks for, and the escaping in `escape()` has to run the backslash
   rule first or it escapes its own escapes.
 - **The disposition is `inline`, not `attachment`.** iOS Safari previews an
@@ -227,9 +254,9 @@ GoDaddy Website Builder site is gone. DNS is still managed at GoDaddy.
   `sheetsolved-com.mail.protection.outlook.com`, and moving a website never
   required changing them. That is how somebody breaks their own email.
 - **`NEXT_PUBLIC_SITE_URL` is the only knob.** `src/lib/site.ts` reads it first;
-  the sitemap, robots policy, canonical URLs and structured data all follow. It
-  must be set to `https://sheetsolved.com` on Vercel production, or the sitemap
-  publishes `localhost`.
+  the sitemap, robots policy, canonical URLs and structured data all follow.
+  Unset on a production deployment it falls back to `https://sheetsolved.com`,
+  and a preview advertises its own hostname.
 - **Verify DNS from a public resolver, not from this machine.** `nslookup` asks
   a DNS server and `curl` reads the Windows DNS client cache, so the two can
   disagree for ten minutes after a change and both be right. Query with
@@ -300,9 +327,9 @@ Two things about the arrangement:
   render "Loading" now serve their content and their own titles in the
   document.
 - **tidylearn's CRAN listing is the most valuable single asset.**
-  `cran.r-project.org` is mirrored worldwide. The published listing is 0.5.0
-  from 2026-09-02, and its `URL:` now names `tidylearn.sheetsolved.com`
-  alongside the GitHub repo, so the mirrored inbound link is live. A `URL:`
+  `cran.r-project.org` is mirrored worldwide. The published listing is 0.6.0
+  from 2026-10-08, and its `URL:` names `tidylearn.sheetsolved.com` alongside
+  the GitHub repo, so the mirrored inbound link is live. A `URL:`
   change only reaches the listing with a release, so check the live listing
   rather than `DESCRIPTION` on `main` before describing one as done.
 

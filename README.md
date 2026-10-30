@@ -1,9 +1,10 @@
 # Sheet Solved
 
 The consultancy site for [Sheet Solved](https://sheetsolved.com), and the hub of
-a six-property discoverability effort. Static Next.js, and no client
-JavaScript beyond Vercel Web Analytics and Speed Insights — both served from
-this origin, so the page still requests nothing from a third-party host.
+a six-property discoverability effort. Static Next.js with no client
+components of its own: the browser gets Next's runtime plus Vercel Web
+Analytics and Speed Insights, all served from this origin, so the page requests
+nothing from a third-party host.
 
 ## Why a repo rather than a page
 
@@ -25,15 +26,19 @@ from that, before you edit it:
   `generateStaticParams` reads `CASE_STUDIES`. A generated page per project
   would give most of them a heading and a paragraph already shown on the index
   — a thin page competing with a better one for the same query.
-- **Every figure in a case study carries its scope.** RTP's `71.6%` is
-  published with "3,676 matches, 1871 to 2026", because that is not the
-  accuracy to expect on a modern fixture. `CaseStudyFigure.note` exists for
-  this, and a figure without one misleads.
+- **Every figure in a case study carries its scope.** A percentage measured
+  over a century and a half of mostly tier-two fixtures isn't the accuracy to
+  expect on a modern Test. `CaseStudyFigure.note` exists for this, and a figure
+  without one misleads.
 - **A project that measures itself has its figures read, not copied.** The
   section sets `figuresFrom: "rtp-model"` and `src/lib/rtp.ts` reads
   `rtp.sheetsolved.com/api/model` at build, on the same one-hour window the
-  blog feed uses. Written down here they had already gone stale, by six points
-  on one of them.
+  blog feed uses. RTP scores its rating engine and its published forecast
+  separately, so the panel reads both and labels them apart. The feature list
+  is read too, and the notes state what a figure covers.
+- **Counts about a spoke stay out of its entry.** A vendor count or a list of
+  competitions goes stale without anything here noticing, so a summary describes
+  the project and leaves the number to the project's own site.
 - **The footer lists only projects with somewhere to send a reader**, derived
   rather than hand-listed, so a new entry appears without anyone remembering.
 
@@ -78,17 +83,17 @@ that points at it — the thing to hold up when someone asks for your details.
   An inverted QR is read by some scanners and not others.
 - **`/card` is not indexed and not in the sitemap.** It is a tool rather than a
   page, and its content is contact detail the home page already carries.
-- **The name and the address live in `SITE` in parts**, because the footer
-  wants a sentence, the JSON-LD wants `PostalAddress` fields and a vCard wants
-  semicolon-separated components. Assembling three shapes from one definition
-  beats writing the address down three times.
+- **The name and the address live in `OWNER_NAME` and `ADDRESS` in parts**,
+  because the footer wants a sentence, the JSON-LD wants `PostalAddress` fields
+  and a vCard wants semicolon-separated components. Assembling three shapes from
+  one definition beats writing the address down three times.
 
 ## What the site says it does
 
-The name is where the practice started, not the size of it. The copy is written
-so a reader leaves knowing this builds data and software systems — pipelines,
-models, applications, dashboards — with spreadsheet work as one service among
-several rather than the frame around the others.
+The name is where the practice started. The copy is written so a reader leaves
+knowing this builds data and software systems — pipelines, models, applications,
+dashboards — with spreadsheet work as one service among several rather than the
+frame around the others.
 
 Two things carry that and are easy to undo by accident:
 
@@ -97,14 +102,14 @@ Two things carry that and are easy to undo by accident:
   `ProfessionalService` description in the JSON-LD. Narrowing it back to
   spreadsheets narrows all three at once.
 - **The origin is explained once, in the Practice section, and nowhere else.**
-  Repeating it in the hero, the services and the experience copy is what made
-  the previous version read as a spreadsheet consultancy that also did other
-  things.
+  Repeating it in the hero, the services and the experience copy makes the site
+  read as a spreadsheet consultancy that also does other things.
 
 `SITE.tagline` continues the name's own construction — "Sheet Solved",
 "Complexity, Solved." — so the name reads as the first of a pattern. It is also
-the Open Graph card's headline, which is why it is one string rather than two: the home page splits it at its own comma to
-colour the second half, and the card cannot end up saying something different.
+the Open Graph card's headline, which is why it is one string rather than two:
+the home page splits it at its own comma to colour the second half, and the card
+cannot end up saying something different.
 
 ## The look is CSS, not components
 
@@ -127,28 +132,30 @@ so it lives in `src/app/globals.css` as tokens and four small conventions.
   from `opacity: 0`, leaves a scroll timeline sitting at 0% for everything
   below the fold — so a print render, a crawler taking a screenshot, or a
   reader landing on an anchor gets a page of blank bands. On a site whose whole
-  point is being found, that is not a trade worth making for a fade. This was
-  caught by screenshotting the built page, not by reading the CSS.
+  point is being found, that is not a trade worth making for a fade.
 
-**Screenshot before adopting a visual change**, in both colour schemes. The
-repo already learned this from the mark; it applies to the page too.
+**Screenshot before adopting a visual change**, in both colour schemes.
 
 ## Running it
 
 ```bash
-npm install
+npm ci
 npm run dev      # http://localhost:3000
 ```
 
 ## Quality gates
 
 ```bash
-npm run lint     # eslint; the --max-warnings 0 lives in the script, not in CI
-npm run build    # type check runs inside this
+npm run lint           # eslint; the --max-warnings 0 lives in the script, not in CI
+npm run format:check   # prettier
+npm test               # vitest
+npm run build          # type check runs inside this
 ```
 
-`.github/workflows/ci.yml` runs both on every push and pull request to `main`,
-on Node 24 to match the deployment runtime. There is no test suite.
+`.github/workflows/ci.yml` runs all four on every push and pull request to
+`main`, on Node 24 to match the deployment runtime. The tests cover the pure
+functions in `src/lib`: the feed parser, the vCard, the RTP figures and the
+structured data.
 
 ## Configuration
 
@@ -166,7 +173,7 @@ own subdomain.
 | | subdomain | repo |
 | --- | --- | --- |
 | Hub | `sheetsolved.com` | [sheetsolved](https://github.com/ces0491/sheetsolved) |
-| RTP | `rtp.` | [rugby-tournament-predictor](https://github.com/ces0491/rugby-tournament-predictor) |
+| RTP | `rtp.` | `rugby-tournament-predictor` (private) |
 | Wood Wiz | `woodwiz.` | [wood-wiz](https://github.com/ces0491/wood-wiz) |
 | tidylearn | `tidylearn.` | [tidylearn](https://github.com/ces0491/tidylearn) |
 | Ready Before Run | `rbr.` | [rbr](https://github.com/ces0491/rbr) |
