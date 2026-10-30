@@ -46,24 +46,35 @@ export function personJsonLd() {
 }
 
 /**
+ * A project's type follows what it is, read from `kind`. Having a running site
+ * doesn't make a book or a blog an application, and claiming otherwise is the
+ * kind of overreach that gets structured data ignored.
+ */
+const SCHEMA_TYPE: Record<Project["kind"], string> = {
+  application: "SoftwareApplication",
+  package: "SoftwareSourceCode",
+  book: "Book",
+  blog: "Blog",
+};
+
+/**
  * One entry per project.
  *
- * `SoftwareSourceCode` rather than `SoftwareApplication` for anything without
- * a running instance: a package and a book are not applications, and claiming
- * otherwise is the kind of overreach that gets structured data ignored.
+ * `stack` is published as `keywords` because it mixes languages, libraries and
+ * hosts, and only a few of its entries would be true of `programmingLanguage`.
  */
 export function projectJsonLd(project: Project) {
   const url = project.links.live ?? project.links.docs ?? project.links.source;
   return {
     "@context": "https://schema.org",
-    "@type": project.links.live ? "SoftwareApplication" : "SoftwareSourceCode",
+    "@type": SCHEMA_TYPE[project.kind],
     name: project.name,
     description: project.summary,
     url,
-    ...(project.links.live ? { applicationCategory: "BusinessApplication" } : {}),
-    programmingLanguage: project.stack,
+    ...(project.category ? { applicationCategory: project.category } : {}),
+    keywords: project.stack.join(", "),
     author: { "@id": `${SITE_URL}/#person` },
-    isPartOf: { "@id": `${SITE_URL}/#organisation` },
+    publisher: { "@id": `${SITE_URL}/#organisation` },
   };
 }
 

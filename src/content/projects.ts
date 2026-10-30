@@ -47,6 +47,10 @@ export interface Project {
   tagline: string;
   /** A paragraph, read on the project page. */
   summary: string;
+  /** What it is, which decides how the structured data describes it. */
+  kind: "application" | "package" | "book" | "blog";
+  /** Schema.org's `applicationCategory`, for an `application`. */
+  category?: "SportsApplication" | "ShoppingApplication" | "DeveloperApplication";
   stack: string[];
   links: ProjectLinks;
   /** `live` is running and maintained, `released` has shipped, `ongoing` is still moving. */
@@ -64,10 +68,12 @@ export const PROJECTS: Project[] = [
     tagline: "A Monte Carlo forecasting engine for rugby tournaments, refreshed daily.",
     summary:
       "A rating engine, a simulator and a web application that forecasts rugby " +
-      "tournaments and publishes how well it has actually done. Ratings are " +
-      "Glicko-2, computed from every match on record. Tournaments are simulated " +
-      "five thousand times. The whole pipeline runs unattended each morning and " +
-      "records what each run changed.",
+      "tournaments and publishes how well it has done. Ratings are Glicko-2, " +
+      "computed from the match record. Tournaments are simulated five thousand " +
+      "times. The whole pipeline runs unattended each morning and records what " +
+      "each run changed.",
+    kind: "application",
+    category: "SportsApplication",
     stack: ["Python", "Glicko-2", "XGBoost", "SQLite", "Next.js", "TypeScript", "Vercel"],
     links: { live: "https://rtp.sheetsolved.com" },
     status: "live",
@@ -76,54 +82,54 @@ export const PROJECTS: Project[] = [
       {
         heading: "The problem with a published forecast",
         body: [
-          "Anyone can publish a percentage. Far fewer publish how often their " +
-            "percentages have been right, what the model can't see, or what " +
-            "changed between yesterday's number and today's.",
-          "RTP was built the other way round. Every figure it shows traces back " +
-            "to a measurement, and the measurements sit on the site beside the " +
-            "forecasts rather than in a footnote nobody reaches.",
+          "A forecast percentage says little without a record behind it: how " +
+            "often past percentages were right, what the model can't see, and " +
+            "what changed between yesterday's number and today's.",
+          "RTP publishes that record. Its figures trace back to measurements, " +
+            "and the measurements sit on the site beside the forecasts.",
         ],
       },
       {
         heading: "How it works",
         body: [
-          "Match results are ingested from a public feed into a database holding " +
-            "every senior men's international on record, back to 1871. Glicko-2 " +
-            "ratings are computed from that history point-in-time, so a rating " +
-            "never sees a result that hadn't yet happened.",
-          "Club rugby is rated the same way from its own record — the United " +
-            "Rugby Championship, the Premiership, the Top 14 and the two " +
-            "European cups, back to 2015. The two scales have no bridge between " +
-            "them, because the populations have never played each other, and a " +
-            "club rating is meaningless held against an international one.",
+          "Match results are ingested from public feeds into a database of " +
+            "senior men's internationals going back to 1871. Glicko-2 ratings " +
+            "are computed from that history point-in-time, so a rating never " +
+            "sees a result that hadn't yet happened.",
+          "Club rugby is rated the same way from its own record, back to 2015. " +
+            "That record holds three populations that never meet, and none of " +
+            "them plays the internationals, so each sits on a scale of its own " +
+            "and a rating on one is meaningless held against another.",
           "A tournament is then simulated five thousand times. Fixtures already " +
             "played are locked at their real scores in every run, so a forecast " +
-            "made mid-tournament is conditional on what has actually happened. " +
-            "The simulation's own runs supply the margin distributions, the " +
-            "qualification odds and the what-if scenarios, which is why no two " +
-            "numbers on the site can contradict one another.",
+            "made mid-tournament is conditional on what has happened. The " +
+            "simulation's own runs supply the margin distributions, the " +
+            "qualification odds and the what-if scenarios, so those figures " +
+            "can't disagree with the forecast.",
         ],
       },
       {
         heading: "What it measures about itself",
         body: [
-          "The model is scored by walk-forward backtest: re-rate the whole " +
-            "history one match at a time, and predict each fixture using only " +
-            "what was known before it was played. That's the figure the site " +
-            "publishes, and it's always reported with the period it covers.",
+          "The rating engine is scored by walk-forward backtest: re-rate the " +
+            "whole history one match at a time, and predict each fixture using " +
+            "only what was known before it was played.",
+          "The forecast the site publishes blends those ratings with an XGBoost " +
+            "model, so it's scored separately on a forward holdout: trained on " +
+            "the matches before a cutoff, then scored on the ones it never saw. " +
+            "Both are reported with the period they cover.",
         ],
         figuresFrom: "rtp-model",
       },
       {
-        heading: "The engineering that matters",
+        heading: "How it runs",
         body: [
-          "No server does arithmetic. Every endpoint reads a file that a pipeline " +
-            "step wrote, so a forecast, the ratings behind it and the accuracy " +
-            "quoted beside it all describe one state of the database rather than " +
-            "three taken at different moments.",
+          "No server does arithmetic. Endpoints read files that pipeline steps " +
+            "wrote, so a forecast, the ratings behind it and the accuracy quoted " +
+            "beside it all describe the same state of the database.",
           "The pipeline records its own failures. When a run aborts, the site " +
-            "says so and names the step, because a silent failure and a quiet " +
-            "day look identical to a reader and only one of them is fine.",
+            "says so and names the step, so a reader can tell a failed run from " +
+            "a quiet day.",
         ],
       },
     ],
@@ -138,6 +144,7 @@ export const PROJECTS: Project[] = [
       "results. The underlying algorithms are unchanged — glmnet, randomForest, " +
       "xgboost, e1071 and others do the work — and tidylearn makes them easier " +
       "to use together.",
+    kind: "package",
     stack: ["R", "tidyverse", "glmnet", "xgboost", "randomForest", "ggplot2", "gt"],
     links: {
       cran: "https://cran.r-project.org/package=tidylearn",
@@ -156,6 +163,7 @@ export const PROJECTS: Project[] = [
       "computer science. It covers the ground between knowing the statistics and " +
       "being able to ship the work: the command line, reproducible environments, " +
       "data stores, version control, reporting, containers and deployment.",
+    kind: "book",
     stack: ["Quarto", "R", "Python"],
     links: {
       live: "https://rbr.sheetsolved.com",
@@ -172,10 +180,11 @@ export const PROJECTS: Project[] = [
       "A Claude Code plugin that recommends a model and effort level for each " +
       "phase of work: the exact commands to type, what the cheaper choice " +
       "gives up, and the failure that should send you up a tier. Its claims " +
-      "are checked against a benchmark whose graders and pass marks were fixed " +
-      "before the results were read, and four of the original eight did not " +
-      "survive. Its own cost is measured too, and the docs chart how small a " +
-      "task has to be before asking costs more than it saves.",
+      "are checked against a graded benchmark, with pass marks written down " +
+      "before all but three of the results were read, and four of the original " +
+      "eight didn't survive. Its own cost is measured too, and the docs chart " +
+      "how small a task has to be before asking costs more than it saves.",
+    kind: "package",
     stack: ["Claude Code", "Node.js"],
     links: {
       docs: "https://github.com/ces0491/tokenwise/blob/main/docs/guide.md",
@@ -189,11 +198,11 @@ export const PROJECTS: Project[] = [
     name: "Tech Perspectives",
     tagline: "Ces's random twalks on tech and stats.",
     summary:
-      "Long pieces on what AI assistance changes and what it doesn't, how " +
-      "computing keeps swinging between central and local, and the R package " +
-      "work those arguments get tested on — dependency risk, reporting, and a " +
-      "scoring band that did not hold. Shorter pieces sit alongside them, on " +
-      "whatever turned up and was worth checking.",
+      "Writing on what AI assistance changes and what it doesn't, how computing " +
+      "keeps swinging between central and local, and the R package work those " +
+      "arguments get tested on — dependency risk, reporting, and a scoring band " +
+      "that didn't hold.",
+    kind: "blog",
     stack: ["Jekyll", "Markdown"],
     links: {
       live: "https://blog.sheetsolved.com",
@@ -205,16 +214,16 @@ export const PROJECTS: Project[] = [
   {
     slug: "wood-wiz",
     name: "Wood Wiz",
-    tagline: "South African firewood, ranked by rand per kilogram.",
+    tagline: "Cape Town firewood, ranked by rand per kilogram.",
     summary:
       "Firewood is advertised by the bag, the crate and the load, which makes " +
-      "ten vendors' prices impossible to compare at a glance. Wood Wiz " +
-      "normalises all of them to rand per kilogram and puts delivery cost and " +
-      "stock status beside the number. Ranking happens inside a city: Cape " +
-      "Town's bulk price is lower mostly for being nearer the source, which is " +
-      "no use to somebody buying in Johannesburg. Ten storefronts across " +
-      "Shopify, WooCommerce and Wix are scraped daily into a JSON file the " +
-      "site reads directly, so there's no database to run.",
+      "vendors' prices impossible to compare at a glance. Wood Wiz normalises " +
+      "all of them to rand per kilogram and puts delivery cost and stock status " +
+      "beside the number. Storefronts across Shopify, WooCommerce and Wix are " +
+      "scraped daily into a JSON file the site reads directly, so there's no " +
+      "database to run.",
+    kind: "application",
+    category: "ShoppingApplication",
     stack: ["Next.js", "TypeScript", "Cheerio", "Zod", "Vercel"],
     links: {
       live: "https://woodwiz.sheetsolved.com",
@@ -233,7 +242,9 @@ export const PROJECTS: Project[] = [
       "after it was added. cranExploreR reads CRAN's own APIs for download " +
       "history, release timeline, reverse dependencies and maintenance " +
       "signals, and combines them into a viability score so the question can " +
-      "be answered before the dependency is taken on rather than after.",
+      "be answered before the dependency is taken on.",
+    kind: "application",
+    category: "DeveloperApplication",
     stack: ["R", "Shiny", "bslib", "plotly", "httr2"],
     links: {
       live: "https://019d3e9e-b1a7-77dc-9266-40ce0b717eb3.share.connect.posit.cloud/",

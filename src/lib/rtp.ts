@@ -4,51 +4,32 @@ import { projectBySlug } from "@/content/projects";
 /**
  * RTP's published measurements, read from RTP.
  *
- * The case study quotes four figures the pipeline recomputes whenever the
- * model is retrained. Written down here they went stale silently and did: the
- * page published 70.9% over 3,673 matches while `/api/model` had moved to
- * 71.6% over 3,676, and recent form was out by six points. Nothing on the hub
- * could notice, because a copied number and a current one look identical.
+ * The case study quotes figures the pipeline recomputes whenever the model is
+ * retrained, so they are read the same way the home page reads the blog's
+ * feed. A copied number and a current one look identical, and nothing on the
+ * hub could notice the difference.
  *
- * So they are read, the same way the home page reads the blog's feed. The
- * prose beside each figure stays here — "modern fixtures score better" is a
- * judgement about the numbers rather than one of them.
+ * RTP scores two things and the panel keeps them apart. The walk-forward
+ * backtest scores the rating engine alone, over the whole record. The forward
+ * holdout scores the blended forecast, which is what the site publishes.
+ *
+ * Notes state what a figure covers, because a judgement about a number goes
+ * stale the way the number would. The feature list is read for the same
+ * reason: a hand-kept one can outlive the features it names.
  */
 
 const RTP = projectBySlug("rtp")?.links.live;
 
-/**
- * The last figures read from RTP, published when the endpoint cannot be.
- *
- * A stale number that once was true beats an empty panel in a case study whose
- * whole argument is that every figure traces to a measurement. Confirmed
- * against `/api/model` on 2026-09-07.
- */
-const FALLBACK_FIGURES: CaseStudyFigure[] = [
-  {
-    label: "Winner called correctly",
-    value: "71.6%",
-    note: "3,676 matches, 1871 to 2026 — the full international record",
-  },
-  {
-    label: "Margin error",
-    value: "16.8 pts RMSE",
-    note: "same period; modern fixtures score better",
-  },
-  {
-    label: "Recent form",
-    value: "72.0%",
-    note: "90-day half-life, an effective sample of 59 matches",
-  },
-  {
-    label: "Features in the blend",
-    value: "28",
-    note: "rating gap, venue, rest, competition, form",
-  },
-];
+/** The checked values the panel renders. */
+interface Measurements {
+  forecast: { matches: number; since: string; accuracy: number; marginRmse: number };
+  engine: { matches: number; period: string; accuracy: number; marginRmse: number };
+  recent: { accuracy: number; halfLifeDays: number; effectiveMatches: number };
+  features: { count: number; groups: string[] };
+}
 
 interface ModelPayload {
-  model?: { n_features?: number };
+  model?: { features?: string[] };
   backtest?: {
     n_matches?: number;
     date_range?: string;
@@ -60,6 +41,33 @@ interface ModelPayload {
       effective_matches?: number;
     };
   };
+  holdout?: {
+    cutoff?: string;
+    n_holdout?: number;
+    blended?: { win_accuracy?: number; margin_rmse?: number };
+  };
+}
+
+/**
+ * Feature names to what a reader would call them. The first match wins, so
+ * opponent strength and head-to-head are taken before the broader patterns
+ * that would otherwise claim `avg_opponent_rating` and `h2h_home_win_rate`.
+ */
+const FEATURE_GROUPS: [RegExp, string][] = [
+  [/opponent/, "opponent strength"],
+  [/h2h/, "head-to-head"],
+  [/rating/, "ratings"],
+  [/rest_days/, "rest days"],
+  [/hemisphere/, "hemisphere"],
+  [/win_rate|scored|conceded|margin|momentum/, "form"],
+];
+
+/** A feature no pattern recognises shows as "other" rather than disappearing. */
+function featureGroups(names: string[]): string[] {
+  const groups = names.map(
+    (name) => FEATURE_GROUPS.find(([pattern]) => pattern.test(name))?.[1] ?? "other",
+  );
+  return [...new Set(groups)];
 }
 
 const isNumber = (value: unknown): value is number =>
@@ -71,60 +79,134 @@ function years(range: string | undefined): string | undefined {
   return match ? `${match[1]} to ${match[2]}` : undefined;
 }
 
-const percent = (fraction: number) => `${(fraction * 100).toFixed(1)}%`;
-
 /**
  * Every field is checked before any of them is rendered.
  *
  * A partial payload has to produce the previous figures rather than a panel
  * reading `NaN%`, and a figure whose scope could not be read is exactly the
- * thing `CaseStudyFigure.note` exists to prevent — so a missing date range
- * discards the whole set rather than publishing an unscoped percentage.
+ * thing `CaseStudyFigure.note` exists to prevent — so a missing date range or
+ * cutoff discards the whole set rather than publishing an unscoped percentage.
  */
-function figuresFromPayload(payload: ModelPayload): CaseStudyFigure[] | undefined {
-  const backtest = payload.backtest;
+function measurementsFrom(payload: ModelPayload): Measurements | undefined {
+  const { model, backtest, holdout } = payload;
   const recent = backtest?.recent_weighted;
-  const features = payload.model?.n_features;
+  const blended = holdout?.blended;
+  const names = model?.features;
   const period = years(backtest?.date_range);
+  const since = /^(\d{4})-\d{2}-\d{2}$/.exec(holdout?.cutoff ?? "")?.[1];
 
   if (
     !backtest ||
     !recent ||
+    !holdout ||
+    !blended ||
     !period ||
+    !since ||
+    !Array.isArray(names) ||
+    !names.length ||
     !isNumber(backtest.accuracy) ||
     !isNumber(backtest.n_matches) ||
     !isNumber(backtest.margin_rmse) ||
     !isNumber(recent.accuracy) ||
     !isNumber(recent.half_life_days) ||
     !isNumber(recent.effective_matches) ||
-    !isNumber(features)
+    !isNumber(holdout.n_holdout) ||
+    !isNumber(blended.win_accuracy) ||
+    !isNumber(blended.margin_rmse)
   ) {
     return undefined;
   }
 
+  return {
+    forecast: {
+      matches: holdout.n_holdout,
+      since,
+      accuracy: blended.win_accuracy,
+      marginRmse: blended.margin_rmse,
+    },
+    engine: {
+      matches: backtest.n_matches,
+      period,
+      accuracy: backtest.accuracy,
+      marginRmse: backtest.margin_rmse,
+    },
+    recent: {
+      accuracy: recent.accuracy,
+      halfLifeDays: recent.half_life_days,
+      effectiveMatches: recent.effective_matches,
+    },
+    features: { count: names.length, groups: featureGroups(names) },
+  };
+}
+
+const percent = (fraction: number) => `${(fraction * 100).toFixed(1)}%`;
+const points = (rmse: number) => `${rmse.toFixed(1)} pts RMSE`;
+const count = (matches: number) => matches.toLocaleString("en-GB");
+
+function figuresFrom({ forecast, engine, recent, features }: Measurements): CaseStudyFigure[] {
   return [
     {
-      label: "Winner called correctly",
-      value: percent(backtest.accuracy),
-      note: `${backtest.n_matches.toLocaleString("en-GB")} matches, ${period} — the full international record`,
+      label: "Forecast: winner called",
+      value: percent(forecast.accuracy),
+      note: `${count(forecast.matches)} matches since ${forecast.since}, held out of training`,
     },
     {
-      label: "Margin error",
-      value: `${backtest.margin_rmse.toFixed(1)} pts RMSE`,
-      note: "same period; modern fixtures score better",
+      label: "Forecast: margin error",
+      value: points(forecast.marginRmse),
+      note: "same holdout",
     },
     {
-      label: "Recent form",
+      label: "Rating engine: winner called",
+      value: percent(engine.accuracy),
+      note: `${count(engine.matches)} matches, ${engine.period}, by walk-forward backtest; mostly tier-two fixtures`,
+    },
+    {
+      label: "Rating engine: margin error",
+      value: points(engine.marginRmse),
+      note: "same backtest",
+    },
+    {
+      label: "Rating engine: recent form",
       value: percent(recent.accuracy),
-      note: `${recent.half_life_days}-day half-life, an effective sample of ${recent.effective_matches} matches`,
+      note: `${recent.halfLifeDays}-day half-life, an effective sample of ${recent.effectiveMatches} matches`,
     },
     {
       label: "Features in the blend",
-      value: String(features),
-      note: "rating gap, venue, rest, competition, form",
+      value: String(features.count),
+      note: features.groups.join(", "),
     },
   ];
 }
+
+export function figuresFromPayload(payload: ModelPayload): CaseStudyFigure[] | undefined {
+  const measurements = measurementsFrom(payload);
+  return measurements && figuresFrom(measurements);
+}
+
+/** When `FALLBACK` was read from `/api/model`. */
+const FALLBACK_AS_OF = "26 Oct 2026";
+
+/**
+ * The last values read from RTP, published when the endpoint cannot be.
+ *
+ * A stale number that once was true beats an empty panel in a case study whose
+ * argument rests on its measurements, and the date on each note tells the
+ * reader how stale it is.
+ */
+const FALLBACK: Measurements = {
+  forecast: { matches: 1394, since: "2018", accuracy: 0.7683, marginRmse: 21.2191 },
+  engine: { matches: 9291, period: "1871 to 2026", accuracy: 0.735, marginRmse: 21.4812 },
+  recent: { accuracy: 0.785, halfLifeDays: 90, effectiveMatches: 133 },
+  features: {
+    count: 28,
+    groups: ["ratings", "form", "opponent strength", "head-to-head", "rest days", "hemisphere"],
+  },
+};
+
+export const FALLBACK_FIGURES: CaseStudyFigure[] = figuresFrom(FALLBACK).map((figure) => ({
+  ...figure,
+  note: `${figure.note}, as of ${FALLBACK_AS_OF}`,
+}));
 
 /**
  * The one-hour window is the same trade the blog feed makes: it needs nothing
@@ -145,7 +227,9 @@ export async function rtpFigures(): Promise<CaseStudyFigure[]> {
       throw new Error(`model endpoint responded ${response.status}`);
     }
 
-    return figuresFromPayload(await response.json()) ?? FALLBACK_FIGURES;
+    const figures = figuresFromPayload(await response.json());
+    if (!figures) throw new Error("model payload is missing a field");
+    return figures;
   } catch (error) {
     // Published figures silently reverting to older ones is the failure this
     // whole module exists to catch, so it goes in the build log.
