@@ -1,3 +1,4 @@
+import { notFound } from "next/navigation";
 import { ImageResponse } from "next/og";
 
 import { CASE_STUDIES, projectBySlug, STATUS_LABEL } from "@/content/projects";
@@ -26,7 +27,13 @@ export const alt = `A project built by ${SITE.name}`;
 export const size = { width: 1200, height: 630 };
 export const contentType = "image/png";
 
-/** One card per case study, matching the pages that exist. */
+/**
+ * One card per case study, matching the pages that exist. Without
+ * `dynamicParams` a slug from the URL renders a branded card of its own, with
+ * whatever the URL said printed on it.
+ */
+export const dynamicParams = false;
+
 export function generateStaticParams() {
   return CASE_STUDIES.map((p) => ({ slug: p.slug }));
 }
@@ -47,6 +54,7 @@ function titleSize(name: string): number {
 export default async function CaseStudyImage({ params }: { params: Promise<{ slug: string }> }) {
   const { slug } = await params;
   const project = projectBySlug(slug);
+  if (!project) notFound();
 
   return new ImageResponse(
     <div
@@ -83,33 +91,31 @@ export default async function CaseStudyImage({ params }: { params: Promise<{ slu
           ))}
         </svg>
 
-        {project && (
-          <div
-            style={{
-              display: "flex",
-              fontSize: 24,
-              color: PALETTE.navy,
-              border: `2px solid ${PALETTE.navy}`,
-              borderRadius: 999,
-              padding: "8px 22px",
-            }}
-          >
-            {STATUS_LABEL[project.status]}
-          </div>
-        )}
+        <div
+          style={{
+            display: "flex",
+            fontSize: 24,
+            color: PALETTE.navy,
+            border: `2px solid ${PALETTE.navy}`,
+            borderRadius: 999,
+            padding: "8px 22px",
+          }}
+        >
+          {STATUS_LABEL[project.status]}
+        </div>
       </div>
 
       <div style={{ display: "flex", flexDirection: "column" }}>
         <div
           style={{
-            fontSize: titleSize(project?.name ?? SITE.name),
+            fontSize: titleSize(project.name),
             fontWeight: 700,
             letterSpacing: "-0.03em",
             color: PALETTE.ink,
             lineHeight: 1.05,
           }}
         >
-          {project?.name ?? SITE.name}
+          {project.name}
         </div>
         <div
           style={{
@@ -119,7 +125,7 @@ export default async function CaseStudyImage({ params }: { params: Promise<{ slu
             lineHeight: 1.35,
           }}
         >
-          {project?.tagline ?? SITE.strapline}
+          {project.tagline}
         </div>
       </div>
 
@@ -134,7 +140,7 @@ export default async function CaseStudyImage({ params }: { params: Promise<{ slu
         }}
       >
         <div style={{ display: "flex" }}>sheetsolved.com/built/{slug}</div>
-        <div style={{ display: "flex" }}>{project?.stack.slice(0, 3).join("  ·  ")}</div>
+        <div style={{ display: "flex" }}>{project.stack.slice(0, 3).join("  ·  ")}</div>
       </div>
     </div>,
     size,

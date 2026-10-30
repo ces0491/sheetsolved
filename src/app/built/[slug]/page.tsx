@@ -14,6 +14,8 @@ import { projectJsonLd } from "@/lib/structured-data";
  * paragraph already shown on the index, which is a thin page competing with
  * a better one for the same query.
  */
+export const dynamicParams = false;
+
 export function generateStaticParams() {
   return CASE_STUDIES.map((p) => ({ slug: p.slug }));
 }
@@ -171,8 +173,7 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
             Interested in work like this?
           </h2>
           <p className="mt-4 text-pretty leading-relaxed text-muted">
-            The method is the same whatever the subject is — measure it, publish what you measured
-            it over, and make the logic explicit enough to change safely.
+            Whatever the subject, I measure the work and publish what the measurement covers.
           </p>
           <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3 text-sm">
             <a
