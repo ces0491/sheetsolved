@@ -41,6 +41,12 @@ jobs:
       - name: Lint
         run: npm run lint
 
+      - name: Check formatting
+        run: npm run format:check
+
+      - name: Test
+        run: npm test
+
       # `next build` type checks as part of the build; there is no separate tsc
       # step to keep in step with it.
       - name: Build

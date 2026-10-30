@@ -84,7 +84,7 @@ function firstMatch(source: string, pattern: RegExp): string | undefined {
  * there — matched against `SITE.owner` rather than a literal name. It is
  * absent as of 2026-09-07, and this keeps the heading right either way.
  */
-function parseDescription(xml: string): string | undefined {
+export function parseDescription(xml: string): string | undefined {
   const subtitle = firstMatch(xml, /<subtitle[^>]*>([\s\S]*?)<\/subtitle>/);
   if (!subtitle) return undefined;
 
@@ -108,7 +108,7 @@ function parseDescription(xml: string): string | undefined {
  * site that otherwise has none. Every field is validated and an entry missing
  * a title or a link is dropped rather than rendered half-formed.
  */
-function parseAtom(xml: string): Post[] {
+export function parseAtom(xml: string): Post[] {
   const posts: Post[] = [];
 
   for (const [, entry] of xml.matchAll(/<entry>([\s\S]*?)<\/entry>/g)) {
