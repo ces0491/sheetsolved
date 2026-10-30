@@ -33,9 +33,7 @@ export const OWNER_NAME = { given: "Cesaire", family: "Tobias" } as const;
  * components. All three are assembled from this rather than writing the
  * address out again in each place.
  *
- * The city is as fine-grained as this gets. A suburb is more precision than a
- * consultancy's address needs, and it was reaching all three surfaces — the
- * footer sentence, the vCard and the JSON-LD — from this one field.
+ * The city is as fine-grained as this gets.
  */
 export const ADDRESS = {
   city: "Cape Town",
@@ -45,11 +43,9 @@ export const ADDRESS = {
 } as const;
 
 /**
- * The name is where the practice started, not the size of it.
- *
- * `tagline` continues the name's own construction rather than restating it, so
- * "Sheet Solved" reads as the first of a pattern. It is the page's `<h1>` and the Open Graph card's headline, so the two
- * cannot say different things about what this is.
+ * `tagline` continues the name's own construction, so "Sheet Solved" reads as
+ * the first of a pattern. It is the page's `<h1>` and the Open Graph card's
+ * headline, so the two cannot say different things about what this is.
  */
 export const SITE = {
   name: "Sheet Solved",
@@ -61,16 +57,11 @@ export const SITE = {
    * appending it here only bought a wrapped orphan above the fold.
    */
   eyebrow: "Data and software consultancy",
-  /*
-   * The spreadsheet origin is explained once, in the Practice section. This
-   * used to end on "often that starts with a spreadsheet, it rarely ends with
-   * one", which is the same antithesis the Practice pull-quote makes with more
-   * room to make it.
-   */
+  /* The spreadsheet origin is explained once, in the Practice section. */
   intro:
-    "I build the data and software systems a business actually runs on — the " +
-    "pipeline that feeds it, the model behind the decision, and the application " +
-    "that puts both in front of someone.",
+    "I build the data and software systems a business runs on — the pipeline " +
+    "that feeds it, the model behind the decision, and the application that " +
+    "puts both in front of someone.",
   description:
     "Sheet Solved builds the data and software systems businesses run on — " +
     "pipelines, models, dashboards, and the spreadsheets worth keeping. " +
@@ -129,7 +120,7 @@ export const SERVICES = [
   },
   {
     title: "Automation",
-    body: "The repetitive half of a monthly process removed, so the cycle stops costing a week of somebody's attention.",
+    body: "The repetitive parts of a recurring process removed, leaving people the parts that need judgement.",
   },
   {
     title: "Spreadsheets, done properly",

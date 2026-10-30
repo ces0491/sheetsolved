@@ -12,7 +12,10 @@ import { SITE } from "@/lib/site";
  * Only projects with somewhere to send a reader are listed.
  */
 export function SiteFooter() {
-  const destinations = ORDERED_PROJECTS.filter((p) => p.links.live ?? p.links.docs);
+  const destinations = ORDERED_PROJECTS.flatMap(({ slug, name, links }) => {
+    const href = links.live ?? links.docs;
+    return href ? [{ slug, name, href }] : [];
+  });
 
   return (
     <footer className="mt-auto border-t border-border bg-surface">
@@ -31,13 +34,10 @@ export function SiteFooter() {
           <div>
             <h2 className="font-mono text-xs uppercase tracking-[0.18em] text-muted">Elsewhere</h2>
             <ul className="mt-4 space-y-2.5 text-sm">
-              {destinations.map((p) => (
-                <li key={p.slug}>
-                  <a
-                    href={(p.links.live ?? p.links.docs)!}
-                    className="underline-grow text-muted hover:text-foreground"
-                  >
-                    {p.name}
+              {destinations.map(({ slug, name, href }) => (
+                <li key={slug}>
+                  <a href={href} className="underline-grow text-muted hover:text-foreground">
+                    {name}
                   </a>
                 </li>
               ))}

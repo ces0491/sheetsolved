@@ -15,9 +15,9 @@ import { BLOG_URL, readWriting } from "@/lib/writing";
  * a crawler at the wrong URL, so each page names its own and a new page that
  * forgets gets none rather than this one's.
  *
- * Only `alternates` and the OG url: the title, description and the rest of the
- * card are the layout's and are inherited, and `openGraph` here would replace
- * that object rather than extend it.
+ * Only `alternates`: the title, description and the rest of the card are the
+ * layout's and are inherited, and `openGraph` here would replace that object
+ * rather than extend it.
  */
 export const metadata: Metadata = {
   alternates: { canonical: "/" },
@@ -117,7 +117,7 @@ export default async function Home() {
           <div>
             <SectionLabel>Approach</SectionLabel>
             <h2 className="mt-4 text-pretty text-3xl font-semibold tracking-tight sm:text-4xl">
-              Complex shouldn&apos;t mean complicated.
+              Systems your team can run and change.
             </h2>
           </div>
           <div className="max-w-2xl space-y-6 text-pretty text-lg leading-relaxed sm:text-xl">
@@ -126,10 +126,10 @@ export default async function Home() {
               you use every day should still be simple to run and safe to change.
             </p>
             <p className="text-muted">
-              Most of what I&apos;m asked to fix was built once, quickly, for a situation that has since
-              changed, and then relied on for years afterwards. The work is usually about making the
-              logic explicit enough that somebody other than its author can change it without
-              breaking it.
+              Most of what I&apos;m asked to fix was built once, quickly, for a situation that has
+              since changed, and then relied on for years afterwards. The work is usually about
+              making the logic explicit enough that somebody other than its author can change it
+              without breaking it.
             </p>
           </div>
         </div>
@@ -177,12 +177,8 @@ export default async function Home() {
             </div>
             <div className="max-w-2xl space-y-6 text-pretty leading-relaxed">
               {/*
-                Written about the kind of engagement, never a current one. This
-                named the client's sector and described their stack, which made
-                it the one paragraph on the site that could go stale silently —
-                everything else that dates is derived from data. It also sat
-                badly beside the line, used twice, that consulting work belongs
-                to the client.
+                Written about the kind of engagement, never a current one:
+                consulting work belongs to the client.
               */}
               <p className="text-lg sm:text-xl">
                 I work as the technical lead for companies that need one without hiring one:
@@ -200,8 +196,8 @@ export default async function Home() {
               </p>
               <p className="rounded-xl border-l-2 border-accent bg-tint px-5 py-4 text-muted">
                 The name is where this started. A spreadsheet is usually the first place a business
-                writes its real logic down, so it&apos;s still where a good number of engagements begin.
-                It&apos;s no longer where most of them end.
+                writes its real logic down, so it&apos;s still where a good number of engagements
+                begin.
               </p>
             </div>
           </div>
@@ -214,7 +210,7 @@ export default async function Home() {
             <div>
               <SectionLabel>Built</SectionLabel>
               <h2 className="mt-4 max-w-2xl text-pretty text-3xl font-semibold tracking-tight sm:text-4xl">
-                The same standards, applied to my own work.
+                Selected projects.
               </h2>
             </div>
             <Link href="/built" className="underline-grow text-sm font-medium text-accent">
@@ -297,9 +293,8 @@ export default async function Home() {
                 Tell me what&apos;s not working.
               </h2>
               <p className="mt-5 text-pretty leading-relaxed text-muted">
-                A process that costs too much attention, a number nobody can trace, a model that has
-                outgrown where it lives. I&apos;ll tell you what I&apos;d do about it before you have to
-                commit to anything.
+                Send me the problem as you&apos;d describe it to a colleague. I&apos;ll tell you
+                what I&apos;d do about it before you have to commit to anything.
               </p>
 
               <div className="mt-9 flex flex-wrap items-center gap-x-8 gap-y-4">

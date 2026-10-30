@@ -72,12 +72,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         </main>
         <SiteFooter />
         {/*
-          The client JavaScript on the site, and the reason the "no client JS"
-          rule is stated with an exception rather than absolutely. Both scripts
-          are served from this origin, under `/_vercel/`, rather than from a
-          Vercel hostname, so neither adds a third-party origin — the property
-          actually worth protecting, and the one the LinkedIn badge would have
-          broken.
+          The only scripts this site adds to Next's own runtime: nothing in
+          `src` is a client component. Both are served from this origin, under
+          `/_vercel/`, rather than from a Vercel hostname, so neither adds a
+          third-party origin — the property actually worth protecting, and the
+          one the LinkedIn badge would have broken.
 
           Speed Insights reports field Core Web Vitals from real visits, which
           is the half a local Lighthouse run cannot tell you.
