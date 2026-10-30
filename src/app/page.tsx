@@ -122,11 +122,11 @@ export default async function Home() {
           </div>
           <div className="max-w-2xl space-y-6 text-pretty text-lg leading-relaxed sm:text-xl">
             <p>
-              Your business carries real complexity, and modelling it properly matters. The thing
+              Your business carries real complexity, but complex shouldn&apos;t mean complicated. The thing
               you use every day should still be simple to run and safe to change.
             </p>
             <p className="text-muted">
-              Most of what I&apos;m asked to fix was built once, quickly, for a situation that has
+              Most of what I&apos;m asked to fix was built as a utility, often quickly, for a situation that has
               since changed, and then relied on for years afterwards. The work is usually about
               making the logic explicit enough that somebody other than its author can change it
               without breaking it.

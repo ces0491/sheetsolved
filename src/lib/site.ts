@@ -61,7 +61,7 @@ export const SITE = {
   intro:
     "I build the data and software systems a business runs on — the pipeline " +
     "that feeds it, the model behind the decision, and the application that " +
-    "puts both in front of someone.",
+    "puts both in front of your users.",
   description:
     "Sheet Solved builds the data and software systems businesses run on — " +
     "pipelines, models, dashboards, and the spreadsheets worth keeping. " +
