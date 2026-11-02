@@ -253,6 +253,27 @@ export const PROJECTS: Project[] = [
     status: "live",
     featured: false,
   },
+  {
+    slug: "contriscape",
+    name: "contriscape",
+    tagline: "Fly through a 3D city built from anyone's GitHub contributions.",
+    summary:
+      "Enter a GitHub username and that history becomes a city, one tower per " +
+      "day, with alleys wide enough to fly a ship down. The autopilot replays " +
+      "the history as a flight, so the city rises as the dates pass. Milestones " +
+      "float over the days they happened, as badges to shoot. It reads GitHub's " +
+      "API through a small proxy that keeps the token on the server, and caches " +
+      "at the CDN so repeat visits don't touch GitHub at all.",
+    kind: "application",
+    category: "DeveloperApplication",
+    stack: ["TypeScript", "three.js", "Vite", "GitHub GraphQL API", "Vercel"],
+    links: {
+      live: "https://contriscape.sheetsolved.com",
+      source: "https://github.com/ces0491/contriscape",
+    },
+    status: "live",
+    featured: false,
+  },
 ];
 
 /** Featured first, then the rest, each group keeping the order declared above. */

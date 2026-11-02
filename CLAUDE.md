@@ -310,6 +310,11 @@ naming its own host.
 Spokes CNAME to `ces0491.github.io` except RTP and Wood Wiz, which point at
 Vercel.
 
+**`contriscape.` is a seventh subdomain but not a spoke.** It's a portfolio
+entry in `src/content/projects.ts` that happens to have its own host, on Vercel,
+and it links back to the hub. It sits outside the six so that count stays a
+statement about the discoverability strategy.
+
 **`wood-wiz.vercel.app` 308s to the subdomain** as of 2026-09-04. Vercel goes on
 answering on a project's generated alias after a custom domain is attached, and
 that alias was serving the whole site — two hostnames, one set of pages. A

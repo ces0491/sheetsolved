@@ -182,3 +182,7 @@ own subdomain.
 RTP is split by audience rather than by topic: `sheetsolved.com/built/rtp` is
 the case study, written for clients, and `rtp.sheetsolved.com` is the
 application, for the rugby audience arriving from search.
+
+[contriscape](https://github.com/ces0491/contriscape) also has a subdomain,
+`contriscape.`, and links back here, but it's a portfolio entry rather than one
+of the six.
