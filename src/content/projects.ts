@@ -272,7 +272,7 @@ export const PROJECTS: Project[] = [
       source: "https://github.com/ces0491/contriscape",
     },
     status: "live",
-    featured: false,
+    featured: true,
   },
 ];
 
