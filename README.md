@@ -41,6 +41,9 @@ from that, before you edit it:
   the project and leaves the number to the project's own site.
 - **The footer lists only projects with somewhere to send a reader**, derived
   rather than hand-listed, so a new entry appears without anyone remembering.
+  It names the first three in `ORDERED_PROJECTS` and collapses the rest into a
+  `<details>`, which keeps them in the served HTML as crawlable links from every
+  page with no client JavaScript.
 
 ## Metadata is per page
 

@@ -146,6 +146,12 @@ a project is written down twice. What follows from that:
   a book and a blog `SoftwareApplication`s.
 - **The footer lists only projects with somewhere to send a reader**, derived
   rather than hand-listed, so a new entry appears without anyone remembering.
+- **The footer shows three projects and collapses the rest into a `<details>`.**
+  The list grows with the portfolio, and the first three are simply the head of
+  `ORDERED_PROJECTS`, so reordering `PROJECTS` changes them. Collapsed links are
+  still in the served HTML, so every page keeps its crawlable link to every
+  spoke, with no client JavaScript. Don't replace the toggle with a link to
+  `/built`: that takes those links off every other page.
 
 ## Metadata is per page, and Open Graph merges shallowly
 

@@ -4,18 +4,32 @@ import { Mark } from "@/components/logo";
 import { ORDERED_PROJECTS } from "@/content/projects";
 import { SITE } from "@/lib/site";
 
+/** How many projects stay in view, in `ORDERED_PROJECTS` order. */
+const LEADING_PROJECTS = 3;
+
 /**
  * The footer carries the outbound links to every property.
  *
  * It is derived from the project collection rather than hand-listed, so a
  * project added to the data appears here without anyone remembering to add it.
  * Only projects with somewhere to send a reader are listed.
+ *
+ * The list grows with the portfolio, so all but the first few sit in a
+ * `<details>`. Collapsed, they are still in the served HTML, which keeps them
+ * crawlable links from every page, and the toggle needs no JavaScript. Linking
+ * to `/built` in their place would cost the spokes their sitewide link.
  */
 export function SiteFooter() {
   const destinations = ORDERED_PROJECTS.flatMap(({ slug, name, links }) => {
     const href = links.live ?? links.docs;
     return href ? [{ slug, name, href }] : [];
-  });
+  }).map(({ slug, name, href }) => (
+    <li key={slug}>
+      <a href={href} className="underline-grow text-muted hover:text-foreground">
+        {name}
+      </a>
+    </li>
+  ));
 
   return (
     <footer className="mt-auto border-t border-border bg-surface">
@@ -34,13 +48,21 @@ export function SiteFooter() {
           <div>
             <h2 className="font-mono text-xs uppercase tracking-[0.18em] text-muted">Elsewhere</h2>
             <ul className="mt-4 space-y-2.5 text-sm">
-              {destinations.map(({ slug, name, href }) => (
-                <li key={slug}>
-                  <a href={href} className="underline-grow text-muted hover:text-foreground">
-                    {name}
-                  </a>
-                </li>
-              ))}
+              {destinations.slice(0, LEADING_PROJECTS)}
+              <li>
+                <details className="group">
+                  <summary className="underline-grow w-fit cursor-pointer list-none text-muted hover:text-foreground [&::-webkit-details-marker]:hidden">
+                    More projects{" "}
+                    <span
+                      aria-hidden
+                      className="inline-block transition-transform duration-300 group-open:rotate-90"
+                    >
+                      →
+                    </span>
+                  </summary>
+                  <ul className="mt-2.5 space-y-2.5">{destinations.slice(LEADING_PROJECTS)}</ul>
+                </details>
+              </li>
               <li>
                 <a href={SITE.github} className="underline-grow text-muted hover:text-foreground">
                   GitHub
