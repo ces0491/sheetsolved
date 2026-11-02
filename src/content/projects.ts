@@ -282,6 +282,9 @@ export const ORDERED_PROJECTS: Project[] = [
   ...PROJECTS.filter((p) => !p.featured),
 ];
 
+/** How many projects a list leads with: one row on the index. */
+export const LEADING_PROJECTS = 3;
+
 export function projectBySlug(slug: string): Project | undefined {
   return PROJECTS.find((p) => p.slug === slug);
 }

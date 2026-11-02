@@ -1,11 +1,9 @@
 import Link from "next/link";
 
 import { Mark } from "@/components/logo";
-import { ORDERED_PROJECTS } from "@/content/projects";
+import { MoreProjects } from "@/components/more-projects";
+import { LEADING_PROJECTS, ORDERED_PROJECTS } from "@/content/projects";
 import { SITE } from "@/lib/site";
-
-/** How many projects stay in view, in `ORDERED_PROJECTS` order. */
-const LEADING_PROJECTS = 3;
 
 /**
  * The footer carries the outbound links to every property.
@@ -14,9 +12,7 @@ const LEADING_PROJECTS = 3;
  * project added to the data appears here without anyone remembering to add it.
  * Only projects with somewhere to send a reader are listed.
  *
- * The list grows with the portfolio, so all but the first few sit in a
- * `<details>`. Collapsed, they are still in the served HTML, which keeps them
- * crawlable links from every page, and the toggle needs no JavaScript. Linking
+ * The list grows with the portfolio, so all but the first few collapse. Linking
  * to `/built` in their place would cost the spokes their sitewide link.
  */
 export function SiteFooter() {
@@ -50,18 +46,9 @@ export function SiteFooter() {
             <ul className="mt-4 space-y-2.5 text-sm">
               {destinations.slice(0, LEADING_PROJECTS)}
               <li>
-                <details className="group">
-                  <summary className="underline-grow w-fit cursor-pointer list-none text-muted hover:text-foreground [&::-webkit-details-marker]:hidden">
-                    More projects{" "}
-                    <span
-                      aria-hidden
-                      className="inline-block transition-transform duration-300 group-open:rotate-90"
-                    >
-                      →
-                    </span>
-                  </summary>
+                <MoreProjects summaryClassName="underline-grow text-muted hover:text-foreground">
                   <ul className="mt-2.5 space-y-2.5">{destinations.slice(LEADING_PROJECTS)}</ul>
-                </details>
+                </MoreProjects>
               </li>
               <li>
                 <a href={SITE.github} className="underline-grow text-muted hover:text-foreground">

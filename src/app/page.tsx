@@ -2,7 +2,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 
 import { ProjectCard } from "@/components/project-card";
-import { PROJECTS } from "@/content/projects";
+import { LEADING_PROJECTS, ORDERED_PROJECTS } from "@/content/projects";
 import { SERVICES, SITE } from "@/lib/site";
 import { BLOG_URL, readWriting } from "@/lib/writing";
 
@@ -80,7 +80,6 @@ function formatDate(iso: string): string {
 }
 
 export default async function Home() {
-  const featured = PROJECTS.filter((p) => p.featured);
   const writing = await readWriting();
 
   return (
@@ -224,7 +223,7 @@ export default async function Home() {
           </p>
 
           <div className="reveal mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
-            {featured.map((project) => (
+            {ORDERED_PROJECTS.slice(0, LEADING_PROJECTS).map((project) => (
               <ProjectCard key={project.slug} project={project} />
             ))}
           </div>

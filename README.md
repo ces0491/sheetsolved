@@ -41,9 +41,11 @@ from that, before you edit it:
   the project and leaves the number to the project's own site.
 - **The footer lists only projects with somewhere to send a reader**, derived
   rather than hand-listed, so a new entry appears without anyone remembering.
-  It names the first three in `ORDERED_PROJECTS` and collapses the rest into a
-  `<details>`, which keeps them in the served HTML as crawlable links from every
-  page with no client JavaScript.
+- **The home page, `/built` and the footer lead with the same three projects**,
+  the first `LEADING_PROJECTS` of `ORDERED_PROJECTS`. On `/built` and in the
+  footer, `MoreProjects` puts the others in a `<details>`, which keeps them in
+  the served HTML as crawlable links with no client JavaScript. The home page
+  links to `/built` instead.
 
 ## Metadata is per page
 

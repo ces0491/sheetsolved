@@ -146,12 +146,18 @@ a project is written down twice. What follows from that:
   a book and a blog `SoftwareApplication`s.
 - **The footer lists only projects with somewhere to send a reader**, derived
   rather than hand-listed, so a new entry appears without anyone remembering.
-- **The footer shows three projects and collapses the rest into a `<details>`.**
-  The list grows with the portfolio, and the first three are simply the head of
-  `ORDERED_PROJECTS`, so reordering `PROJECTS` changes them. Collapsed links are
-  still in the served HTML, so every page keeps its crawlable link to every
-  spoke, with no client JavaScript. Don't replace the toggle with a link to
-  `/built`: that takes those links off every other page.
+- **The home page, `/built` and the footer lead with the same three projects**,
+  the first `LEADING_PROJECTS` of `ORDERED_PROJECTS`. `featured` only sets that
+  order, so a featured project past the third isn't on the home page.
+- **`/built` and the footer collapse the rest.** `MoreProjects` puts everything
+  past the first three in a `<details>`. Collapsed projects are still in the
+  served HTML, so every page keeps its crawlable link to every spoke, with no
+  client JavaScript. Don't replace the footer's toggle with a link to `/built`:
+  that takes those links off every other page. The home page has no toggle
+  because its "All projects →" link already goes to the full list.
+- **`MoreProjects` uses a named group, `group/more`.** A card's hover state is
+  `group-hover`, which matches any `.group` above it, so a plain `group` on the
+  `<details>` lights up every card when the pointer is over one of them.
 
 ## Metadata is per page, and Open Graph merges shallowly
 

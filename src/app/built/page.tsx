@@ -1,9 +1,12 @@
 import type { Metadata } from "next";
 
+import { MoreProjects } from "@/components/more-projects";
 import { ProjectCard } from "@/components/project-card";
-import { ORDERED_PROJECTS } from "@/content/projects";
+import { LEADING_PROJECTS, ORDERED_PROJECTS } from "@/content/projects";
 import { OPEN_GRAPH_BASE, SITE } from "@/lib/site";
 import { portfolioJsonLd } from "@/lib/structured-data";
+
+const GRID = "grid gap-6 sm:grid-cols-2 lg:grid-cols-3";
 
 export const metadata: Metadata = {
   title: "Built",
@@ -58,11 +61,21 @@ export default function BuiltPage() {
           without this the page steps straight from `h1` to `h3`.
         */}
         <h2 className="sr-only">All projects</h2>
-        <div className="reveal grid gap-6 sm:grid-cols-2 lg:grid-cols-3">
-          {ORDERED_PROJECTS.map((project) => (
+        <div className={`reveal ${GRID}`}>
+          {ORDERED_PROJECTS.slice(0, LEADING_PROJECTS).map((project) => (
             <ProjectCard key={project.slug} project={project} />
           ))}
         </div>
+        <MoreProjects
+          className="mt-8"
+          summaryClassName="mx-auto rounded-full border border-border-strong px-6 py-3 text-sm font-medium transition-colors hover:border-accent hover:bg-tint hover:text-accent"
+        >
+          <div className={`mt-8 ${GRID}`}>
+            {ORDERED_PROJECTS.slice(LEADING_PROJECTS).map((project) => (
+              <ProjectCard key={project.slug} project={project} />
+            ))}
+          </div>
+        </MoreProjects>
       </div>
     </>
   );
