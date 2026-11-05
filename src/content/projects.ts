@@ -50,7 +50,12 @@ export interface Project {
   /** What it is, which decides how the structured data describes it. */
   kind: "application" | "package" | "book" | "blog";
   /** Schema.org's `applicationCategory`, for an `application`. */
-  category?: "SportsApplication" | "ShoppingApplication" | "DeveloperApplication";
+  category?:
+    | "SportsApplication"
+    | "ShoppingApplication"
+    | "DeveloperApplication"
+    | "EducationalApplication"
+    | "FinanceApplication";
   stack: string[];
   links: ProjectLinks;
   /** `live` is running and maintained, `released` has shipped, `ongoing` is still moving. */
@@ -273,6 +278,63 @@ export const PROJECTS: Project[] = [
     },
     status: "live",
     featured: true,
+  },
+  {
+    slug: "fx-tracker",
+    name: "FX Tracker",
+    tagline: "Exchange rate forecasts, scored against what actually happened.",
+    summary:
+      "Daily exchange rates for any pair of currencies, with technical " +
+      "indicators and forecasts from a range of statistical models, each drawn " +
+      "as a fan of prediction intervals. Every forecast comes with its model's " +
+      "track record: refitted each week over the past year, and scored against " +
+      "the rate that followed and against simply assuming no change. Rates are " +
+      "Frankfurter's blended daily rates from central banks, cached at the CDN, " +
+      "and the models are tested against reference values computed in R.",
+    kind: "application",
+    category: "FinanceApplication",
+    stack: ["JavaScript", "Next.js", "Recharts", "Frankfurter API", "Vitest", "Vercel"],
+    links: {
+      live: "https://fx.sheetsolved.com",
+      source: "https://github.com/ces0491/fx-tracker",
+    },
+    status: "live",
+    featured: false,
+  },
+  {
+    slug: "sight-word-stories",
+    name: "Sight Word Stories",
+    tagline:
+      "Illustrated stories built from the sight words a child is learning, to read together.",
+    summary:
+      "A grown-up picks the sight words a child is practising, by typing them, " +
+      "uploading a list, scanning a page or choosing from the Dolch lists, and " +
+      "the child gets a short story built around them, illustrated page by page " +
+      "with the same characters throughout. The child taps any word to hear it, " +
+      "or has a page read aloud with each word lit up as it's spoken, and " +
+      "finishes with a word hunt. The classic engine builds a day in a child's " +
+      "life from written scenes and draws each page in code, in the browser. An " +
+      "optional AI mode writes the story with Claude instead, and the server " +
+      "checks which sight words it used. Settings for ADHD, dyslexia, autism, " +
+      "English learners and visual processing change how a story is shown. " +
+      "Stories can be printed, or saved and shared by link.",
+    kind: "application",
+    category: "EducationalApplication",
+    stack: [
+      "JavaScript",
+      "Next.js",
+      "MongoDB",
+      "NextAuth.js",
+      "Claude API",
+      "Tesseract.js",
+      "Vercel",
+    ],
+    links: {
+      live: "https://sight-word-app.vercel.app",
+      source: "https://github.com/ces0491/sight-word-app",
+    },
+    status: "live",
+    featured: false,
   },
 ];
 
