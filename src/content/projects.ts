@@ -248,7 +248,7 @@ export const PROJECTS: Project[] = [
     category: "DeveloperApplication",
     stack: ["R", "Shiny", "bslib", "plotly", "httr2"],
     links: {
-      live: "https://019d3e9e-b1a7-77dc-9266-40ce0b717eb3.share.connect.posit.cloud/",
+      live: "https://cranexplorer.sheetsolved.com",
       source: "https://github.com/ces0491/cranExploreR",
     },
     status: "live",

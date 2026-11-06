@@ -327,6 +327,17 @@ entry in `src/content/projects.ts` that happens to have its own host, on Vercel,
 and links back to the hub. They sit outside the six so that count stays a
 statement about the discoverability strategy.
 
+**`cranexplorer.` only redirects.** cranExploreR runs on Posit Connect Cloud's
+free plan, and custom domains there start at the Enhanced plan. The subdomain
+is attached to this Vercel project, and a host-matched redirect in
+`next.config.ts` sends it to the app's free custom name on Posit,
+`ces0491-cranexplorer.share.connect.posit.cloud`, so the hub links a URL it
+controls. Posit 307s the app's original UUID URL to the custom name, so old
+links still arrive. The redirect here is a 307 too, deliberately: the app may
+move onto the subdomain itself on a paid plan, and a cached 308 would keep
+returning visitors on the old address. Readers end on Posit's host, which is
+what search engines index.
+
 **`wood-wiz.vercel.app` 308s to the subdomain** as of 2026-09-04. Vercel goes on
 answering on a project's generated alias after a custom domain is attached, and
 that alias was serving the whole site — two hostnames, one set of pages. A

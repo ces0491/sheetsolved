@@ -1,5 +1,8 @@
 import type { NextConfig } from "next";
 
+/** Where cranExploreR runs: Posit Connect Cloud's free plan, on Posit's host. */
+const CRANEXPLORER_APP = "https://ces0491-cranexplorer.share.connect.posit.cloud";
+
 const nextConfig: NextConfig = {
   /**
    * Vercel goes on answering on a project's generated alias after a custom
@@ -18,6 +21,19 @@ const nextConfig: NextConfig = {
         has: [{ type: "host", value: "sheetsolved.vercel.app" }],
         destination: "https://sheetsolved.com/:path*",
         permanent: true,
+      },
+      /*
+       * Posit's free plan can't serve an app on a custom domain, so the
+       * subdomain is a link this site controls and the app stays on Posit.
+       * Temporary, because the app may move onto the subdomain itself on a
+       * paid plan. Browsers cache a 308 indefinitely and would keep sending
+       * returning visitors to the old address.
+       */
+      {
+        source: "/:path*",
+        has: [{ type: "host", value: "cranexplorer.sheetsolved.com" }],
+        destination: `${CRANEXPLORER_APP}/:path*`,
+        permanent: false,
       },
     ];
   },

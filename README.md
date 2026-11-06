@@ -189,3 +189,8 @@ application, for the rugby audience arriving from search.
 [FX Tracker](https://github.com/ces0491/fx-tracker) also have subdomains,
 `contriscape.` and `fx.`, and link back here, but they're portfolio entries
 rather than any of the six.
+
+`cranexplorer.` points at this project and redirects to the app on Posit
+Connect Cloud, whose free plan has no custom domains. The redirect is in
+`next.config.ts`, and it's a 307 so the destination can change without
+browsers holding on to the old one.
