@@ -185,12 +185,14 @@ RTP is split by audience rather than by topic: `sheetsolved.com/built/rtp` is
 the case study, written for clients, and `rtp.sheetsolved.com` is the
 application, for the rugby audience arriving from search.
 
-[contriscape](https://github.com/ces0491/contriscape) and
-[FX Tracker](https://github.com/ces0491/fx-tracker) also have subdomains,
-`contriscape.` and `fx.`, and link back here, but they're portfolio entries
-rather than any of the six.
+[contriscape](https://github.com/ces0491/contriscape),
+[FX Tracker](https://github.com/ces0491/fx-tracker) and
+[Sight Word Stories](https://github.com/ces0491/sight-word-app) also have
+subdomains, `contriscape.`, `fx.` and `sightwords.`, and link back here, but
+they're portfolio entries rather than any of the six.
 
 `cranexplorer.` points at this project and redirects to the app on Posit
 Connect Cloud, whose free plan has no custom domains. The redirect is in
 `next.config.ts`, and it's a 307 so the destination can change without
-browsers holding on to the old one.
+browsers holding on to the old one. Posit's robots.txt blocks search crawlers,
+so the app itself isn't indexed.

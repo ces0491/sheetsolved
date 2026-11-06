@@ -202,7 +202,7 @@ export const PROJECTS: Project[] = [
     slug: "tech-perspectives",
     name: "Tech Perspectives",
     tagline: "Ces's random twalks on tech and stats.",
-    summary: "Writing on AI, software and statistics, and on the R tools in this portfolio.",
+    summary: "Writing on tech and stats, and on the R tools in this portfolio.",
     kind: "blog",
     stack: ["Jekyll", "Markdown"],
     links: {
@@ -329,7 +329,7 @@ export const PROJECTS: Project[] = [
       "Vercel",
     ],
     links: {
-      live: "https://sight-word-app.vercel.app",
+      live: "https://sightwords.sheetsolved.com",
       source: "https://github.com/ces0491/sight-word-app",
     },
     status: "live",

@@ -322,10 +322,17 @@ naming its own host.
 Spokes CNAME to `ces0491.github.io` except RTP and Wood Wiz, which point at
 Vercel.
 
-**`contriscape.` and `fx.` are subdomains but not spokes.** Each is a portfolio
-entry in `src/content/projects.ts` that happens to have its own host, on Vercel,
-and links back to the hub. They sit outside the six so that count stays a
-statement about the discoverability strategy.
+**`contriscape.`, `fx.` and `sightwords.` are subdomains but not spokes.** Each
+is a portfolio entry in `src/content/projects.ts` that happens to have its own
+host, on Vercel, and links back to the hub. They sit outside the six so that
+count stays a statement about the discoverability strategy. contriscape and
+Sight Word Stories each 308 their `*.vercel.app` alias to the subdomain from
+their own repo; FX Tracker's project has no alias left to redirect.
+
+**A project with its own host gets the checks the spokes got**, when it's added
+rather than later: the alias redirect, a canonical, a description, a link back
+to the hub, and the repo's GitHub Website field. All three went onto the hub
+missing some of them.
 
 **`cranexplorer.` only redirects.** cranExploreR runs on Posit Connect Cloud's
 free plan, and custom domains there start at the Enhanced plan. The subdomain
@@ -335,8 +342,10 @@ is attached to this Vercel project, and a host-matched redirect in
 controls. Posit 307s the app's original UUID URL to the custom name, so old
 links still arrive. The redirect here is a 307 too, deliberately: the app may
 move onto the subdomain itself on a paid plan, and a cached 308 would keep
-returning visitors on the old address. Readers end on Posit's host, which is
-what search engines index.
+returning visitors on the old address. Readers end on Posit's host, and its
+robots.txt disallows every crawler except LinkedInBot and Twitterbot, so the app
+can't be indexed there. It's found through the hub, its repo and the blog post
+that introduced it. Check that robots.txt before paying for a custom domain.
 
 **`wood-wiz.vercel.app` 308s to the subdomain** as of 2026-09-04. Vercel goes on
 answering on a project's generated alias after a custom domain is attached, and
