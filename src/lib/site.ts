@@ -59,7 +59,7 @@ export const SITE = {
   eyebrow: "Data and software consultancy",
   /* The spreadsheet origin is explained once, in the Practice section. */
   intro:
-    "I build the data and software systems a business runs on — the pipeline " +
+    "I build the data and software systems your business runs on — the pipeline " +
     "that feeds it, the model behind the decision, and the application that " +
     "puts both in front of your users.",
   description:
@@ -68,7 +68,7 @@ export const SITE = {
     "Quantitative consulting from Cape Town.",
   owner: `${OWNER_NAME.given} ${OWNER_NAME.family}`,
   /** What the contact card and the structured data both call the job. */
-  role: "Data and analytics consultant",
+  role: "Data and software consultant",
   email: "cesaire@sheetsolved.com",
   location: `${ADDRESS.city}, ${ADDRESS.country}`,
   github: "https://github.com/ces0491",
@@ -128,6 +128,6 @@ export const SERVICES = [
   },
   {
     title: "Technical leadership",
-    body: "Standing in as the technical lead a small team doesn't have: architecture, review, and the pipeline that enforces both.",
+    body: "Architecture, code review and the pipeline that enforces both.",
   },
 ] as const;

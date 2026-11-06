@@ -90,8 +90,7 @@ that points at it — the thing to hold up when someone asks for your details.
   page, and its content is contact detail the home page already carries.
 - **The name and the address live in `OWNER_NAME` and `ADDRESS` in parts**,
   because the footer wants a sentence, the JSON-LD wants `PostalAddress` fields
-  and a vCard wants semicolon-separated components. Assembling three shapes from
-  one definition beats writing the address down three times.
+  and a vCard wants semicolon-separated components.
 
 ## What the site says it does
 
@@ -123,21 +122,19 @@ so it lives in `src/app/globals.css` as tokens and four small conventions.
 
 - **Tints, rings and shadows are mixed from the accent** with `color-mix`,
   rather than being greys or blacks. A black shadow under a navy-tinted card is
-  the single most common thing that makes an otherwise careful page look flat.
-  A palette change in `brand.json` carries through all of them.
+  a common reason a careful page looks flat. A palette change in `brand.json`
+  carries through all of them.
 - **`.field` is the ruled backdrop.** The mark is a cell with two open corners;
   the backdrop is the rest of that sheet, dissolved by a mask before it reaches
-  the edge so it reads as substrate rather than subject. It is one class, no
-  markup and no image, and it is the visual half of the positioning argument.
+  the edge. It is one class, with no markup and no image.
 - **Grids that share their rules use `gap-px` over a border-coloured
   background**, with each cell painted `surface-raised`. The services block and
-  every figure grid are built this way: clean shared edges at every breakpoint,
-  no stray outer rule to correct for, and a deliberate echo of a sheet.
+  the case study figures are built this way, which gives clean shared edges at
+  every breakpoint with no stray outer rule to correct for.
 - **The scroll-driven reveal moves but never fades.** Writing it the usual way,
   from `opacity: 0`, leaves a scroll timeline sitting at 0% for everything
   below the fold — so a print render, a crawler taking a screenshot, or a
-  reader landing on an anchor gets a page of blank bands. On a site whose whole
-  point is being found, that is not a trade worth making for a fade.
+  reader landing on an anchor gets a page of blank bands.
 
 **Screenshot before adopting a visual change**, in both colour schemes.
 
@@ -172,8 +169,8 @@ queries.
 
 ## Hub and spoke
 
-Six properties, one brand, reciprocal links. Each spoke is its own repo on its
-own subdomain.
+The hub and its five spokes share the brand and link to each other. Each spoke
+is its own repo on its own subdomain.
 
 | | subdomain | repo |
 | --- | --- | --- |

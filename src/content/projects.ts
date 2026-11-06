@@ -202,11 +202,7 @@ export const PROJECTS: Project[] = [
     slug: "tech-perspectives",
     name: "Tech Perspectives",
     tagline: "Ces's random twalks on tech and stats.",
-    summary:
-      "Writing on what AI assistance changes and what it doesn't, how computing " +
-      "keeps swinging between central and local, and the R package work those " +
-      "arguments get tested on — dependency risk, reporting, and a scoring band " +
-      "that didn't hold.",
+    summary: "Writing on AI, software and statistics, and on the R tools in this portfolio.",
     kind: "blog",
     stack: ["Jekyll", "Markdown"],
     links: {
@@ -268,7 +264,8 @@ export const PROJECTS: Project[] = [
       "the history as a flight, so the city rises as the dates pass. Milestones " +
       "float over the days they happened, as badges to shoot. It reads GitHub's " +
       "API through a small proxy that keeps the token on the server, and caches " +
-      "at the CDN so repeat visits don't touch GitHub at all.",
+      "responses at the CDN, so a city viewed recently loads without calling " +
+      "GitHub.",
     kind: "application",
     category: "DeveloperApplication",
     stack: ["TypeScript", "three.js", "Vite", "GitHub GraphQL API", "Vercel"],
@@ -282,15 +279,17 @@ export const PROJECTS: Project[] = [
   {
     slug: "fx-tracker",
     name: "FX Tracker",
-    tagline: "Exchange rate forecasts, scored against what actually happened.",
+    tagline: "Exchange rate forecasts, scored against the rates that followed.",
     summary:
-      "Daily exchange rates for any pair of currencies, with technical " +
-      "indicators and forecasts from a range of statistical models, each drawn " +
-      "as a fan of prediction intervals. Every forecast comes with its model's " +
-      "track record: refitted each week over the past year, and scored against " +
-      "the rate that followed and against simply assuming no change. Rates are " +
-      "Frankfurter's blended daily rates from central banks, cached at the CDN, " +
-      "and the models are tested against reference values computed in R.",
+      "Daily exchange rates for any pair of the currencies Frankfurter " +
+      "publishes, with technical indicators and forecasts from a range of " +
+      "statistical models, each drawn as a fan of prediction intervals. Every " +
+      "forecast comes with its model's track record, built by refitting the " +
+      "model each week over the past year and scoring it against the rate that " +
+      "followed and against simply assuming no change. The rates are " +
+      "Frankfurter's daily blend of central-bank and other official sources, " +
+      "cached at the CDN, and the regression, smoothing and ARIMA models are " +
+      "tested against values computed with R's stats package.",
     kind: "application",
     category: "FinanceApplication",
     stack: ["JavaScript", "Next.js", "Recharts", "Frankfurter API", "Vitest", "Vercel"],
@@ -310,12 +309,12 @@ export const PROJECTS: Project[] = [
       "A grown-up picks the sight words a child is practising, by typing them, " +
       "uploading a list, scanning a page or choosing from the Dolch lists, and " +
       "the child gets a short story built around them, illustrated page by page " +
-      "with the same characters throughout. The child taps any word to hear it, " +
-      "or has a page read aloud with each word lit up as it's spoken, and " +
-      "finishes with a word hunt. The classic engine builds a day in a child's " +
-      "life from written scenes and draws each page in code, in the browser. An " +
-      "optional AI mode writes the story with Claude instead, and the server " +
-      "checks which sight words it used. Settings for ADHD, dyslexia, autism, " +
+      "in code with the same characters throughout. The child taps any word to " +
+      "hear it, or has a page read aloud with each word lit up as it's spoken, " +
+      "and finishes with a word hunt. The classic engine builds a day in a " +
+      "child's life from written scenes, in the browser. An optional AI mode " +
+      "writes the story with Claude instead, using the grown-up's own Anthropic " +
+      "key, and checks which sight words it used. Settings for ADHD, dyslexia, autism, " +
       "English learners and visual processing change how a story is shown. " +
       "Stories can be printed, or saved and shared by link.",
     kind: "application",

@@ -173,7 +173,7 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
             Interested in work like this?
           </h2>
           <p className="mt-4 text-pretty leading-relaxed text-muted">
-            Whatever the subject, I measure the work and publish what the measurement covers.
+            Where the work can be measured, I measure it and publish what the measurement covers.
           </p>
           <div className="mt-8 flex flex-wrap items-center gap-x-6 gap-y-3 text-sm">
             <a

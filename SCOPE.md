@@ -9,7 +9,7 @@ it from what's been built.
 ## Done
 
 This site is maintained rather than finished, so these are conditions that hold
-on `main` and on the live site, not a one-off release.
+on `main` and on the live site.
 
 - [ ] CI passes on `main`: lint, formatting, tests and build
 - [ ] `npm audit` reports nothing, and no dependency is deprecated

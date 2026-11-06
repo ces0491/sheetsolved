@@ -99,7 +99,7 @@ available: run the install in a `node:24` container against a copy of
 
 ## Why a repo rather than a page
 
-The hub is infrastructure, not a brochure. Every project added from here on
+The hub is infrastructure. Every project added from here on
 needs an entry, and that list only grows. Website Builder makes each of those a
 page somebody assembles by clicking, and cannot emit per-project structured
 data, control canonical tags, or generate a sitemap from its own content —
@@ -304,8 +304,8 @@ then step `p=none` → `quarantine` → `reject`.
 
 ## Hub and spoke
 
-Six properties, one brand, reciprocal links. The hub is this repo; each spoke
-is its own repo on its own subdomain.
+The hub and its five spokes share the brand and link to each other. The hub is
+this repo; each spoke is its own repo on its own subdomain.
 
 All six are live on their own subdomain, over HTTPS, each serving a sitemap
 naming its own host.
@@ -340,13 +340,13 @@ Two things about the arrangement:
   case study, written for clients; `rtp.sheetsolved.com` is the app, for the
   rugby audience arriving from search. It is the strongest portfolio piece —
   a running production system rather than a package or a book — and the SSR
-  work is done: 5,910 URLs in its sitemap, and the forecast pages that used to
-  render "Loading" now serve their content and their own titles in the
-  document.
+  work is done: several thousand URLs in its sitemap, and the forecast pages
+  that used to render "Loading" now serve their content and their own titles
+  in the document.
 - **tidylearn's CRAN listing is the most valuable single asset.**
-  `cran.r-project.org` is mirrored worldwide. The published listing is 0.6.0
-  from 2026-10-08, and its `URL:` names `tidylearn.sheetsolved.com` alongside
-  the GitHub repo, so the mirrored inbound link is live. A `URL:`
+  `cran.r-project.org` is mirrored worldwide. The published listing's `URL:`
+  names `tidylearn.sheetsolved.com` alongside the GitHub repo, so the mirrored
+  inbound link is live. A `URL:`
   change only reaches the listing with a release, so check the live listing
   rather than `DESCRIPTION` on `main` before describing one as done.
 
@@ -374,9 +374,9 @@ This has already gone wrong once: a commit landed on tidylearn's
 
 - **First person singular throughout.** A consultancy of one whose contact
   section names one person is more credible in the singular.
-- **No numbers used as credentials, and no metrics band.** This is a
-  consultancy site, not a CV. A hero band of years worked, rows processed and
-  forecast accuracy was built and then removed for that reason. Figures belong
+- **No numbers used as credentials, and no metrics band.** A hero band of years
+  worked, rows processed and forecast accuracy was built and then removed,
+  because it made a consultancy site read like a CV. Figures belong
   in a case study, where `CaseStudyFigure.note` forces each one to carry its
   scope and the reader has the context to judge it.
 - **Contractions.** "Tell me what's not working", not "what is not working" —
@@ -422,8 +422,8 @@ No UI library, and no client JavaScript in the visual system itself. It is
 tokens and four conventions in `src/app/globals.css`.
 
 - **Tints, rings and shadows are mixed from the accent** with `color-mix`. A
-  black shadow under a navy-tinted card is the most common single cause of a
-  careful page looking flat. A `brand.json` change carries through all of them.
+  black shadow under a navy-tinted card is a common reason a careful page looks
+  flat. A `brand.json` change carries through all of them.
 - **`.field` is the ruled backdrop** — the rest of the sheet the mark is a cell
   of, dissolved by a mask before the edge. One class, no markup, no image.
 - **Grids that share rules use `gap-px` over a border-coloured background**,

@@ -122,7 +122,6 @@ export default async function Home() {
           <div className="max-w-2xl space-y-6 text-pretty text-lg leading-relaxed sm:text-xl">
             <p>
               Your business carries real complexity, but complex shouldn&apos;t mean complicated.
-              The thing you use every day should still be simple to run and safe to change.
             </p>
             <p className="text-muted">
               Most of what I&apos;m asked to fix was built as a utility, often quickly, for a
@@ -189,7 +188,7 @@ export default async function Home() {
                 internal admin systems, and the CI that keeps them honest.
               </p>
               <p className="text-muted">
-                Before consulting, quantitative roles across asset management, management
+                Before Sheet Solved, quantitative roles across asset management, management
                 consulting, e-commerce and technology — for large listed companies down to micro
                 enterprises.
               </p>
