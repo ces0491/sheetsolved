@@ -99,6 +99,17 @@ export const OPEN_GRAPH_BASE = {
 } as const;
 
 /**
+ * The free courses, a product of their own on their own subdomain. They aren't
+ * a project in `src/content/projects.ts`: the header, the footer and the home
+ * page each link here instead, so the courses aren't one entry among the
+ * portfolio's.
+ */
+export const COURSES = {
+  name: "Sheet Solved courses",
+  url: "https://learn.sheetsolved.com",
+} as const;
+
+/**
  * What the consultancy does.
  *
  * Spreadsheet work is one entry rather than the frame around the others, and

@@ -47,11 +47,8 @@ export interface Project {
   tagline: string;
   /** A paragraph, read on the project page. */
   summary: string;
-  /**
-   * What it is, which decides how the structured data describes it. `courses`
-   * is a site that holds courses, which describes itself as a `WebSite`.
-   */
-  kind: "application" | "package" | "book" | "blog" | "courses";
+  /** What it is, which decides how the structured data describes it. */
+  kind: "application" | "package" | "book" | "blog";
   /** Schema.org's `applicationCategory`, for an `application`. */
   category?:
     | "SportsApplication"
@@ -335,23 +332,6 @@ export const PROJECTS: Project[] = [
       live: "https://sightwords.sheetsolved.com",
       source: "https://github.com/ces0491/sight-word-app",
     },
-    status: "live",
-    featured: false,
-  },
-  {
-    slug: "learn",
-    name: "Sheet Solved courses",
-    tagline: "Free, self-paced courses on building with AI and checking what it gives you.",
-    summary:
-      "Free, self-paced courses for professionals who don't code, on building " +
-      "with AI and checking what it builds. They run from the spreadsheet a " +
-      "learner already works in to an app on a builder's free plan, and on to " +
-      "a small system they run themselves. What a step costs and where the AI " +
-      "went wrong come from dry runs on free plans, each dated, and a daily " +
-      "check watches the builder's own docs for changes.",
-    kind: "courses",
-    stack: ["Next.js", "TypeScript", "MDX", "Tailwind CSS", "Resend", "Vercel"],
-    links: { live: "https://learn.sheetsolved.com" },
     status: "live",
     featured: false,
   },

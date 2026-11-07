@@ -2,7 +2,7 @@ import Link from "next/link";
 
 import { Logo } from "@/components/logo";
 import { projectBySlug } from "@/content/projects";
-import { SITE } from "@/lib/site";
+import { COURSES, SITE } from "@/lib/site";
 
 /**
  * The blog gets a nav entry of its own.
@@ -18,13 +18,25 @@ import { SITE } from "@/lib/site";
  */
 const BLOG = projectBySlug("tech-perspectives")?.links.live;
 
-/** `onlyWide` hides an entry below `sm`, where four labels do not fit. */
-const NAV: { href: string; label: string; external?: boolean; onlyWide?: boolean }[] = [
+/**
+ * The courses get an entry of their own for the same reason the blog does: a
+ * reader looks for them by name, and they're a product rather than a project.
+ *
+ * `from` hides an entry below a breakpoint. At 360px four labels overflow the
+ * header, and below `md` five push "Get in touch" onto three lines, so Built
+ * goes below `sm` and Practice below `md`. Built stays reachable on a phone
+ * from the home page's "All projects" and the footer.
+ */
+const NAV: { href: string; label: string; external?: boolean; from?: "sm" | "md" }[] = [
   { href: "/#services", label: "Services" },
-  { href: "/built", label: "Built" },
+  { href: "/built", label: "Built", from: "sm" },
+  { href: COURSES.url, label: "Courses", external: true },
   ...(BLOG ? [{ href: BLOG, label: "Writing", external: true }] : []),
-  { href: "/#practice", label: "Practice", onlyWide: true },
+  { href: "/#practice", label: "Practice", from: "md" },
 ];
+
+/** Whole class names, so Tailwind finds them in the source. */
+const SHOW_FROM = { sm: "hidden sm:block", md: "hidden md:block" } as const;
 
 /**
  * The header stays with the reader.
@@ -50,7 +62,7 @@ export function SiteHeader() {
           <nav aria-label="Main">
             <ul className="flex items-center gap-4 text-sm sm:gap-7">
               {NAV.map((item) => (
-                <li key={item.href} className={item.onlyWide ? "hidden sm:block" : undefined}>
+                <li key={item.href} className={item.from ? SHOW_FROM[item.from] : undefined}>
                   {item.external ? (
                     <a href={item.href} className="underline-grow text-muted hover:text-foreground">
                       {item.label}

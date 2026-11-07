@@ -3,7 +3,7 @@ import Link from "next/link";
 
 import { ProjectCard } from "@/components/project-card";
 import { LEADING_PROJECTS, ORDERED_PROJECTS } from "@/content/projects";
-import { SERVICES, SITE } from "@/lib/site";
+import { COURSES, SERVICES, SITE } from "@/lib/site";
 import { BLOG_URL, readWriting } from "@/lib/writing";
 
 /**
@@ -197,6 +197,32 @@ export default async function Home() {
                 writes its real logic down, so it&apos;s still where a good number of engagements
                 begin.
               </p>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* Copy drafted for Ces to approve before the branch merges. */}
+      <section id="courses" className="scroll-mt-24 border-t border-border">
+        <div className="mx-auto max-w-6xl px-6 py-24 sm:px-8 sm:py-32">
+          <div className="reveal grid gap-8 lg:grid-cols-[19rem_1fr] lg:gap-20">
+            <div>
+              <SectionLabel>Courses</SectionLabel>
+              <h2 className="mt-4 text-pretty text-3xl font-semibold tracking-tight sm:text-4xl">
+                Free courses on building with AI.
+              </h2>
+            </div>
+            <div className="max-w-2xl space-y-6 text-pretty leading-relaxed">
+              <p className="text-lg sm:text-xl">
+                Self-paced courses for people who don&apos;t code: how to build with AI, and how to
+                check what it builds before anyone relies on it.
+              </p>
+              <p className="text-muted">
+                What a step costs and where the AI went wrong come from dated runs on free plans.
+              </p>
+              <a href={COURSES.url} className="underline-grow text-sm font-medium text-accent">
+                Go to the courses →
+              </a>
             </div>
           </div>
         </div>

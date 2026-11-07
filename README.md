@@ -190,7 +190,9 @@ application, for the rugby audience arriving from search.
 [FX Tracker](https://github.com/ces0491/fx-tracker) and
 [Sight Word Stories](https://github.com/ces0491/sight-word-app) also have
 subdomains, `contriscape.`, `fx.` and `sightwords.`, and link back here, but
-they're portfolio entries rather than any of the seven.
+they're portfolio entries rather than any of the seven. The courses are the
+other way round: a spoke and a product, linked from the header, the footer and
+the home page, with no entry under `/built`.
 
 `cranexplorer.` points at this project and redirects to the app on Posit
 Connect Cloud, whose free plan has no custom domains. The redirect is in

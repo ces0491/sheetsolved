@@ -55,7 +55,6 @@ const SCHEMA_TYPE: Record<Project["kind"], string> = {
   package: "SoftwareSourceCode",
   book: "Book",
   blog: "Blog",
-  courses: "WebSite",
 };
 
 /**

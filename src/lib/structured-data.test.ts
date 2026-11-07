@@ -14,7 +14,6 @@ describe("projectJsonLd", () => {
     expect(typeOf("tech-perspectives")).toBe("Blog");
     expect(typeOf("tidylearn")).toBe("SoftwareSourceCode");
     expect(typeOf("rtp")).toBe("SoftwareApplication");
-    expect(typeOf("learn")).toBe("WebSite");
   });
 
   it("gives an application category to applications and nothing else", () => {

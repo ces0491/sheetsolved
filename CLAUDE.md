@@ -320,8 +320,13 @@ naming its own host.
 | Blog | `blog.` | `tech-perspectives` | GitHub Pages |
 | Courses | `learn.` | `ss-learn` | Vercel |
 
-Spokes CNAME to `ces0491.github.io` except RTP, Wood Wiz and the courses, which point at
-Vercel.
+Spokes CNAME to `ces0491.github.io` except RTP, Wood Wiz and the courses,
+which point at Vercel.
+
+**The courses are a product, not a `/built` project (Ces, 2026-11-07).** They
+have no entry in `src/content/projects.ts`. `COURSES` in `src/lib/site.ts` holds
+their address, and the header's Courses link, the footer and the home page's
+Courses section all read it.
 
 **`contriscape.`, `fx.` and `sightwords.` are subdomains but not spokes.** Each
 is a portfolio entry in `src/content/projects.ts` that happens to have its own

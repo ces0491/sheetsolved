@@ -3,7 +3,7 @@ import Link from "next/link";
 import { Mark } from "@/components/logo";
 import { MoreProjects } from "@/components/more-projects";
 import { LEADING_PROJECTS, ORDERED_PROJECTS } from "@/content/projects";
-import { SITE } from "@/lib/site";
+import { COURSES, SITE } from "@/lib/site";
 
 /**
  * The footer carries the outbound links to every property.
@@ -44,6 +44,11 @@ export function SiteFooter() {
           <div>
             <h2 className="font-mono text-xs uppercase tracking-[0.18em] text-muted">Elsewhere</h2>
             <ul className="mt-4 space-y-2.5 text-sm">
+              <li>
+                <a href={COURSES.url} className="underline-grow text-muted hover:text-foreground">
+                  Courses
+                </a>
+              </li>
               {destinations.slice(0, LEADING_PROJECTS)}
               <li>
                 <MoreProjects summaryClassName="underline-grow text-muted hover:text-foreground">
