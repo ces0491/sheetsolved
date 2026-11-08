@@ -23,14 +23,14 @@ const BLOG = projectBySlug("tech-perspectives")?.links.live;
  * reader looks for them by name, and they're a product rather than a project.
  *
  * `from` hides an entry below a breakpoint. At 360px four labels overflow the
- * header, and below `md` five push "Get in touch" onto three lines, so Built
- * goes below `sm` and Practice below `md`. Built stays reachable on a phone
- * from the home page's "All projects" and the footer.
+ * header, and below `md` five push "Get in touch" onto three lines, so Courses
+ * goes below `sm` and Practice below `md`. Courses stays reachable on a phone
+ * from the home page's courses section and the footer.
  */
 const NAV: { href: string; label: string; external?: boolean; from?: "sm" | "md" }[] = [
   { href: "/#services", label: "Services" },
-  { href: "/built", label: "Built", from: "sm" },
-  { href: COURSES.url, label: "Courses", external: true },
+  { href: "/built", label: "Built" },
+  { href: COURSES.url, label: "Courses", external: true, from: "sm" },
   ...(BLOG ? [{ href: BLOG, label: "Writing", external: true }] : []),
   { href: "/#practice", label: "Practice", from: "md" },
 ];
