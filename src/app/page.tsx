@@ -217,8 +217,8 @@ export default async function Home() {
           </div>
 
           <p className="reveal mt-6 max-w-2xl text-pretty leading-relaxed text-muted">
-            Consulting work belongs to the client, so these are what I can show. Each one is
-            running, published, or both, and each shows the method as well as the result.
+            Personal, portfolio projects that don&apos;t belong to any client. Each one is running,
+            published, or both.
           </p>
 
           <div className="reveal mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">
@@ -291,8 +291,8 @@ export default async function Home() {
                 Tell me what&apos;s not working.
               </h2>
               <p className="mt-5 text-pretty leading-relaxed text-muted">
-                Send me the problem as you&apos;d describe it to a colleague. I&apos;ll tell you
-                what I&apos;d do about it before you have to commit to anything.
+                Send me the problem as you&apos;d describe it to a colleague and let&apos;s start
+                the conversation.
               </p>
 
               <div className="mt-9 flex flex-wrap items-center gap-x-8 gap-y-4">
