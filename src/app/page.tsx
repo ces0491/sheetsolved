@@ -215,7 +215,7 @@ export default async function Home() {
             <div className="max-w-2xl space-y-6 text-pretty leading-relaxed">
               <p className="text-lg sm:text-xl">
                 Self-paced courses for people who don&apos;t code: how to build with AI, and how to
-                check what it builds before anyone relies on it.
+                check what it returns.
               </p>
               <p className="text-muted">
                 What a step costs and where the AI went wrong come from dated runs on free plans.
