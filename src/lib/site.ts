@@ -105,7 +105,7 @@ export const OPEN_GRAPH_BASE = {
  * portfolio's.
  */
 export const COURSES = {
-  name: "Sheet Solved courses",
+  name: "Sheet Solved Learn",
   url: "https://learn.sheetsolved.com",
 } as const;
 
