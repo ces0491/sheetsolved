@@ -202,7 +202,6 @@ export default async function Home() {
         </div>
       </section>
 
-      {/* Copy drafted for Ces to approve before the branch merges. */}
       <section id="courses" className="scroll-mt-24 border-t border-border">
         <div className="mx-auto max-w-6xl px-6 py-24 sm:px-8 sm:py-32">
           <div className="reveal grid gap-8 lg:grid-cols-[19rem_1fr] lg:gap-20">
@@ -214,8 +213,8 @@ export default async function Home() {
             </div>
             <div className="max-w-2xl space-y-6 text-pretty leading-relaxed">
               <p className="text-lg sm:text-xl">
-                Self-paced courses for people who don&apos;t code: how to build with AI, and how to
-                check what it returns.
+                Self-paced courses, from putting AI to work on your spreadsheets to building your
+                own apps, and checking what the AI gives you.
               </p>
               <p className="text-muted">
                 What a step costs and where the AI went wrong come from dated runs on free plans.
