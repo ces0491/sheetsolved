@@ -304,10 +304,10 @@ then step `p=none` → `quarantine` → `reject`.
 
 ## Hub and spoke
 
-The hub and its five spokes share the brand and link to each other. The hub is
+The hub and its six spokes share the brand and link to each other. The hub is
 this repo; each spoke is its own repo on its own subdomain.
 
-All six are live on their own subdomain, over HTTPS, each serving a sitemap
+All seven are live on their own subdomain, over HTTPS, each serving a sitemap
 naming its own host.
 
 | | subdomain | repo | serves |
@@ -318,13 +318,19 @@ naming its own host.
 | tidylearn | `tidylearn.` | `tidylearn` | GitHub Pages |
 | Ready Before Run | `rbr.` | `rbr` | GitHub Pages |
 | Blog | `blog.` | `tech-perspectives` | GitHub Pages |
+| Courses | `learn.` | `ss-learn` | Vercel |
 
-Spokes CNAME to `ces0491.github.io` except RTP and Wood Wiz, which point at
-Vercel.
+Spokes CNAME to `ces0491.github.io` except RTP, Wood Wiz and the courses,
+which point at Vercel.
+
+**The courses are a product, not a `/built` project (Ces, 2026-11-07).** They
+have no entry in `src/content/projects.ts`. `COURSES` in `src/lib/site.ts` holds
+their address, and the header's Courses link, the footer and the home page's
+Courses section all read it.
 
 **`contriscape.`, `fx.` and `sightwords.` are subdomains but not spokes.** Each
 is a portfolio entry in `src/content/projects.ts` that happens to have its own
-host, on Vercel, and links back to the hub. They sit outside the six so that
+host, on Vercel, and links back to the hub. They sit outside the seven so that
 count stays a statement about the discoverability strategy. contriscape and
 Sight Word Stories each 308 their `*.vercel.app` alias to the subdomain from
 their own repo; FX Tracker's project has no alias left to redirect.

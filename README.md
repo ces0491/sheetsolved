@@ -169,7 +169,7 @@ queries.
 
 ## Hub and spoke
 
-The hub and its five spokes share the brand and link to each other. Each spoke
+The hub and its six spokes share the brand and link to each other. Each spoke
 is its own repo on its own subdomain.
 
 | | subdomain | repo |
@@ -180,6 +180,7 @@ is its own repo on its own subdomain.
 | tidylearn | `tidylearn.` | [tidylearn](https://github.com/ces0491/tidylearn) |
 | Ready Before Run | `rbr.` | [rbr](https://github.com/ces0491/rbr) |
 | Blog | `blog.` | [tech-perspectives](https://github.com/ces0491/tech-perspectives) |
+| Courses | `learn.` | `ss-learn` (private) |
 
 RTP is split by audience rather than by topic: `sheetsolved.com/built/rtp` is
 the case study, written for clients, and `rtp.sheetsolved.com` is the
@@ -189,7 +190,9 @@ application, for the rugby audience arriving from search.
 [FX Tracker](https://github.com/ces0491/fx-tracker) and
 [Sight Word Stories](https://github.com/ces0491/sight-word-app) also have
 subdomains, `contriscape.`, `fx.` and `sightwords.`, and link back here, but
-they're portfolio entries rather than any of the six.
+they're portfolio entries rather than any of the seven. The courses are the
+other way round: a spoke and a product, linked from the header, the footer and
+the home page, with no entry under `/built`.
 
 `cranexplorer.` points at this project and redirects to the app on Posit
 Connect Cloud, whose free plan has no custom domains. The redirect is in
