@@ -99,12 +99,16 @@ knowing this builds data and software systems — pipelines, models, application
 dashboards — with spreadsheet work as one service among several rather than the
 frame around the others.
 
-Two things carry that and are easy to undo by accident:
+Three things carry that and are easy to undo by accident:
 
 - **`SITE.description` in `src/lib/site.ts` is the machine-readable version of
   it.** It is the meta description, the Open Graph description and the
   `ProfessionalService` description in the JSON-LD. Narrowing it back to
   spreadsheets narrows all three at once.
+- **The home page's title names the business.** It's the name, `SITE.eyebrow`
+  and the city, assembled in `src/app/layout.tsx`, and it heads the search
+  result and the shared card. The strapline and the tagline don't say what the
+  business does, so neither belongs there.
 - **The origin is explained once, in the Practice section, and nowhere else.**
   Repeating it in the hero, the services and the experience copy makes the site
   read as a spreadsheet consultancy that also does other things.

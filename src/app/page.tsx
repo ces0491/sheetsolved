@@ -202,31 +202,6 @@ export default async function Home() {
         </div>
       </section>
 
-      <section id="courses" className="scroll-mt-24 border-t border-border">
-        <div className="mx-auto max-w-6xl px-6 py-24 sm:px-8 sm:py-32">
-          <div className="reveal grid gap-8 lg:grid-cols-[19rem_1fr] lg:gap-20">
-            <div>
-              <SectionLabel>Courses</SectionLabel>
-              <h2 className="mt-4 text-pretty text-3xl font-semibold tracking-tight sm:text-4xl">
-                Free courses on building with AI.
-              </h2>
-            </div>
-            <div className="max-w-2xl space-y-6 text-pretty leading-relaxed">
-              <p className="text-lg sm:text-xl">
-                Self-paced courses, from putting AI to work on your spreadsheets to building your
-                own apps, and checking what the AI gives you.
-              </p>
-              <p className="text-muted">
-                What a step costs and where the AI went wrong come from dated runs on free plans.
-              </p>
-              <a href={COURSES.url} className="underline-grow text-sm font-medium text-accent">
-                Go to the courses →
-              </a>
-            </div>
-          </div>
-        </div>
-      </section>
-
       <section className="border-t border-border bg-surface">
         <div className="mx-auto max-w-6xl px-6 py-24 sm:px-8 sm:py-32">
           <div className="reveal flex flex-wrap items-end justify-between gap-6">
@@ -254,7 +229,37 @@ export default async function Home() {
         </div>
       </section>
 
-      <section id="writing" className="scroll-mt-24">
+      {/*
+        After Built, so the pitch runs from Practice straight into the projects
+        that back it. The courses are written for people learning to build with
+        AI, a different reader from someone hiring.
+      */}
+      <section id="courses" className="scroll-mt-24 border-t border-border">
+        <div className="mx-auto max-w-6xl px-6 py-24 sm:px-8 sm:py-32">
+          <div className="reveal grid gap-8 lg:grid-cols-[19rem_1fr] lg:gap-20">
+            <div>
+              <SectionLabel>Courses</SectionLabel>
+              <h2 className="mt-4 text-pretty text-3xl font-semibold tracking-tight sm:text-4xl">
+                Free courses on building with AI.
+              </h2>
+            </div>
+            <div className="max-w-2xl space-y-6 text-pretty leading-relaxed">
+              <p className="text-lg sm:text-xl">
+                Self-paced courses, from putting AI to work on your spreadsheets to building your
+                own apps, and checking what the AI gives you.
+              </p>
+              <p className="text-muted">
+                What a step costs and where the AI went wrong come from dated runs on free plans.
+              </p>
+              <a href={COURSES.url} className="underline-grow text-sm font-medium text-accent">
+                Go to the courses →
+              </a>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section id="writing" className="scroll-mt-24 border-t border-border">
         <div className="mx-auto max-w-6xl px-6 py-24 sm:px-8 sm:py-32">
           <div className="reveal flex flex-wrap items-end justify-between gap-6">
             <div>

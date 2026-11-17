@@ -54,7 +54,8 @@ export const SITE = {
   /*
    * Short enough to hold one line at 390px. The location is carried by the
    * description, the contact block, the footer and the JSON-LD address, and
-   * appending it here only bought a wrapped orphan above the fold.
+   * appending it here only bought a wrapped orphan above the fold. The default
+   * title in `layout.tsx` names the business with it too.
    */
   eyebrow: "Data and software consultancy",
   /* The spreadsheet origin is explained once, in the Practice section. */

@@ -8,17 +8,24 @@ import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { PALETTE } from "@/lib/brand";
 import { organisationJsonLd, personJsonLd } from "@/lib/structured-data";
-import { OPEN_GRAPH_BASE, SITE, SITE_URL } from "@/lib/site";
+import { ADDRESS, OPEN_GRAPH_BASE, SITE, SITE_URL } from "@/lib/site";
 
 import "./globals.css";
 
 const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
 const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
 
+/*
+ * The home page's title, and the headline of its search result and its shared
+ * card. It says what the business is and where, which neither the strapline
+ * nor the tagline in the `<h1>` does.
+ */
+const DEFAULT_TITLE = `${SITE.name} — ${SITE.eyebrow}, ${ADDRESS.city}`;
+
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
   title: {
-    default: `${SITE.name} — ${SITE.strapline}`,
+    default: DEFAULT_TITLE,
     template: `%s | ${SITE.name}`,
   },
   description: SITE.description,
@@ -26,19 +33,19 @@ export const metadata: Metadata = {
   authors: [{ name: SITE.owner }],
   /*
    * The label under a home screen shortcut, which otherwise falls back to the
-   * document title and gets truncated mid-strapline. `capable` is off on
+   * document title and gets truncated part-way through it. `capable` is off on
    * purpose: it would open the shortcut without Safari's chrome, and a site
    * with outbound links needs the back button.
    */
   appleWebApp: { capable: false, title: SITE.name },
   openGraph: {
     ...OPEN_GRAPH_BASE,
-    title: `${SITE.name} — ${SITE.strapline}`,
+    title: DEFAULT_TITLE,
     description: SITE.description,
   },
   twitter: {
     card: "summary_large_image",
-    title: `${SITE.name} — ${SITE.strapline}`,
+    title: DEFAULT_TITLE,
     description: SITE.description,
   },
 };

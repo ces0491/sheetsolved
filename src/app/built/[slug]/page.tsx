@@ -157,9 +157,13 @@ export default async function CaseStudyPage({ params }: { params: Promise<{ slug
                     <dd className="mt-2 font-mono text-3xl font-semibold tracking-tight text-accent">
                       {figure.value}
                     </dd>
-                    {/* A figure without its scope misleads, so the note is not optional in practice. */}
+                    {/*
+                      A figure without its scope misleads, so the note is not
+                      optional in practice. It's a second `<dd>` for the same
+                      term: a `<dl>` group may only hold `<dt>` and `<dd>`.
+                    */}
                     {figure.note ? (
-                      <p className="mt-3 text-xs leading-relaxed text-muted">{figure.note}</p>
+                      <dd className="mt-3 text-xs leading-relaxed text-muted">{figure.note}</dd>
                     ) : null}
                   </div>
                 ))}

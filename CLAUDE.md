@@ -176,6 +176,10 @@ Two traps, both of which had already bitten:
   image, which is why `/built` names `images: ["/opengraph-image"]` and
   `/built/[slug]` does not — it has its own colocated route.
 
+**`src/app/not-found.tsx` is the site's own 404**, styled like the hero with a
+way back to the home page and `/built`. Next's default was unstyled with no way
+on. It sets a title and no canonical; Next marks the page `noindex` itself.
+
 **`sheetsolved.vercel.app` 308s to the apex**, host-matched in `next.config.ts`.
 Vercel keeps answering on a project's generated alias after a custom domain is
 attached; the alias was serving the whole site. RTP and Wood Wiz carry the same
@@ -326,7 +330,9 @@ which point at Vercel.
 **The courses are a product, not a `/built` project (Ces, 2026-11-07).** They
 have no entry in `src/content/projects.ts`. `COURSES` in `src/lib/site.ts` holds
 their address, and the header's Courses link, the footer and the home page's
-Courses section all read it.
+Courses section all read it. That section sits after Built, so the pitch runs
+from Practice straight into the projects behind it; the courses are written for
+people learning to build with AI, a different reader from someone hiring.
 
 **`contriscape.`, `fx.` and `sightwords.` are subdomains but not spokes.** Each
 is a portfolio entry in `src/content/projects.ts` that happens to have its own
@@ -430,6 +436,10 @@ agree.
 - **`SITE.description` is the machine-readable version of the claim** — meta
   description, Open Graph description, and the JSON-LD `ProfessionalService`
   description all read it. Narrowing it narrows all three.
+- **The home page's title names the business**: `SITE.name`, `SITE.eyebrow`
+  and the city, assembled in `layout.tsx`. It used to be the strapline,
+  "Simplified, scalable solutions", and with the tagline as the `<h1>` neither
+  of the page's two strongest signals said data, software or consultancy.
 - **`SITE.tagline` continues the name's construction** rather than restating
   it: "Sheet Solved", "Complexity, Solved." The name reads as the first of a
   pattern. It is one string because the Open

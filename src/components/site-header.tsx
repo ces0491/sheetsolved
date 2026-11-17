@@ -26,6 +26,10 @@ const BLOG = projectBySlug("tech-perspectives")?.links.live;
  * header, and below `md` five push "Get in touch" onto three lines, so Courses
  * goes below `sm` and Practice below `md`. Courses stays reachable on a phone
  * from the home page's courses section and the footer.
+ *
+ * The gaps tighten below `sm` so the name and three labels share a line at
+ * 360px, a common Android width. Narrower than that the name wraps; keeping it
+ * on one line there would push the header past the screen's edge.
  */
 const NAV: { href: string; label: string; external?: boolean; from?: "sm" | "md" }[] = [
   { href: "/#services", label: "Services" },
@@ -49,7 +53,7 @@ const SHOW_FROM = { sm: "hidden sm:block", md: "hidden md:block" } as const;
 export function SiteHeader() {
   return (
     <header className="sticky top-0 z-50 border-b border-border bg-background/95 supports-[backdrop-filter]:bg-background/70 supports-[backdrop-filter]:backdrop-blur-md">
-      <div className="mx-auto flex max-w-6xl items-center justify-between gap-6 px-6 py-4 sm:px-8">
+      <div className="mx-auto flex max-w-6xl items-center justify-between gap-4 px-6 py-4 sm:gap-6 sm:px-8">
         <Link
           href="/"
           aria-label={`${SITE.name}, home`}
@@ -60,7 +64,7 @@ export function SiteHeader() {
 
         <div className="flex items-center gap-2 sm:gap-6">
           <nav aria-label="Main">
-            <ul className="flex items-center gap-4 text-sm sm:gap-7">
+            <ul className="flex items-center gap-3 text-sm sm:gap-7">
               {NAV.map((item) => (
                 <li key={item.href} className={item.from ? SHOW_FROM[item.from] : undefined}>
                   {item.external ? (
