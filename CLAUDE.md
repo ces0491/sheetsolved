@@ -483,14 +483,19 @@ tokens and five conventions in `src/app/globals.css`.
   from `opacity: 0`, a scroll timeline sits at 0% for everything below the
   fold, so a print render or a crawler screenshot gets blank bands. This was
   caught by screenshotting the built page — it looked correct in the CSS.
-- **The body names `--font-geist-sans` itself.** `@theme inline` writes its
-  values into Tailwind's utilities and never declares them on the page, so a
-  rule written `var(--font-sans)` gets nothing, and the browser's default font
-  takes over without an error. The body was set that way until 2026-11-17 and
-  rendered in the system font (Segoe UI, San Francisco, Roboto) while Geist was
-  downloaded and never used. The mono labels were unaffected because they use
-  the `font-mono` utility. To check a face is in use, read `document.fonts` for
-  `loaded` on the built page; a declared `@font-face` proves nothing.
+- **The `next/font` variables go on `<html>`.** Tailwind declares
+  `--font-sans: var(--font-geist-sans)` at `:root`, and a custom property is
+  resolved where it's declared. With the variable classes on `<body>`,
+  `--font-geist-sans` didn't exist at `:root`, so `--font-sans` resolved to
+  nothing and the body's `var(--font-sans)` dropped to the browser's default
+  font without an error. Until 2026-11-17 the site rendered in the system font
+  (Segoe UI, San Francisco, Roboto) while Geist downloaded and went unused. The
+  mono labels were unaffected, because the `font-mono` utility carries
+  `var(--font-geist-mono)` itself and resolves on the element. To check a face
+  is in use, read `document.fonts` for `loaded` on the built page, and read the
+  compiled CSS for where a variable is declared. A declared `@font-face` proves
+  nothing, and an empty `getPropertyValue` doesn't tell an undeclared variable
+  from one that resolved to nothing. The courses site had the same setup.
 
 **Screenshot the page in both schemes before adopting a visual change**, the
 same rule the mark already has.

@@ -41,14 +41,21 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
+    /*
+      The font variables go on <html>. Tailwind declares `--font-sans` and
+      `--font-mono` at :root as var(--font-geist-…), and a custom property is
+      resolved where it's declared. With the classes on <body> they resolved to
+      nothing at :root, and plain CSS reading var(--font-sans) fell back to the
+      system font.
+    */
+    <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
       {/*
         The brand colours reach CSS from brand.json rather than being restated
         in the stylesheet, so the accent and the mark cannot disagree. Set on
         <html> so the tokens exist before first paint.
       */}
       <style>{`:root{--brand-navy:${PALETTE.navy};--brand-navy-light:${PALETTE.navyLight}}`}</style>
-      <body className={`${geistSans.variable} ${geistMono.variable} min-h-screen flex flex-col`}>
+      <body className="min-h-screen flex flex-col">
         {/* Identity a search engine and an answer engine can both read. */}
         <script
           type="application/ld+json"

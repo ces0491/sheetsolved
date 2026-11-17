@@ -144,10 +144,10 @@ so it lives in `src/app/globals.css` as tokens and five small conventions.
   from `opacity: 0`, leaves a scroll timeline sitting at 0% for everything
   below the fold — so a print render, a crawler taking a screenshot, or a
   reader landing on an anchor gets a page of blank bands.
-- **The body sets Geist through `--font-geist-sans`, the variable `next/font`
-  puts on `<body>`.** A theme variable declared in `@theme inline` exists only
-  inside Tailwind's utilities, so `var(--font-sans)` in plain CSS is empty and
-  the page quietly falls back to the system font.
+- **The `next/font` variables are on `<html>`.** Tailwind declares
+  `--font-sans` at `:root` as `var(--font-geist-sans)`, and it resolves there.
+  With the variables on `<body>` it resolves to nothing, and plain CSS reading
+  `var(--font-sans)` quietly falls back to the system font.
 
 **Screenshot before adopting a visual change**, in both colour schemes.
 

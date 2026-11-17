@@ -100,15 +100,14 @@
 }
 
 /*
- * Geist directly. `@theme inline` writes `--font-sans` into the utilities and
- * never declares it on the page, so `var(--font-sans)` here would be empty and
- * the rule would fall through to the browser's system font without an error.
- * next/font sets `--font-geist-sans` on <body>, so it resolves here.
+ * `--font-sans` is declared at :root by Tailwind and resolves there, so it works
+ * only because layout.tsx puts the next/font variables on <html>. Moved to
+ * <body>, this falls back to the system font without an error.
  */
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: var(--font-geist-sans), system-ui, sans-serif;
+  font-family: var(--font-sans), system-ui, sans-serif;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
