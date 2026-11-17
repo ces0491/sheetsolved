@@ -22,8 +22,11 @@ export const IS_PRODUCTION = process.env.VERCEL_ENV === "production";
  * A vCard's `N` field takes a name this way, and recovering the parts by
  * splitting a display name on its last space is a guess that holds for some
  * names and not others. `SITE.owner` is assembled from these.
+ *
+ * `short` is the name the blog goes by, as in "Ces's random twalks". The hub
+ * reads that line from the blog's feed and takes the name off, in `writing.ts`.
  */
-export const OWNER_NAME = { given: "Cesaire", family: "Tobias" } as const;
+export const OWNER_NAME = { given: "Cesaire", family: "Tobias", short: "Ces" } as const;
 
 /**
  * The address in parts, for the same reason.
@@ -55,7 +58,7 @@ export const SITE = {
    * Short enough to hold one line at 390px. The location is carried by the
    * description, the contact block, the footer and the JSON-LD address, and
    * appending it here only bought a wrapped orphan above the fold. The default
-   * title in `layout.tsx` names the business with it too.
+   * title below names the business with it too.
    */
   eyebrow: "Data and software consultancy",
   /* The spreadsheet origin is explained once, in the Practice section. */
@@ -63,10 +66,14 @@ export const SITE = {
     "I build the data and software systems your business runs on — the pipeline " +
     "that feeds it, the model behind the decision, and the application that " +
     "puts both in front of your users.",
+  /*
+   * Short enough to show whole in a search result, and naming the business the
+   * way the page does.
+   */
   description:
-    "Sheet Solved builds the data and software systems businesses run on — " +
-    "pipelines, models, dashboards, and the spreadsheets worth keeping. " +
-    "Quantitative consulting from Cape Town.",
+    "A data and software consultancy in Cape Town, building the systems " +
+    "businesses run on: pipelines, models, dashboards, and the spreadsheets " +
+    "worth keeping.",
   owner: `${OWNER_NAME.given} ${OWNER_NAME.family}`,
   /** What the contact card and the structured data both call the job. */
   role: "Data and software consultant",
@@ -97,6 +104,24 @@ export const OPEN_GRAPH_BASE = {
   type: "website",
   siteName: SITE.name,
   locale: "en_ZA",
+} as const;
+
+/**
+ * The home page's title, and the default for a page without one. It heads the
+ * search result and the shared card, so it says what the business is and
+ * where, which neither the strapline nor the tagline in the `<h1>` does.
+ */
+export const DEFAULT_TITLE = `${SITE.name} — ${SITE.eyebrow}, ${ADDRESS.city}`;
+
+/**
+ * The layout's card, which a page without `openGraph` inherits. A page that
+ * names its own `og:url` spreads this, adds the URL, and names the image,
+ * because setting `openGraph` at all also drops the file-convention image.
+ */
+export const SITE_OPEN_GRAPH = {
+  ...OPEN_GRAPH_BASE,
+  title: DEFAULT_TITLE,
+  description: SITE.description,
 } as const;
 
 /**

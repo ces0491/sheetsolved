@@ -1,7 +1,7 @@
 import { describe, expect, it } from "vitest";
 
-import { SITE } from "@/lib/site";
-import { parseAtom, parseDescription } from "@/lib/writing";
+import { OWNER_NAME, SITE } from "@/lib/site";
+import { inHubVoice, parseAtom, parseDescription } from "@/lib/writing";
 
 const entry = (body: string) => `<entry>${body}</entry>`;
 
@@ -73,7 +73,31 @@ describe("parseDescription", () => {
     expect(parseDescription(`<subtitle>Essays, by ${SITE.owner}</subtitle>`)).toBe("Essays.");
   });
 
+  it("takes the author's name off the front and starts with a capital", () => {
+    expect(
+      parseDescription("<subtitle>Ces&#39;s random twalks on tech and stats.</subtitle>"),
+    ).toBe("Random twalks on tech and stats.");
+  });
+
+  it("returns nothing for a subtitle that was only the author's name", () => {
+    expect(parseDescription(`<subtitle>by ${SITE.owner}</subtitle>`)).toBeUndefined();
+  });
+
   it("returns nothing for a feed with no subtitle", () => {
     expect(parseDescription("<feed></feed>")).toBeUndefined();
+  });
+});
+
+describe("inHubVoice", () => {
+  it("takes off any of the author's names, with either apostrophe", () => {
+    for (const name of [OWNER_NAME.short, OWNER_NAME.given, SITE.owner]) {
+      expect(inHubVoice(`${name}'s notes`)).toBe("Notes.");
+      expect(inHubVoice(`${name}’s notes`)).toBe("Notes.");
+    }
+  });
+
+  it("leaves a possessive that isn't the author's", () => {
+    expect(inHubVoice("Today's notes")).toBe("Today's notes.");
+    expect(inHubVoice("Cesar's notes")).toBe("Cesar's notes.");
   });
 });

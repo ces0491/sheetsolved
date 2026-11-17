@@ -3,7 +3,7 @@ import encodeQR from "qr";
 
 import { Mark } from "@/components/logo";
 import { PALETTE } from "@/lib/brand";
-import { SITE, SITE_URL } from "@/lib/site";
+import { SITE, SITE_OPEN_GRAPH, SITE_URL } from "@/lib/site";
 
 /**
  * The card to hold up when someone asks for your details.
@@ -25,6 +25,9 @@ export const metadata: Metadata = {
   // Noindex does not excuse a wrong canonical: inheriting the layout's, this
   // page told crawlers it was the home page.
   alternates: { canonical: "/card" },
+  // The site's card, with this page's URL. The link gets shared, so the card
+  // shouldn't send a reader to the home page instead.
+  openGraph: { ...SITE_OPEN_GRAPH, url: "/card", images: ["/opengraph-image"] },
 };
 
 const VCARD_URL = `${SITE_URL}/contact.vcf`;

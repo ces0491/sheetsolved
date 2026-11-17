@@ -8,19 +8,12 @@ import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { PALETTE } from "@/lib/brand";
 import { organisationJsonLd, personJsonLd } from "@/lib/structured-data";
-import { ADDRESS, OPEN_GRAPH_BASE, SITE, SITE_URL } from "@/lib/site";
+import { DEFAULT_TITLE, SITE, SITE_OPEN_GRAPH, SITE_URL } from "@/lib/site";
 
 import "./globals.css";
 
 const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] });
 const geistMono = Geist_Mono({ variable: "--font-geist-mono", subsets: ["latin"] });
-
-/*
- * The home page's title, and the headline of its search result and its shared
- * card. It says what the business is and where, which neither the strapline
- * nor the tagline in the `<h1>` does.
- */
-const DEFAULT_TITLE = `${SITE.name} — ${SITE.eyebrow}, ${ADDRESS.city}`;
 
 export const metadata: Metadata = {
   metadataBase: new URL(SITE_URL),
@@ -38,11 +31,7 @@ export const metadata: Metadata = {
    * with outbound links needs the back button.
    */
   appleWebApp: { capable: false, title: SITE.name },
-  openGraph: {
-    ...OPEN_GRAPH_BASE,
-    title: DEFAULT_TITLE,
-    description: SITE.description,
-  },
+  openGraph: SITE_OPEN_GRAPH,
   twitter: {
     card: "summary_large_image",
     title: DEFAULT_TITLE,

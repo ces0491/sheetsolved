@@ -47,8 +47,8 @@ export default function BuiltPage() {
             </p>
             <h1 className="mt-6 text-5xl font-semibold tracking-tight sm:text-6xl">Built</h1>
             <p className="mt-7 text-pretty text-lg leading-relaxed text-muted sm:text-xl">
-              Personal, portfolio projects that don&apos;t belong to any client: tools, packages and
-              writing. Where a project measures itself, the numbers are published beside it.
+              Personal projects that don&apos;t belong to any client: tools, packages and writing.
+              Where a project measures itself, the numbers are published beside it.
             </p>
           </div>
         </div>

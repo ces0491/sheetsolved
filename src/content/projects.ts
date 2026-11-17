@@ -201,7 +201,8 @@ export const PROJECTS: Project[] = [
   {
     slug: "tech-perspectives",
     name: "Tech Perspectives",
-    tagline: "Ces's random twalks on tech and stats.",
+    /* The blog's own line, in the hub's voice: `inHubVoice` in `writing.ts` takes "Ces's" off. */
+    tagline: "Random twalks on tech and stats.",
     summary: "Writing on tech and stats, and on the R tools in this portfolio.",
     kind: "blog",
     stack: ["Jekyll", "Markdown"],

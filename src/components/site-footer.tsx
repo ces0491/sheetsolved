@@ -99,16 +99,6 @@ export function SiteFooter() {
                   Contact card
                 </Link>
               </li>
-              <li>
-                <Link href="/built" className="underline-grow text-muted hover:text-foreground">
-                  What I&apos;ve built
-                </Link>
-              </li>
-              <li>
-                <Link href="/#services" className="underline-grow text-muted hover:text-foreground">
-                  Services
-                </Link>
-              </li>
             </ul>
           </div>
         </div>

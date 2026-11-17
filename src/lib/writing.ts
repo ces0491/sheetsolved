@@ -1,5 +1,5 @@
 import { projectBySlug } from "@/content/projects";
-import { SITE } from "@/lib/site";
+import { OWNER_NAME, SITE } from "@/lib/site";
 
 /**
  * The three most recent posts from the blog, read at build time.
@@ -35,7 +35,7 @@ export interface Writing {
  * rather than to a missing heading. Anything written here is a claim about a
  * repo this one does not own, so it goes out of date the moment that repo's
  * `description` changes — which is why the feed's value wins whenever there
- * is one.
+ * is one. It goes through `inHubVoice` like the feed's value does.
  */
 const FALLBACK_DESCRIPTION = "Ces's random twalks on tech and stats.";
 
@@ -75,28 +75,41 @@ function firstMatch(source: string, pattern: RegExp): string | undefined {
   return pattern.exec(source)?.[1];
 }
 
+/** Escaped for a pattern: a name carrying a `.` or a bracket is a name, not a metacharacter. */
+const literal = (value: string) => value.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+
+/**
+ * The blog's line about itself, in this site's voice.
+ *
+ * The blog speaks about its author in the third person, which reads oddly on a
+ * first-person site whose footer already names the same person. Its line has
+ * opened with the author's name in the possessive ("Ces's random twalks…") and
+ * has signed off with it (", by Cesaire Tobias"). Both come off, matched
+ * against the names in `site.ts` rather than literals, and what's left starts
+ * with a capital and ends as a sentence. Empty if nothing is left.
+ */
+export function inHubVoice(line: string): string {
+  const names = [SITE.owner, OWNER_NAME.given, OWNER_NAME.short].map(literal).join("|");
+  const text = line
+    .replace(new RegExp(`^(?:${names})['’]s\\s+`, "i"), "")
+    .replace(new RegExp(`,?\\s*by\\s+${literal(SITE.owner)}\\s*\\.?\\s*$`, "i"), "")
+    .trim();
+
+  if (!text) return "";
+  const sentence = text.charAt(0).toUpperCase() + text.slice(1);
+  return /[.!?]$/.test(sentence) ? sentence : `${sentence}.`;
+}
+
 /**
  * The blog's `<subtitle>`, as a heading for this site.
  *
- * jekyll-feed writes `site.description` verbatim. That line has signed off
- * with the author before now, which reads oddly on a first-person site whose
- * footer already names the same person, so the suffix is taken off when it is
- * there — matched against `SITE.owner` rather than a literal name. It is
- * absent as of 2026-09-07, and this keeps the heading right either way.
+ * jekyll-feed writes `site.description` verbatim, so the line arrives in the
+ * blog's voice and goes through `inHubVoice`.
  */
 export function parseDescription(xml: string): string | undefined {
   const subtitle = firstMatch(xml, /<subtitle[^>]*>([\s\S]*?)<\/subtitle>/);
   if (!subtitle) return undefined;
-
-  // Escaped because it is interpolated into a pattern: a name carrying a `.`
-  // or a bracket is a name, not a metacharacter.
-  const owner = SITE.owner.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
-  const text = plain(subtitle)
-    .replace(new RegExp(`,?\\s*by\\s+${owner}\\s*\\.?\\s*$`, "i"), "")
-    .trim();
-
-  if (!text) return undefined;
-  return /[.!?]$/.test(text) ? text : `${text}.`;
+  return inHubVoice(plain(subtitle)) || undefined;
 }
 
 /**
@@ -153,7 +166,7 @@ export function parseAtom(xml: string): Post[] {
  * other repo, and it recovers on its own however a post came to be published.
  */
 export async function readWriting(limit = LIMIT): Promise<Writing> {
-  const fallback: Writing = { description: FALLBACK_DESCRIPTION, posts: [] };
+  const fallback: Writing = { description: inHubVoice(FALLBACK_DESCRIPTION), posts: [] };
   if (!BLOG) return fallback;
 
   try {
@@ -168,7 +181,7 @@ export async function readWriting(limit = LIMIT): Promise<Writing> {
 
     const xml = await response.text();
     return {
-      description: parseDescription(xml) ?? FALLBACK_DESCRIPTION,
+      description: parseDescription(xml) ?? fallback.description,
       posts: parseAtom(xml).slice(0, limit),
     };
   } catch (error) {

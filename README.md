@@ -1,10 +1,12 @@
 # Sheet Solved
 
 The consultancy site for [Sheet Solved](https://sheetsolved.com), and the hub of
-a six-property discoverability effort. Static Next.js with no client
+a seven-property discoverability effort. Static Next.js with no client
 components of its own: the browser gets Next's runtime plus Vercel Web
 Analytics and Speed Insights, all served from this origin, so the page requests
-nothing from a third-party host.
+nothing from a third-party host. The Content-Security-Policy in
+`next.config.ts` allows only this origin, so the browser enforces that. It's off
+in `next dev` and on Vercel previews.
 
 ## Why a repo rather than a page
 
@@ -58,6 +60,9 @@ Next merges metadata shallowly, so a page setting `openGraph` replaces the
 layout's object rather than extending it. `/built` lost its `og:image`,
 `og:site_name`, `og:type` and `og:locale` that way and shared with no card at
 all. Spread `OPEN_GRAPH_BASE` from `src/lib/site.ts` and override what differs.
+A page that only adds its `og:url`, as `/` and `/card` do, spreads
+`SITE_OPEN_GRAPH`, the layout's whole card, and names the share image, which
+setting `openGraph` would otherwise drop.
 
 `sheetsolved.vercel.app` 308s to the apex, host-matched in `next.config.ts`:
 Vercel goes on answering on a project's generated alias after a custom domain
@@ -106,7 +111,7 @@ Three things carry that and are easy to undo by accident:
   `ProfessionalService` description in the JSON-LD. Narrowing it back to
   spreadsheets narrows all three at once.
 - **The home page's title names the business.** It's the name, `SITE.eyebrow`
-  and the city, assembled in `src/app/layout.tsx`, and it heads the search
+  and the city, as `DEFAULT_TITLE` in `src/lib/site.ts`, and it heads the search
   result and the shared card. The strapline and the tagline don't say what the
   business does, so neither belongs there.
 - **The origin is explained once, in the Practice section, and nowhere else.**

@@ -3,7 +3,7 @@ import Link from "next/link";
 
 import { ProjectCard } from "@/components/project-card";
 import { LEADING_PROJECTS, ORDERED_PROJECTS } from "@/content/projects";
-import { COURSES, SERVICES, SITE } from "@/lib/site";
+import { COURSES, SERVICES, SITE, SITE_OPEN_GRAPH } from "@/lib/site";
 import { BLOG_URL, readWriting } from "@/lib/writing";
 
 /**
@@ -15,12 +15,13 @@ import { BLOG_URL, readWriting } from "@/lib/writing";
  * a crawler at the wrong URL, so each page names its own and a new page that
  * forgets gets none rather than this one's.
  *
- * Only `alternates`: the title, description and the rest of the card are the
- * layout's and are inherited, and `openGraph` here would replace that object
- * rather than extend it.
+ * The title and description are the layout's and are inherited. `openGraph`
+ * replaces the layout's object, so it spreads the same card and adds the URL,
+ * and names the image the file convention would otherwise have supplied.
  */
 export const metadata: Metadata = {
   alternates: { canonical: "/" },
+  openGraph: { ...SITE_OPEN_GRAPH, url: "/", images: ["/opengraph-image"] },
 };
 
 /**
@@ -217,8 +218,8 @@ export default async function Home() {
           </div>
 
           <p className="reveal mt-6 max-w-2xl text-pretty leading-relaxed text-muted">
-            Personal, portfolio projects that don&apos;t belong to any client. Each one is running,
-            published, or both.
+            Personal projects that don&apos;t belong to any client. Each one is running, published,
+            or both.
           </p>
 
           <div className="reveal mt-12 grid gap-6 md:grid-cols-2 lg:grid-cols-3">

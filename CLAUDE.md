@@ -4,7 +4,7 @@
 
 ## What this is
 
-The hub of a six-property discoverability strategy, and the Sheet Solved
+The hub of a seven-property discoverability strategy, and the Sheet Solved
 consultancy site. It has replaced the GoDaddy Website Builder site that used to
 serve the apex — see "The apex has moved" below before touching DNS.
 
@@ -20,7 +20,11 @@ serve the apex — see "The apex has moved" below before touching DNS.
   goes on a page, and it is why the LinkedIn badge was declined. Neither Vercel
   script breaks it: both are served from this origin, as
   `/_vercel/insights/script.js` and `/_vercel/speed-insights/script.js`, not
-  from a Vercel hostname
+  from a Vercel hostname. The Content-Security-Policy in `next.config.ts` has
+  the browser enforce it: every source is `'self'`. Something that needs
+  another origin fails in the browser's console, which is the prompt to decide
+  whether it should be on the site at all. The policy is off in `next dev` and
+  on Vercel previews, and on for `next start`, so check a change there
 
 ## The hub reads the blog rather than being told about it
 
@@ -46,10 +50,15 @@ The shelf has since been retired, and the description is now "Ces's random
 twalks on tech and stats." The heading followed on its own again. The blog's
 `tagline` in `src/content/projects.ts` did not: it's a hand-kept copy of the
 same line, shown on `/built`, and has to be edited when the description
-changes.
+changes. So does `FALLBACK_DESCRIPTION` in `writing.ts`.
 
-The subtitle has carried a ", by Cesaire Tobias" sign-off before now, which
-reads oddly here, so it is stripped when present by matching `SITE.owner`.
+**The blog's line is put into the hub's voice.** The blog talks about its
+author in the third person, and on a first-person site that reads oddly.
+`inHubVoice` takes a leading possessive name off ("Ces's") and a trailing
+", by Cesaire Tobias" sign-off, matched against `OWNER_NAME` and `SITE.owner`,
+so the heading reads "Random twalks on tech and stats." The blog keeps its own
+wording (Ces, 2026-11-17). The `/built` tagline is the same line in the hub's
+voice.
 
 **The one-hour revalidate is deliberate, and it is not a caching detail.** The
 obvious way to keep the hub current is a Vercel deploy hook called from
@@ -175,6 +184,9 @@ Two traps, both of which had already bitten:
   what differs. A page that sets `openGraph` also loses the file-convention
   image, which is why `/built` names `images: ["/opengraph-image"]` and
   `/built/[slug]` does not — it has its own colocated route.
+- **Each page names its own `og:url`, for the same reason it names its own
+  canonical.** `/` and `/card` keep the layout's card and only add the URL, so
+  they spread `SITE_OPEN_GRAPH`, which is that card, and name the image.
 
 **`src/app/not-found.tsx` is the site's own 404**, styled like the hero with a
 way back to the home page and `/built`. Next's default was unstyled with no way
@@ -437,7 +449,7 @@ agree.
   description, Open Graph description, and the JSON-LD `ProfessionalService`
   description all read it. Narrowing it narrows all three.
 - **The home page's title names the business**: `SITE.name`, `SITE.eyebrow`
-  and the city, assembled in `layout.tsx`. It used to be the strapline,
+  and the city, as `DEFAULT_TITLE` in `site.ts`. It used to be the strapline,
   "Simplified, scalable solutions", and with the tagline as the `<h1>` neither
   of the page's two strongest signals said data, software or consultancy.
 - **`SITE.tagline` continues the name's construction** rather than restating
