@@ -27,24 +27,33 @@ const BLOG = projectBySlug("tech-perspectives")?.links.live;
  * goes below `sm` and Practice below `md`. Courses stays reachable on a phone
  * from the home page's courses section and the footer.
  *
- * The gaps tighten below `sm` so the name and three labels share a line at
- * 360px, a common Android width: in Geist they need 307px of the 312 there.
- * The row is spread with `justify-between`, so the gap after the name is a
- * minimum and the space it actually gets is wider. Narrower than 360px the name
- * wraps; keeping it on one line there would push the header past the screen's
- * edge. From `sm` to `md` the four labels and "Get in touch" are 1px too wide at
- * 640px with the desktop gap, so the labels sit a little closer until `md`.
+ * Writing goes below 375px. With three labels at 360px, a common Android width,
+ * the name and the links had about 13px between them and read as one run of
+ * text. With two, the name and links fit down to 320px with room between them.
+ * The blog stays reachable from the home page's Writing section.
+ *
+ * The gaps are tighter below `sm`: in Geist the name and three labels need
+ * 307px, and get 327 at 375px. The row is spread with `justify-between`, so the
+ * gap after the name is a minimum and the space it actually gets is wider. From
+ * `sm` to `md` the four labels and "Get in touch" are 1px too wide at 640px with
+ * the desktop gap, so the labels sit a little closer until `md`.
  */
-const NAV: { href: string; label: string; external?: boolean; from?: "sm" | "md" }[] = [
+type From = "xs" | "sm" | "md";
+
+const NAV: { href: string; label: string; external?: boolean; from?: From }[] = [
   { href: "/#services", label: "Services" },
   { href: "/built", label: "Built" },
   { href: COURSES.url, label: "Courses", external: true, from: "sm" },
-  ...(BLOG ? [{ href: BLOG, label: "Writing", external: true }] : []),
+  ...(BLOG ? [{ href: BLOG, label: "Writing", external: true, from: "xs" as const }] : []),
   { href: "/#practice", label: "Practice", from: "md" },
 ];
 
-/** Whole class names, so Tailwind finds them in the source. */
-const SHOW_FROM = { sm: "hidden sm:block", md: "hidden md:block" } as const;
+/** Whole class names, so Tailwind finds them in the source. `xs` is 375px, below `sm`. */
+const SHOW_FROM: Record<From, string> = {
+  xs: "hidden min-[375px]:block",
+  sm: "hidden sm:block",
+  md: "hidden md:block",
+};
 
 /**
  * The header stays with the reader.
