@@ -18,9 +18,11 @@ serve the apex — see "The apex has moved" below before touching DNS.
   served from cache
 - **No third-party origin.** This is the rule that actually constrains what
   goes on a page, and it is why the LinkedIn badge was declined. Neither Vercel
-  script breaks it: both are served from this origin, as
-  `/_vercel/insights/script.js` and `/_vercel/speed-insights/script.js`, not
-  from a Vercel hostname. The Content-Security-Policy in `next.config.ts` has
+  script breaks it: both are served from this origin, not from a Vercel
+  hostname. The packages ask for `/_vercel/insights/script.js` and
+  `/_vercel/speed-insights/script.js`, and on Vercel they load from randomised
+  paths such as `/a13a95d4fb3ff681/script.js`, so look for `script.js` on this
+  host when checking they ran. The Content-Security-Policy in `next.config.ts` has
   the browser enforce it: every source is `'self'`. Something that needs
   another origin fails in the browser's console, which is the prompt to decide
   whether it should be on the site at all. The policy is off in `next dev` and
@@ -467,7 +469,7 @@ agree.
 ## The look is CSS, not components
 
 No UI library, and no client JavaScript in the visual system itself. It is
-tokens and four conventions in `src/app/globals.css`.
+tokens and five conventions in `src/app/globals.css`.
 
 - **Tints, rings and shadows are mixed from the accent** with `color-mix`. A
   black shadow under a navy-tinted card is a common reason a careful page looks
@@ -481,6 +483,14 @@ tokens and four conventions in `src/app/globals.css`.
   from `opacity: 0`, a scroll timeline sits at 0% for everything below the
   fold, so a print render or a crawler screenshot gets blank bands. This was
   caught by screenshotting the built page — it looked correct in the CSS.
+- **The body names `--font-geist-sans` itself.** `@theme inline` writes its
+  values into Tailwind's utilities and never declares them on the page, so a
+  rule written `var(--font-sans)` gets nothing, and the browser's default font
+  takes over without an error. The body was set that way until 2026-11-17 and
+  rendered in the system font (Segoe UI, San Francisco, Roboto) while Geist was
+  downloaded and never used. The mono labels were unaffected because they use
+  the `font-mono` utility. To check a face is in use, read `document.fonts` for
+  `loaded` on the built page; a declared `@font-face` proves nothing.
 
 **Screenshot the page in both schemes before adopting a visual change**, the
 same rule the mark already has.

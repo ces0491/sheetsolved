@@ -127,7 +127,7 @@ cannot end up saying something different.
 ## The look is CSS, not components
 
 There is no UI library, and nothing in the visual system runs on the client,
-so it lives in `src/app/globals.css` as tokens and four small conventions.
+so it lives in `src/app/globals.css` as tokens and five small conventions.
 
 - **Tints, rings and shadows are mixed from the accent** with `color-mix`,
   rather than being greys or blacks. A black shadow under a navy-tinted card is
@@ -144,6 +144,10 @@ so it lives in `src/app/globals.css` as tokens and four small conventions.
   from `opacity: 0`, leaves a scroll timeline sitting at 0% for everything
   below the fold — so a print render, a crawler taking a screenshot, or a
   reader landing on an anchor gets a page of blank bands.
+- **The body sets Geist through `--font-geist-sans`, the variable `next/font`
+  puts on `<body>`.** A theme variable declared in `@theme inline` exists only
+  inside Tailwind's utilities, so `var(--font-sans)` in plain CSS is empty and
+  the page quietly falls back to the system font.
 
 **Screenshot before adopting a visual change**, in both colour schemes.
 

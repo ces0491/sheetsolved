@@ -69,10 +69,11 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
         <SiteFooter />
         {/*
           The only scripts this site adds to Next's own runtime: nothing in
-          `src` is a client component. Both are served from this origin, under
-          `/_vercel/`, rather than from a Vercel hostname, so neither adds a
-          third-party origin — the property actually worth protecting, and the
-          one the LinkedIn badge would have broken.
+          `src` is a client component. Both are served from this origin, at
+          paths Vercel randomises per deployment, rather than from a Vercel
+          hostname, so neither adds a third-party origin — the property
+          actually worth protecting, and the one the LinkedIn badge would have
+          broken.
 
           Speed Insights reports field Core Web Vitals from real visits, which
           is the half a local Lighthouse run cannot tell you.

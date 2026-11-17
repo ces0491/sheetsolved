@@ -5,8 +5,8 @@ const CRANEXPLORER_APP = "https://ces0491-cranexplorer.share.connect.posit.cloud
 
 /**
  * The site's own rule, enforced by the browser: nothing loads from another
- * origin. Fonts are self-hosted by `next/font`, and Vercel's two scripts are
- * served from `/_vercel/` here.
+ * origin. Fonts are self-hosted by `next/font`, and Vercel serves its two
+ * scripts from this origin too.
  *
  * `'unsafe-inline'` because the pages are static. Next writes inline scripts
  * into each page, and the alternative, a nonce, needs every page rendered per
