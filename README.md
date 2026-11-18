@@ -127,7 +127,7 @@ cannot end up saying something different.
 ## The look is CSS, not components
 
 There is no UI library, and nothing in the visual system runs on the client,
-so it lives in `src/app/globals.css` as tokens and five small conventions.
+so it lives in `src/app/globals.css` as tokens and six small conventions.
 
 - **Tints, rings and shadows are mixed from the accent** with `color-mix`,
   rather than being greys or blacks. A black shadow under a navy-tinted card is
@@ -144,6 +144,10 @@ so it lives in `src/app/globals.css` as tokens and five small conventions.
   from `opacity: 0`, leaves a scroll timeline sitting at 0% for everything
   below the fold — so a print render, a crawler taking a screenshot, or a
   reader landing on an anchor gets a page of blank bands.
+- **The back-to-top button needs no JavaScript.** It's a link to `#top`, and a
+  scroll-driven animation in `.to-top` keeps it hidden, and out of the tab
+  order, until the reader has scrolled most of a screen. In-page links scroll
+  smoothly unless the reader has asked for reduced motion.
 - **The `next/font` variables are on `<html>`.** Tailwind declares
   `--font-sans` at `:root` as `var(--font-geist-sans)`, and it resolves there.
   With the variables on `<body>` it resolves to nothing, and plain CSS reading

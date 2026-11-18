@@ -4,6 +4,7 @@ import type { Metadata } from "next";
 import { Geist, Geist_Mono } from "next/font/google";
 import Link from "next/link";
 
+import { BackToTop } from "@/components/back-to-top";
 import { SiteFooter } from "@/components/site-footer";
 import { SiteHeader } from "@/components/site-header";
 import { PALETTE } from "@/lib/brand";
@@ -47,15 +48,24 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
       resolved where it's declared. With the classes on <body> they resolved to
       nothing at :root, and plain CSS reading var(--font-sans) fell back to the
       system font.
+
+      `data-scroll-behavior` because globals.css scrolls smoothly within a
+      page. Since Next 16 the router leaves `scroll-behavior` alone unless this
+      is set, so without it a move to another page would glide to the top.
     */
-    <html lang="en" className={`${geistSans.variable} ${geistMono.variable}`}>
+    <html
+      lang="en"
+      data-scroll-behavior="smooth"
+      className={`${geistSans.variable} ${geistMono.variable}`}
+    >
       {/*
         The brand colours reach CSS from brand.json rather than being restated
         in the stylesheet, so the accent and the mark cannot disagree. Set on
         <html> so the tokens exist before first paint.
       */}
       <style>{`:root{--brand-navy:${PALETTE.navy};--brand-navy-light:${PALETTE.navyLight}}`}</style>
-      <body className="min-h-screen flex flex-col">
+      {/* `top` is what the back-to-top link goes to. */}
+      <body id="top" className="min-h-screen flex flex-col">
         {/* Identity a search engine and an answer engine can both read. */}
         <script
           type="application/ld+json"
@@ -74,6 +84,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
           {children}
         </main>
         <SiteFooter />
+        <BackToTop />
         {/*
           The only scripts this site adds to Next's own runtime: nothing in
           `src` is a client component. Both are served from this origin, at

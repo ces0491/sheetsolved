@@ -469,7 +469,7 @@ agree.
 ## The look is CSS, not components
 
 No UI library, and no client JavaScript in the visual system itself. It is
-tokens and five conventions in `src/app/globals.css`.
+tokens and six conventions in `src/app/globals.css`.
 
 - **Tints, rings and shadows are mixed from the accent** with `color-mix`. A
   black shadow under a navy-tinted card is a common reason a careful page looks
@@ -483,6 +483,17 @@ tokens and five conventions in `src/app/globals.css`.
   from `opacity: 0`, a scroll timeline sits at 0% for everything below the
   fold, so a print render or a crawler screenshot gets blank bands. This was
   caught by screenshotting the built page — it looked correct in the CSS.
+- **The back-to-top link is CSS and an anchor.** `BackToTop` links to `#top`,
+  the id on `<body>`, and `.to-top` hides it until the page has scrolled 70% of
+  a screen, fading in by 80%, through a scroll-driven animation. Unlike the
+  reveal it starts hidden, deliberately, because it's navigation rather than
+  content. It uses opacity and visibility with no movement, so it runs under
+  reduced motion too, and `visibility` keeps it out of the tab order while it's
+  hidden. Browsers without scroll-driven animations always show it. A page that
+  can't scroll past 70% never shows it; a wider fade left `/card` stuck at 46%.
+  In-page anchors scroll smoothly unless reduced motion is set, and
+  `data-scroll-behavior="smooth"` on `<html>` tells Next to keep moves between
+  pages instant, which Next 16 no longer does unasked.
 - **The `next/font` variables go on `<html>`.** Tailwind declares
   `--font-sans: var(--font-geist-sans)` at `:root`, and a custom property is
   resolved where it's declared. With the variable classes on `<body>`,

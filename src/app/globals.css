@@ -219,6 +219,51 @@ body {
       animation-range: entry 0% entry 55%;
     }
   }
+
+  /* In-page links glide, the back-to-top link included. layout.tsx tells Next
+     to keep it instant between pages. */
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+/*
+ * The back-to-top link, hidden until the page has scrolled most of a screen.
+ *
+ * Unlike the reveal above, this one starts hidden, because it's navigation
+ * rather than content: a reader at the top doesn't need it, and a print render
+ * drops it anyway (`print:hidden`). It fades in over the next part of the
+ * scroll, using opacity and visibility with no movement, so it applies under
+ * reduced motion too. `visibility` keeps it out of the tab order while it
+ * can't be seen.
+ *
+ * The hidden state is set inside `@supports` with the animation. A browser
+ * without scroll-driven animations always shows the link. On a page too short
+ * to scroll, the timeline is inactive, so the link stays hidden as well.
+ *
+ * The fade is short, a tenth of a screen, because a page whose scroll ends
+ * inside it leaves the link stuck half-faded, which reads as disabled. With
+ * 60–80vh, `/card` on a desktop ended at 46%.
+ */
+@keyframes to-top-in {
+  from {
+    opacity: 0;
+    visibility: hidden;
+  }
+  to {
+    opacity: 1;
+    visibility: visible;
+  }
+}
+
+@supports (animation-timeline: scroll()) {
+  .to-top {
+    opacity: 0;
+    visibility: hidden;
+    animation: to-top-in linear both;
+    animation-timeline: scroll(root);
+    animation-range: 70vh 80vh;
+  }
 }
 
 /* Nav and inline links grow their own underline rather than switching one on. */
