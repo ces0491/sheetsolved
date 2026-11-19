@@ -388,7 +388,9 @@ Two things about the arrangement:
   a running production system rather than a package or a book — and the SSR
   work is done: several thousand URLs in its sitemap, and the forecast pages
   that used to render "Loading" now serve their content and their own titles
-  in the document.
+  in the document. RTP's footer credits the hub on every page and its
+  `/about` links the case study, which is titled "Case study: …" so it doesn't
+  read as a copy of the app's home page.
 - **tidylearn's CRAN listing is the most valuable single asset.**
   `cran.r-project.org` is mirrored worldwide. The published listing's `URL:`
   names `tidylearn.sheetsolved.com` alongside the GitHub repo, so the mirrored

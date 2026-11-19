@@ -29,13 +29,21 @@ export async function generateMetadata({
   const project = projectBySlug(slug);
   if (!project) return {};
 
+  /*
+   * A project's name is usually its own site's title too, so a case study
+   * titled with the name alone reads as a second copy of that site's home
+   * page: "RTP — Rugby Tournament Predictor | Sheet Solved" beside the app's
+   * "RTP — Rugby Tournament Predictor".
+   */
+  const title = `Case study: ${project.name}`;
+
   return {
-    title: project.name,
+    title,
     description: project.tagline,
     alternates: { canonical: `/built/${project.slug}` },
     openGraph: {
       ...OPEN_GRAPH_BASE,
-      title: `${project.name} | ${SITE.name}`,
+      title: `${title} | ${SITE.name}`,
       description: project.tagline,
       url: `/built/${project.slug}`,
     },
